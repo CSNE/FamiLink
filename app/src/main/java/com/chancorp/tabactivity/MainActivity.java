@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         mi.setOnMenuItemClickListener(this);
 
         return true;
+        
     }
 
     @Override
