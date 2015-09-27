@@ -15,8 +15,6 @@ public class ChatPage extends Fragment implements RedrawableFragment{
 
     FamilyData fd;
 
-//GIT!!!!!!
-
     @Override
     public void onAttach(Activity a){
         super.onAttach(a);
