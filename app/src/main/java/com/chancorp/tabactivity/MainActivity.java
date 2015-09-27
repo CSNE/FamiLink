@@ -109,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         MenuItem mi = menu.findItem(R.id.debug_1);
         mi.setOnMenuItemClickListener(this);
-
+        //git gud m8
         return true;
-        
+
     }
 
     @Override
