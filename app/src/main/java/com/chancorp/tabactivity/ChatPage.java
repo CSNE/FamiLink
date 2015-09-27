@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by Chan on 2015-09-20.
  */
- 
- //GIT
- //GUD
+
 public class ChatPage extends Fragment implements RedrawableFragment{
 
     FamilyData fd;
