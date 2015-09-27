@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FamiLink</string>
+
+    <string name="title_section1">Family List</string>
+    <string name="title_section2">To Do</string>
+    <string name="title_section3">Shared Note</string>
+    <string name="title_section4">Chat</string>
+    <string name="title_section5">Settings</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
