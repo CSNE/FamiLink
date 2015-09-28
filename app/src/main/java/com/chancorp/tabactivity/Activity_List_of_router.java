@@ -103,29 +103,45 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         public long getItemId(int position) {
             return (long)position;
         }
+
+        private class CustomHolder {
+            TextView mtextview;
+            ImageView imgview01, imgview02;
+        }
+
         @Override
         public View getView(int position, View convertview, ViewGroup parent) {
-            TextView text1;
-            ImageView img1, img2;
             final int position_ = position;
             final Context context = parent.getContext();
+            CustomHolder holder = null;
+            TextView text1 = null;
+            ImageView img1 = null, img2 = null;
 
             // 아이템 뷰 생성 및 재사용
             if(convertview == null) {
                 convertview = minflater.inflate(mResource, parent, false);
+                holder = new CustomHolder();
+                holder.mtextview = text1;
+                holder.imgview01 = img1;
+                holder.imgview02 = img2;
+                convertview.setTag(holder);
+            } else {
+                holder = (CustomHolder) convertview.getTag();
+                holder.mtextview = text1;
+                holder.imgview01 = img1;
+                holder.imgview02 = img2;
+            }
 
-                //UI 레퍼런스 가져오기
-                text1 = (TextView) convertview.findViewById(R.id.customadapter01text01);
-                img1 = (ImageView) convertview.findViewById(R.id.customadapter01img01);
-                img2 = (ImageView) convertview.findViewById(R.id.customadapter01img02);
+            //UI 레퍼런스 가져오기
+            text1 = (TextView) convertview.findViewById(R.id.customadapter01text01);
+            img1 = (ImageView) convertview.findViewById(R.id.customadapter01img01);
+            img2 = (ImageView) convertview.findViewById(R.id.customadapter01img02);
+            text1.setText((String) getItem(position));
+            img1.setImageResource(R.mipmap.ic_launcher);
 
-                text1.setText((String) getItem(position));
-                img1.setImageResource(R.mipmap.ic_launcher);
-
-                Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.delete);
-                Bitmap resized = Bitmap.createScaledBitmap(bmp, 150, 150, true);
-                img2.setImageBitmap(resized);
-
+            Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.delete);
+            Bitmap resized = Bitmap.createScaledBitmap(bmp, 150, 150, true);
+            img2.setImageBitmap(resized);
             img2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public  void onClick(View v) {
@@ -149,8 +165,6 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                     dialog_.show();
                 }
             });
-
-            }
             return convertview;
         }
         @Override
