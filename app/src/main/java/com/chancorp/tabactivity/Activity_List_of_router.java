@@ -80,10 +80,8 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         int mResource;
         ArrayList<String> mObject;
         LayoutInflater minflater;
-        private Context context;
 
         public CustomAdapter01(Context context,int layoutId, ArrayList<String> object) {
-            this.context = context;
             mResource = layoutId;
             mObject = object;
             minflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

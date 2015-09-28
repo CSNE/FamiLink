@@ -87,7 +87,7 @@ public class Activity_add_router extends Activity implements View.OnClickListene
             }
         };
         timer = new Timer();
-        timer.schedule(timertask, 1000, 1000);
+        timer.schedule(timertask, 1000, 1500);
     }
 
     @Override
