@@ -30,6 +30,11 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+    }
+
+    @Override
     public void onClick(View v) {
         if(v.getId() == R.id.addrouterbtn) {
             startActivityForResult(new Intent(this, Activity_add_router.class), REQUEST_CODE);
