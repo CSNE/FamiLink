@@ -5,11 +5,14 @@ import java.util.ArrayList;
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
 public class FamilyData{
     ArrayList<FamilyMember> data;
-    int familyID=1;
+    ArrayList<RouterInformation> routers;
+    int familyID=1, myID=1;
+
     //Some other data should go here.
 
     public FamilyData(){
         data=new ArrayList<FamilyMember>();
+        routers=new ArrayList<RouterInformation>();
     }
 
     public void addMembers(FamilyMember fm){
@@ -18,6 +21,20 @@ public class FamilyData{
 
     public void clearMembers(){
         data=new ArrayList<FamilyMember>();
+    }
+
+    public void addRouter(RouterInformation r){
+        routers.add(r);
+
+    }
+    public void deleteRouter(int idx){
+        routers.remove(idx);
+    }
+    public boolean matchRouter(RouterInformation r){
+        for (int i=0;i<routers.size();i++){
+            if (routers.get(i).equals(r)) return true;
+        }
+        return false;
     }
 
     public void parseData(String s) throws FamilyDataException{
