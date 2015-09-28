@@ -30,7 +30,7 @@ public class SettingsPage extends Fragment implements RedrawableFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.page_2_todo, container, false);
+        View rootView = inflater.inflate(R.layout.page_5_settings, container, false);
 
 
 
