@@ -1,6 +1,7 @@
 package com.chancorp.tabactivity;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -14,24 +15,26 @@ import java.net.URL;
 //서버 통신 클래스
 public class ServerComms {
 
-    URL serverURL;
-    String urlAppend;
-    FamilyData fd;
+    static URL serverURL;
+    static FamilyData fd;
+    static RedrawableFragment[] rdf;
 
-    RedrawableFragment[] rdf;
+    static String urlAppend;
 
-    public ServerComms(String url, FamilyData fd, RedrawableFragment[] rdf) {
-        this.fd = fd;
-        urlAppend="/"+Integer.toString(fd.getID());
+    public static void setup(String u, FamilyData f, RedrawableFragment[] r) {
+        fd = f;
+        urlAppend="/"+Integer.toString(f.getID());
 
-        this.rdf=rdf;
+        rdf=r;
 
         try {
-            this.serverURL = new URL(url+urlAppend);
+            serverURL = new URL(u+urlAppend);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+    }
 
+    public ServerComms(){
     }
 
     public void retriveData(){
@@ -54,6 +57,7 @@ public class ServerComms {
     public void updateStatus(RouterInformation currentlyConnected){
         String postReq=new String();
         postReq=postReq+"id="+fd.myID+"&"+"wifiName="+currentlyConnected.getName()+"&"+"wifiMAC="+currentlyConnected.getMacAddr();
+        Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + postReq);
         this.sendPOST(postReq);
     }
 

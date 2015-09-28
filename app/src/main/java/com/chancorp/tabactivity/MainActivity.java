@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 
         super.onCreate(savedInstanceState);
+
+
+        Log.d("MainActivity","Test Log.");
 
 
         fd=new FamilyData();
@@ -74,9 +78,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
 
 
-        serverConnector = new ServerComms("http://10.0.2.2:8301",this.fd,rdfs);
+        ServerComms.setup("http://192.168.25.44:8301",this.fd,rdfs);
+        serverConnector = new ServerComms();
 
         serverConnector.updateStatus(new RouterInformation("TestWiFi","00:00:12:34"));
+
+
+
+        startService(new Intent(this, Service_Lockscreen.class));
 
     }
 
@@ -170,9 +179,3 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
 
 }
-
-
-
-
-
-
