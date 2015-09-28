@@ -1,10 +1,6 @@
 package com.chancorp.tabactivity;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
-import java.util.IllegalFormatConversionException;
 
 /**
  * Created by Chan on 2015-09-20.

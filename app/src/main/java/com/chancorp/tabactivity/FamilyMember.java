@@ -3,7 +3,6 @@ package com.chancorp.tabactivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Chan on 2015-09-20.

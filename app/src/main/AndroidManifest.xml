@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.chancorp.tabactivity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,15 +28,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity_Module1"
+            android:name="com.chancorp.tabactivity.Activity_Module1"
             android:label="@string/back_app_name" >
         </activity>
 
-        <activity android:name=".Activity_List_of_router"/>
-        <activity android:name=".Activity_add_router"/>
-        <activity android:name=".Activity_Lockscreen" />
-        <service android:name=".Service_Lockscreen"/>
-        <receiver android:name=".Receiver_Lockscreen">
+        <activity android:name="com.chancorp.tabactivity.Activity_List_of_router"/>
+        <activity android:name="com.chancorp.tabactivity.Activity_add_router"/>
+        <activity android:name="com.chancorp.tabactivity.Activity_Lockscreen" />
+        <service android:name="com.chancorp.tabactivity.Service_Lockscreen"/>
+        <receiver android:name="com.chancorp.tabactivity.Receiver_Lockscreen">
             <intent-filter>
                 <action android:name = "action"/>
             </intent-filter>
