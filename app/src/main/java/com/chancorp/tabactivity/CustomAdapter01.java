@@ -1,6 +1,8 @@
 package com.chancorp.tabactivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -10,10 +12,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class CustomAdapter01 extends BaseAdapter {
+public class CustomAdapter01 extends BaseAdapter implements View.OnClickListener {
 
     int mResource;
     ArrayList<String> mObject;
@@ -46,8 +49,9 @@ public class CustomAdapter01 extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
-        TextView text1, text2;
+        TextView text1;
         ImageView img1, img2;
+        final int position_ = position;
 
         // 아이템 뷰 생성 및 재사용
         if(convertView == null) {
@@ -57,7 +61,6 @@ public class CustomAdapter01 extends BaseAdapter {
 
         //UI 레퍼런스 가져오기
         text1 = (TextView)view.findViewById(R.id.customadapter01text01);
-        text2 = (TextView)view.findViewById(R.id.customadapter01text02);
         img1 = (ImageView)view.findViewById(R.id.customadapter01img01);
         img2 = (ImageView)view.findViewById(R.id.customadapter01img02);
 
@@ -66,9 +69,25 @@ public class CustomAdapter01 extends BaseAdapter {
 
 
         Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.delete);
-        Bitmap resized = Bitmap.createScaledBitmap(bmp, 200, 200, true);
+        Bitmap resized = Bitmap.createScaledBitmap(bmp, 150, 150, true);
         img2.setImageBitmap(resized);
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public  void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Caution");
+                builder.setMessage("Erase wi-fi " + getItem(position_) + "?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //implement
+                    }
+                });
+            }
+        });
 
         return view;
     }
+
+    @Override
+    public void onClick(View v) {};
 }
