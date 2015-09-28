@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,8 +53,20 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE) {
             if(resultCode == RESULT_OK) {
-                arraylist.add(data.getStringExtra("new_address")+"   ("+data.getStringExtra("new_address_date")+")");
-                adapter.notifyDataSetChanged();
+                boolean exists = false;
+                String newstring = data.getStringExtra("new_address")+"   ("+data.getStringExtra("new_address_date")+")";
+                for(String arraydata : arraylist) {
+                    if(arraydata.equals(newstring)) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if(!exists) {
+                    arraylist.add(newstring);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(this, "This Wi-fi already exists in a list!", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
