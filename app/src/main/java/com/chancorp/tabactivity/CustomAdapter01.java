@@ -1,6 +1,9 @@
 package com.chancorp.tabactivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,10 @@ public class CustomAdapter01 extends BaseAdapter {
     int mResource;
     ArrayList<String> mObject;
     LayoutInflater minflater;
+    private Context context;
 
     public CustomAdapter01(Context context,int layoutId, ArrayList<String> object) {
+        this.context = context;
         mResource = layoutId;
         mObject = object;
         minflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,7 +47,7 @@ public class CustomAdapter01 extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         TextView text1, text2;
-        ImageView img;
+        ImageView img1, img2;
 
         // 아이템 뷰 생성 및 재사용
         if(convertView == null) {
@@ -53,10 +58,16 @@ public class CustomAdapter01 extends BaseAdapter {
         //UI 레퍼런스 가져오기
         text1 = (TextView)view.findViewById(R.id.customadapter01text01);
         text2 = (TextView)view.findViewById(R.id.customadapter01text02);
-        img = (ImageView)view.findViewById(R.id.customadapter01img01);
+        img1 = (ImageView)view.findViewById(R.id.customadapter01img01);
+        img2 = (ImageView)view.findViewById(R.id.customadapter01img02);
 
-        text1.setText((String)getItem(position));
-        img.setImageResource(R.mipmap.ic_launcher);
+        text1.setText((String) getItem(position));
+        img1.setImageResource(R.mipmap.ic_launcher);
+
+
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.delete);
+        Bitmap resized = Bitmap.createScaledBitmap(bmp, 200, 200, true);
+        img2.setImageBitmap(resized);
 
         return view;
     }

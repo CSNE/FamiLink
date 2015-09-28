@@ -41,13 +41,6 @@ public class Service_Lockscreen extends Service {
             if(intent.getAction() == null) {
                 if(mreceiver == null) {
                     mreceiver = new Receiver_Lockscreen();
-                    /*
-                    try {
-                        WifiManager mng = (WifiManager) getSystemService(WIFI_SERVICE);
-                        WifiInfo wifi_info = mng.getConnectionInfo();
-                        String mac = wifi_info.getMacAddress();
-                    } catch(Exception e) {e.printStackTrace();}
-                    */
                     intent_filter = new IntentFilter();
                     intent_filter.addAction(WIFI1);
                     intent_filter.addAction(WIFI2);
@@ -66,39 +59,7 @@ public class Service_Lockscreen extends Service {
         } else {
             if(ntf != null) return;
             startForeground(1,new Notification());
-            onBtnNotification();
         }
-    }
-
-    public void onBtnNotification() {
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, Activity_Lockscreen.class), PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        // 작은 아이콘 이미지.
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        // 알림이 출력될 때 상단에 나오는 문구.
-        builder.setTicker("FamiLink 위치공유 실행 중...");
-        // 알림 출력 시간.
-        builder.setWhen(System.currentTimeMillis());
-        // 알림 제목.
-        builder.setContentTitle("FamiLink 위치공유");
-        // 프로그래스 바.유유
-        builder.setProgress(100, 50, true);
-        // 알림 내용.
-        builder.setContentText("기기의 위치를 주기적으로 송신합니다.");
-        // 알림시 사운드, 진동, 불빛을 설정 가능.
-        builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS);
-        // 알림 터치시 반응.
-        builder.setContentIntent(pendingIntent);
-        // 알림 터치시 반응 후 알림 삭제 여부.
-        builder.setAutoCancel(true);
-        // 우선순위.
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-        // 행동 최대3개 등록 가능.
-        builder.addAction(R.mipmap.ic_launcher, "Show", pendingIntent);
-        builder.addAction(R.mipmap.ic_launcher, "Hide", pendingIntent);
-        // 고유ID로 알림을 생성.
-        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify(123456, builder.build());
     }
 
     @Override
@@ -112,8 +73,4 @@ public class Service_Lockscreen extends Service {
         intent_filter.addAction(WIFI2);
         registerReceiver(mreceiver, intent_filter);
     }
-    private void registerreceiver(Receiver_Lockscreen myreceiver, IntentFilter filter ) {
-        registerReceiver(myreceiver, filter);
-    }
-
 }
