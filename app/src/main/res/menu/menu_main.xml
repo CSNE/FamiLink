@@ -5,7 +5,13 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item
         android:id="@+id/debug_1"
-        android:title="Backside Debug"/>
+        android:title="Backside Debug Page"/>
+    <item
+        android:id="@+id/debug_2"
+        android:title="Notify Wifi Change A"/>
+    <item
+        android:id="@+id/debug_3"
+        android:title="Notify Wifi Change B"/>
     <item android:id="@+id/global_refresh"
         android:icon="@drawable/ic_refresh_black_48dp"
         android:title="Refresh"
