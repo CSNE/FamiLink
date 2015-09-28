@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -137,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.debug_1) {
             Toast.makeText(this, "SEND TO JISUNG'S PART", Toast.LENGTH_SHORT).show();
+            Intent itt=new Intent(this,Activity_Module1.class);
+            startActivity(itt);
         }
 
         return super.onOptionsItemSelected(item);
