@@ -13,9 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by Chan on 2015-09-20.
- */
+//첫번째 탭 fragment. 가족 리스트.
 public class ListPage extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, RedrawableFragment{
 
     TextView tv1;

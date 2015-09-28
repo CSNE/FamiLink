@@ -11,10 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
-/**
- * Created by Chan on 2015-09-20.
- */
+//서버 통신 클래스
 public class ServerComms {
 
     URL serverURL;

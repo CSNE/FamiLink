@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 
-/**
- * Created by Chan on 2015-09-20.
- */
+//가족 구성원 1명에 대한 데이터 저장.
 public class FamilyMember {
     String name, phoneNumber;
 

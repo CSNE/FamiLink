@@ -7,10 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by Chan on 2015-09-20.
- */
-
+//4번째 탭. 채팅.
 public class ChatPage extends Fragment implements RedrawableFragment{
 
     FamilyData fd;

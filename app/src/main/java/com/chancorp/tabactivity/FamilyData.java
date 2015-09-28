@@ -2,9 +2,7 @@ package com.chancorp.tabactivity;
 
 import java.util.ArrayList;
 
-/**
- * Created by Chan on 2015-09-20.
- */
+//이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
 public class FamilyData{
     ArrayList<FamilyMember> data;
     int familyID=1;

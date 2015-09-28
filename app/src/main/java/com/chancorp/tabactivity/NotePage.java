@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by Chan on 2015-09-20.
- */
+//3번째 탭. 가족 노트.
 public class NotePage extends Fragment implements RedrawableFragment{
 
     FamilyData fd;

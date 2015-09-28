@@ -1,8 +1,6 @@
 package com.chancorp.tabactivity;
 
-/**
- * Created by Chan on 2015-09-26.
- */
+//FamilyData를 제공해 주는 클래스의 interface.
 public interface FamilyDataProvider{
     public FamilyData provideData();
 }

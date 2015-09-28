@@ -11,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by Chan on 2015-09-20.
- */
+//List page의 가족 데이터르르 표시할 때 쓰는 어댑터.
 public class FamilyMemberAdapter extends BaseAdapter {
 
     // LayoutInflater : 레이아웃 xml을 view객체로 만드는 클래스

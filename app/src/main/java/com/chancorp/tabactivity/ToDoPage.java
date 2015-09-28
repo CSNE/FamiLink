@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by Chan on 2015-09-20.
- */
+//2번째 탭. 할일.
 public class ToDoPage extends Fragment implements RedrawableFragment{
 
     FamilyData fd;
