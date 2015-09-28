@@ -32,9 +32,7 @@ public class FamilyMemberAdapter extends BaseAdapter {
         mResource=layoutId;
         this.familyMembers=fm;
         minflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         this.ac=ac;
-
         //setareAllItemsEnabled();
         //isEnabled(true);
 
