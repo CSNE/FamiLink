@@ -71,10 +71,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 (RedrawableFragment)notePage,
                 (RedrawableFragment)chatPage,
                 (RedrawableFragment)settingsPage};
+
+
+
         serverConnector = new ServerComms("http://10.0.2.2:8301",this.fd,rdfs);
 
-        serverConnector.sendData();
-
+        serverConnector.updateStatus(new RouterInformation("TestWiFi","00:00:12:34"));
 
     }
 
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.global_refresh) {
             Toast.makeText(this, "Refreshing", Toast.LENGTH_SHORT).show();
-            serverConnector.retrive_data();
+            serverConnector.retriveData();
             return true;
         }
         if (id == R.id.debug_1) {

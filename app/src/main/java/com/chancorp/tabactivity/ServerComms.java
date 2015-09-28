@@ -34,11 +34,11 @@ public class ServerComms {
 
     }
 
-    public void retrive_data(){
+    public void retriveData(){
         DataRetriever dr=new DataRetriever(this);
         dr.execute(this.serverURL);
     }
-    public void on_data_return(String data){
+    public void onDataReturn(String data){
         System.out.println("Data Returned: "+data);
         try {
             fd.parseData(data);
@@ -49,13 +49,19 @@ public class ServerComms {
         for(RedrawableFragment r:this.rdf){
             r.redraw();
         }
-
     }
 
-    public void sendData(){
-        DataSender ds=new DataSender(this, "Hello=world&what=the+fuck");
+    public void updateStatus(RouterInformation currentlyConnected){
+        String postReq=new String();
+        postReq=postReq+"id="+fd.myID+"&"+"wifiName="+currentlyConnected.getName()+"&"+"wifiMAC="+currentlyConnected.getMacAddr();
+        this.sendPOST(postReq);
+    }
+
+    public void sendPOST(String s){
+        DataSender ds=new DataSender(this, s);
         ds.execute(this.serverURL);
     }
+
     public void onSendReturn(String data){
         System.out.println("POST Data Returned: "+data);
     }
@@ -93,7 +99,7 @@ public class ServerComms {
         }
 
         protected void onPostExecute(String result) {
-            this.sc.on_data_return(result);
+            this.sc.onDataReturn(result);
         }
 
 
