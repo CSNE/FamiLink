@@ -35,12 +35,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         setContentView(R.layout.activity_main);
 
-        //System.out.println("Start");
-
-
-        //System.out.println("End");
-
-
         ActionBar actionbar = getSupportActionBar();
 
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -90,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         MenuItem mi = menu.findItem(R.id.debug_1);
         mi.setOnMenuItemClickListener(this);
-        //git gud m8
+
         return true;
 
     }
