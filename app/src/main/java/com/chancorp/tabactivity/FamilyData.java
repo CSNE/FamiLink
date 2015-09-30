@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class FamilyData{
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
+    ArrayList<ToDo> todos;
     int familyID=1, myID=1;
 
     //Some other data should go here.
@@ -36,6 +37,25 @@ public class FamilyData{
         }
         return false;
     }
+
+    public void addToDo(ToDo td){
+        todos.add(td);
+    }
+    public void addToDo(String title, String description, long due){
+        addToDo(new ToDo(this.myID,title,description,due));
+    }
+    public ToDo getToDoAt(int pos){
+        return todos.get(pos);
+    }
+    public ToDo[] getToDosInArray(){
+        ToDo[] arr;
+        arr=new ToDo[todos.size()];
+        for (int i=0;i<arr.length;i++){
+            arr[i]=this.todos.get(i);
+        }
+        return arr;
+    }
+
 
     public void parseData(String s) throws FamilyDataException{
 
