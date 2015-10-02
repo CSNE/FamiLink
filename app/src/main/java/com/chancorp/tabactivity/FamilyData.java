@@ -13,6 +13,7 @@ public class FamilyData{
 
     public FamilyData(){
         data=new ArrayList<FamilyMember>();
+        todos=new ArrayList<ToDo>();
         routers=new ArrayList<RouterInformation>();
     }
 
@@ -41,8 +42,8 @@ public class FamilyData{
     public void addToDo(ToDo td){
         todos.add(td);
     }
-    public void addToDo(String title, String description, long due){
-        addToDo(new ToDo(this.myID,title,description,due));
+    public void addToDo(String title, String description, long due,int icon){
+        addToDo(new ToDo(this.myID,title,description,due,icon));
     }
     public ToDo getToDoAt(int pos){
         return todos.get(pos);

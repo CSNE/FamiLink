@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         super.onCreate(savedInstanceState);
 
 
-        Log.d("MainActivity","Test Log.");
+        Log.d("MainActivity", "Test Log.");
 
 
         fd=new FamilyData();
         fd.addMembers(new FamilyMember("Father", 0, true, R.drawable.capture, "010-4944-7734"));
         fd.addMembers(new FamilyMember("Mother", 1, false, R.drawable.capture, "0"));
         fd.addMembers(new FamilyMember("Sister", 2, true, R.drawable.capture, "0"));
+        fd.addToDo(new ToDo(1,"Test TODO","test.",1443769403L,R.drawable.capture));
 
         setContentView(R.layout.activity_main);
 
@@ -149,19 +150,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     }
 
-	/* FragmentTransaction : 프레그먼트를 추가, 교체, 삭제하는 등의 작업 처리하기 위한 클래스
-	 *
-	 */
 
-    // Tab키 다시 눌렀을때
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
 
     }
 
 
-    // Tab 키 눌렀을때
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
 
