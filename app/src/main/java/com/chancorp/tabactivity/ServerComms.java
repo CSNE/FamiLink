@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,7 +25,7 @@ public class ServerComms {
 
     public static void setup(String u, FamilyData f, RedrawableFragment[] r) {
         fd = f;
-        urlAppend="/"+Integer.toString(f.getID());
+        urlAppend="/"+f.getID();
 
         rdf=r;
 
@@ -38,15 +40,16 @@ public class ServerComms {
     }
 
     public void retriveData(){
+        Log.d("Familink","GETting from "+this.serverURL);
         DataRetriever dr=new DataRetriever(this);
         dr.execute(this.serverURL);
     }
     public void onDataReturn(String data){
-        System.out.println("Data Returned: "+data);
+
         try {
             fd.parseData(data);
         }catch (FamilyDataException e){
-            e.printStackTrace();
+
         }
 
         for(RedrawableFragment r:this.rdf){
@@ -85,8 +88,15 @@ public class ServerComms {
 
                 URL url=urls[0];
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                Log.d("Familink", "Checkpoint 5");
+                urlConnection.setRequestProperty("Connection", "close");
+                Log.d("Familink","Checkpoint 1");
+                urlConnection.getInputStream();
+                Log.d("Familink", "Checkpoint 4");
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                Log.d("Familink","Checkpoint 2");
                 StringBuilder sb = new StringBuilder();
+                Log.d("Familink","Checkpoint 3");
                 String line;
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
                 while ((line = reader.readLine()) != null) {
@@ -97,7 +107,9 @@ public class ServerComms {
 
                 return sb.toString();
             }catch(Exception e){
-                e.printStackTrace();
+                StringWriter errors = new StringWriter();
+                e.printStackTrace(new PrintWriter(errors));
+                Log.d("Familink",errors.toString());
                 return "ERR";
             }
         }

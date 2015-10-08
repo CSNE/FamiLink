@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
 
 
-        ServerComms.setup("http://10.0.2.2:8301",this.fd,rdfs);
+        ServerComms.setup("http://172.30.86.177:5000",this.fd,rdfs);
         serverConnector = new ServerComms();
 
         startService(new Intent(this, Service_Lockscreen.class));

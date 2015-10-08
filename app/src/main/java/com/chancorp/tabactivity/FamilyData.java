@@ -1,5 +1,8 @@
 package com.chancorp.tabactivity;
 
+import android.util.Log;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
@@ -43,7 +46,7 @@ public class FamilyData{
         todos.add(td);
     }
     public void addToDo(String title, String description, long due,int icon){
-        addToDo(new ToDo(this.myID,title,description,due,icon));
+        addToDo(new ToDo(this.myID, title, description, due, icon));
     }
     public ToDo getToDoAt(int pos){
         return todos.get(pos);
@@ -62,35 +65,61 @@ public class FamilyData{
 
         clearMembers();
 
-        System.out.println("parsing data...");
+        Log.d("FamiLink", "FamilyData.parseData() input:" + s);
 
-        String[] memberSplit=s.split(";");
-        for (String ms:memberSplit){
+        s=s.replace("<ul class=entries>","").replace("</ul>","");
 
-            String[] memberDatas=ms.split("\\&");
+        String[] parts=s.split("\\[");
 
-            FamilyMember f=new FamilyMember();
+        for (String part:parts){
 
-            for (String md:memberDatas){
+            String[] subparts = part.split("\\]");
 
-                String[] memberDatasSplit=md.split(":");
-                if (memberDatasSplit.length<2) continue;
+            try {
+                String partTitle = subparts[0];
+                String partBody = subparts[1];
+                Log.d("Familink","Part: "+partTitle);
+                String[] members = partBody.split(";");
 
-                String dataName=memberDatasSplit[0];
-                String dataBody=memberDatasSplit[1];
-                //System.out.println("name - " + dataName);
-                //System.out.println("dat - " + dataBody);
+                for (String member : members) {
+                    Log.d("Familink","   New member");
 
-                if (dataName.equals("personID")) f.setPersonID(Integer.parseInt(dataBody));
-                else if (dataName.equals("name")) f.setName(dataBody);
-                else if (dataName.equals("isInside")) f.setIsInside(Boolean.parseBoolean(dataBody));
-                else if (dataName.equals("phoneNumber")) f.setPhoneNumber(dataBody);
-                else throw new FamilyDataException("A String has fallen through!");
+                    FamilyMember fm=new FamilyMember();
 
+                    String[] lines = member.split("&");
 
+                    for (String line : lines) {
+                        String[] elements = line.split(":");
+                        try {
+                            String title = elements[0].trim();
+                            String data = elements[1].trim();
+                            Log.d("Familink", "      Title:" + title + " | Data:" + data);
+                            if (partTitle.equals("PersonInfo")){
+                                if (title.equals("name")) fm.setName(data);
+                                if (title.equals("personID")) fm.setPersonID(Integer.parseInt(data));
+                                if (title.equals("phoneNumber")) fm.setPhoneNumber(data);
+                                if (title.equals("isInside")){
+                                    if (data.equals("0")) fm.setIsInside(false);
+                                    else if (data.equals("1")) fm.setIsInside(true);
+                                    else Log.e("Familink","IsInside data is not 0 nor 1.");
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            Log.v("Familink", "Array out of bounds caught in line: " + line);
+                        }
+
+                    }
+
+                    if (partTitle.equals("PersonInfo")){
+                        this.addMembers(fm);
+                    }
+                }
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Log.v("Familink", "Array out of bounds caught in part: " + part);
+                continue;
             }
 
-            addMembers(f);
 
         }
 
