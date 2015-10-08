@@ -59,7 +59,17 @@ public class ServerComms {
 
     public void updateStatus(RouterInformation currentlyConnected){
         String postReq=new String();
-        postReq=postReq+"id="+fd.myID+"&"+"wifiName="+currentlyConnected.getName()+"&"+"wifiMAC="+currentlyConnected.getMacAddr();
+        postReq=postReq;
+        Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + postReq);
+        this.sendPOST(postReq);
+    }
+
+    public void test(){
+        String postReq=new String();
+        POSTEncoder pe=new POSTEncoder();
+        pe.addDataSet("percent", "100%!");
+        pe.addDataSet("wow", "qwerty");
+        postReq=pe.encode();
         Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + postReq);
         this.sendPOST(postReq);
     }
@@ -138,6 +148,7 @@ public class ServerComms {
             //Code from http://www.xyzws.com/javafaq/how-to-use-httpurlconnection-post-data-to-web-server/139
             URL url=urls[0];
             HttpURLConnection connection = null;
+
             try {
                 connection = (HttpURLConnection)url.openConnection();
                 connection.setRequestMethod("POST");
