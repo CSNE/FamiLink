@@ -44,6 +44,7 @@ public class ServerComms {
         DataRetriever dr=new DataRetriever(this);
         dr.execute(this.serverURL);
     }
+
     public void onDataReturn(String data){
 
         try {
@@ -55,6 +56,25 @@ public class ServerComms {
         for(RedrawableFragment r:this.rdf){
             r.redraw();
         }
+    }
+
+    public void gotInside(){
+        String postReq=new String();
+        POSTEncoder pe=new POSTEncoder();
+        pe.addDataSet("request_type", "chk-isInside");
+        pe.addDataSet("personID", Integer.toString(fd.getID()));
+        pe.addDataSet("isInside", "1");
+        postReq=pe.encode();
+        this.sendPOST(postReq);
+    }
+    public void gotOutside(){
+        String postReq=new String();
+        POSTEncoder pe=new POSTEncoder();
+        pe.addDataSet("request_type", "chk-isInside");
+        pe.addDataSet("personID", Integer.toString(fd.getID()));
+        pe.addDataSet("isInside", "0");
+        postReq=pe.encode();
+        this.sendPOST(postReq);
     }
 
     public void updateStatus(RouterInformation currentlyConnected){
@@ -70,11 +90,11 @@ public class ServerComms {
         pe.addDataSet("percent", "100%!");
         pe.addDataSet("wow", "qwerty");
         postReq=pe.encode();
-        Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + postReq);
         this.sendPOST(postReq);
     }
 
     public void sendPOST(String s){
+        Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + s);
         DataSender ds=new DataSender(this, s);
         ds.execute(this.serverURL);
     }

@@ -10,6 +10,13 @@
         android:id="@+id/debug_2"
         android:title="Test POST"/>
 
+    <item
+        android:id="@+id/debug_in"
+        android:title="Send POST - in"/>
+    <item
+        android:id="@+id/debug_out"
+        android:title="Send POST - out"/>
+
     <item android:id="@+id/global_refresh"
         android:icon="@drawable/ic_refresh_black_48dp"
         android:title="Refresh"

@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider {
 
+
+
+
     FamilyData fd;
     ServerComms serverConnector;
 
@@ -29,11 +32,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 
         super.onCreate(savedInstanceState);
-
-
-        Log.d("MainActivity", "Test Log.");
-
-
 
         fd=new FamilyData();
         fd.addMembers(new FamilyMember("Father", 0, true, R.drawable.capture, "010-4944-7734"));
@@ -129,6 +127,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.debug_2) {
             serverConnector.test();
+        }
+        if (id == R.id.debug_in) {
+            serverConnector.gotInside();
+        }
+        if (id == R.id.debug_out) {
+            serverConnector.gotOutside();
         }
 
         return super.onOptionsItemSelected(item);
