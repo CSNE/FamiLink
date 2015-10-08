@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         Log.d("MainActivity", "Test Log.");
 
 
+
         fd=new FamilyData();
         fd.addMembers(new FamilyMember("Father", 0, true, R.drawable.capture, "010-4944-7734"));
         fd.addMembers(new FamilyMember("Mother", 1, false, R.drawable.capture, "0"));
