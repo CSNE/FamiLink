@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
 
-//프로그램 시작 시 보여지는 Activity.
+//프로그램 시작 시 보여지는 Activity..
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider {
 
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
 
         Log.d("MainActivity", "Test Log.");
+
 
 
         fd=new FamilyData();
