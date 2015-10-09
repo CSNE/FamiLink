@@ -1,7 +1,10 @@
 package com.chancorp.tabactivity;
 
+import android.content.Context;
 import android.util.Log;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -11,13 +14,15 @@ public class FamilyData{
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
     int familyID=1, myID=1;
+    Context c;
 
     //Some other data should go here.
 
-    public FamilyData(){
+    public FamilyData(Context c){
         data=new ArrayList<FamilyMember>();
         todos=new ArrayList<ToDo>();
         routers=new ArrayList<RouterInformation>();
+        this.c=c;
     }
 
     public void addMembers(FamilyMember fm){
@@ -78,11 +83,11 @@ public class FamilyData{
             try {
                 String partTitle = subparts[0];
                 String partBody = subparts[1];
-                Log.d("Familink","Part: "+partTitle);
+                Log.v("Familink","Part: "+partTitle);
                 String[] members = partBody.split(";");
 
                 for (String member : members) {
-                    Log.d("Familink","   New member");
+                    Log.v("Familink","   New member");
 
                     FamilyMember fm=new FamilyMember();
 
@@ -93,7 +98,7 @@ public class FamilyData{
                         try {
                             String title = elements[0].trim();
                             String data = elements[1].trim();
-                            Log.d("Familink", "      Title:" + title + " | Data:" + data);
+                            Log.v("Familink", "      Title:" + title + " | Data:" + data);
                             if (partTitle.equals("PersonInfo")){
                                 if (title.equals("name")) fm.setName(data);
                                 if (title.equals("personID")) fm.setPersonID(Integer.parseInt(data));
@@ -138,6 +143,18 @@ public class FamilyData{
 
     public int getID(){
         return this.familyID;
+    }
+
+    public void saveToFile(){
+        try {
+            FileOutputStream fos = c.openFileOutput("familink_family_data", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(this);
+            os.close();
+            fos.close();
+        }catch(Exception e){
+            Log.e("Familink","File write error!");
+        }
     }
 
 }

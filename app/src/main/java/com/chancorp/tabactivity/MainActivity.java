@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -23,12 +24,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Log.d("Familink", "-----------New Session started.-----------");
+
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 
         super.onCreate(savedInstanceState);
 
-        fd=new FamilyData();
+        fd=new FamilyData(getApplicationContext());
         fd.addMembers(new FamilyMember("Father", 0, true, 0, "010-4944-7734"));
         fd.addMembers(new FamilyMember("Mother", 1, false, 2, "0"));
         fd.addMembers(new FamilyMember("Sister", 2, true, 1, "0"));
