@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         fd.addMembers(new FamilyMember("Father", 0, true, 0, "010-4944-7734"));
         fd.addMembers(new FamilyMember("Mother", 1, false, 2, "0"));
         fd.addMembers(new FamilyMember("Sister", 2, true, 1, "0"));
-        fd.addToDo(new ToDo(1,"Test TODO","test.",1443769403L,1));
+        fd.addToDo(new ToDo(1, "Test TODO", "test.", 1443769403L, 1));
 
         setContentView(R.layout.activity_main);
 
@@ -48,11 +47,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
         ActionBar.Tab settingsPageTab = actionbar.newTab().setText("Settings");
 
-        Fragment listPage = (Fragment) new ListPage();
-        Fragment todoPage = (Fragment) new ToDoPage();
-        Fragment notePage = (Fragment) new NotePage();
-        Fragment chatPage = (Fragment) new ChatPage();
-        Fragment settingsPage = (Fragment) new SettingsPage();
+        Fragment listPage = (Fragment) new Page1List();
+        Fragment todoPage = (Fragment) new Page2ToDo();
+        Fragment notePage = (Fragment) new Page3Note();
+        Fragment chatPage = (Fragment) new Page4Chat();
+        Fragment settingsPage = (Fragment) new Page5Settings();
 
         listPageTab.setTabListener(new MyTabsListener(listPage, this));
         todoPageTab.setTabListener(new MyTabsListener(todoPage,this));

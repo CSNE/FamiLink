@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //첫번째 탭 fragment. 가족 리스트.
-public class ListPage extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, RedrawableFragment{
+public class Page1List extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, RedrawableFragment{
 
     TextView tv1;
     ListView lv1;
@@ -76,7 +76,7 @@ public class ListPage extends Fragment implements View.OnClickListener, AdapterV
 
     @Override
     public void redraw() {
-        System.out.println("Redraw on ListPage");
+        System.out.println("Redraw on Page1List");
         adapter.notifyDataSetChanged();
         lv1.invalidate();
 

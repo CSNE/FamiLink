@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 //2번째 탭. 할일.
-public class ToDoPage extends Fragment implements RedrawableFragment, AdapterView.OnItemClickListener{
+public class Page2ToDo extends Fragment implements RedrawableFragment, AdapterView.OnItemClickListener{
 
     FamilyData fd;
     ToDoListAdapter tdl;

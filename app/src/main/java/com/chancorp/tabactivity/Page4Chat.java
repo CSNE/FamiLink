@@ -7,12 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//3번째 탭. 가족 노트.
-public class NotePage extends Fragment implements RedrawableFragment{
+//4번째 탭. 채팅.
+public class Page4Chat extends Fragment implements RedrawableFragment{
 
     FamilyData fd;
-
-
 
     @Override
     public void onAttach(Activity a){
@@ -30,7 +28,7 @@ public class NotePage extends Fragment implements RedrawableFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.page_3_notes, container, false);
+        View rootView = inflater.inflate(R.layout.page_4_chat, container, false);
 
 
 

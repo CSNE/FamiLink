@@ -24,7 +24,6 @@ public class Receiver_Lockscreen extends BroadcastReceiver  {
             Log.d("FamiLink", "Info:"+wifinfo.getSSID()+wifinfo.getBSSID());
             ServerComms sc=new ServerComms();
             sc.updateStatus(new RouterInformation(wifinfo.getSSID(),wifinfo.getBSSID()));
-            start_the_activity(context);
         }
     }
 

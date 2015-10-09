@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//5번째 탭. 설정.
-public class SettingsPage extends Fragment implements RedrawableFragment{
+//3번째 탭. 가족 노트.
+public class Page3Note extends Fragment implements RedrawableFragment{
 
     FamilyData fd;
 
@@ -30,7 +30,7 @@ public class SettingsPage extends Fragment implements RedrawableFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.page_5_settings, container, false);
+        View rootView = inflater.inflate(R.layout.page_3_notes, container, false);
 
 
 

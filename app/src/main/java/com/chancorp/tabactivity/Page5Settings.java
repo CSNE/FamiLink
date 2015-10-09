@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//4번째 탭. 채팅.
-public class ChatPage extends Fragment implements RedrawableFragment{
+//5번째 탭. 설정.
+public class Page5Settings extends Fragment implements RedrawableFragment{
 
     FamilyData fd;
+
+
 
     @Override
     public void onAttach(Activity a){
@@ -28,7 +30,7 @@ public class ChatPage extends Fragment implements RedrawableFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.page_4_chat, container, false);
+        View rootView = inflater.inflate(R.layout.page_5_settings, container, false);
 
 
 
