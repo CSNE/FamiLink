@@ -68,7 +68,7 @@ public class ServerComms {
     public void gotOutside(){
         String postReq=new String();
         POSTEncoder pe=new POSTEncoder();
-        pe.addDataSet("request_type", "chk-isInside");
+        pe.addDataSet("request type", "chk inside");
         pe.addDataSet("personID", Integer.toString(fd.getID()));
         pe.addDataSet("isInside", "0");
         postReq=pe.encode();

@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         super.onCreate(savedInstanceState);
 
         fd=new FamilyData();
-        fd.addMembers(new FamilyMember("Father", 0, true, R.drawable.capture, "010-4944-7734"));
-        fd.addMembers(new FamilyMember("Mother", 1, false, R.drawable.capture, "0"));
-        fd.addMembers(new FamilyMember("Sister", 2, true, R.drawable.capture, "0"));
-        fd.addToDo(new ToDo(1,"Test TODO","test.",1443769403L,R.drawable.capture));
+        fd.addMembers(new FamilyMember("Father", 0, true, 0, "010-4944-7734"));
+        fd.addMembers(new FamilyMember("Mother", 1, false, 2, "0"));
+        fd.addMembers(new FamilyMember("Sister", 2, true, 1, "0"));
+        fd.addToDo(new ToDo(1,"Test TODO","test.",1443769403L,1));
 
         setContentView(R.layout.activity_main);
 

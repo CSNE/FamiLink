@@ -3,10 +3,19 @@ package com.chancorp.tabactivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 //가족 구성원 1명에 대한 데이터 저장.
 public class FamilyMember {
     String name, phoneNumber;
+
+    int[] avatarIdToDrawable={R.drawable.icon_father,
+                              R.drawable.icon_mother,
+                              R.drawable.icon_sister,
+                              R.drawable.icon_son,
+                              R.drawable.icon_grandfather,
+                              R.drawable.icon_grandmother};
+    int defaultDrawable=R.drawable.capture;
 
 
     int personID;
@@ -31,7 +40,12 @@ public class FamilyMember {
     }
 
     public int getAvatarDrawable() {
-        return this.avatar;
+        try {
+            return avatarIdToDrawable[this.avatar];
+        }catch(ArrayIndexOutOfBoundsException e){
+            Log.e("Familink", "Avaratar ID to Drawable index out of bounds.");
+        }
+        return defaultDrawable;
     }
 
     public void openMessenger(FragmentActivity a) {
