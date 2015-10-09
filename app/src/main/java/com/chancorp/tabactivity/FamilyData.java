@@ -3,13 +3,16 @@ package com.chancorp.tabactivity;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
-public class FamilyData{
+public class FamilyData implements Serializable{
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
@@ -83,11 +86,11 @@ public class FamilyData{
             try {
                 String partTitle = subparts[0];
                 String partBody = subparts[1];
-                Log.v("Familink","Part: "+partTitle);
+                Log.v("Familink", "Part: " + partTitle);
                 String[] members = partBody.split(";");
 
                 for (String member : members) {
-                    Log.v("Familink","   New member");
+                    Log.v("Familink", "   New member");
 
                     FamilyMember fm=new FamilyMember();
 
@@ -156,6 +159,20 @@ public class FamilyData{
             Log.e("Familink","File write error!");
         }
     }
+
+    public void loadFromFile(){
+        try {
+            FileInputStream fis = c.openFileInput("familink_family_data");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            FamilyData simpleClass = (FamilyData) is.readObject();
+            is.close();
+            fis.close();
+        }catch(Exception e){
+            Log.e("Familink","File read error!");
+        }
+    }
+
+
 
 }
 

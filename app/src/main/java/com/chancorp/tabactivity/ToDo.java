@@ -1,5 +1,6 @@
 package com.chancorp.tabactivity;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -8,7 +9,7 @@ import java.util.Date;
 /**
  * Created by Chan on 2015-09-30.
  */
-public class ToDo {
+public class ToDo implements Serializable{
     long dueTime;
     String title,description;
     int creator, icon;

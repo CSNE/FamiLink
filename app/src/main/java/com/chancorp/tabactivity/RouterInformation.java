@@ -1,7 +1,9 @@
 package com.chancorp.tabactivity;
 
+import java.io.Serializable;
+
 //Class for storing router information.
-public class RouterInformation {
+public class RouterInformation implements Serializable{
 
 
     public String name;

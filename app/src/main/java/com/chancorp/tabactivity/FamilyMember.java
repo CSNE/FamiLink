@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import java.io.Serializable;
+
 //가족 구성원 1명에 대한 데이터 저장.
-public class FamilyMember {
+public class FamilyMember implements Serializable{
     String name, phoneNumber;
 
     int[] avatarIdToDrawable={R.drawable.icon_father,

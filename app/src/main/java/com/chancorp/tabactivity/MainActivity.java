@@ -133,6 +133,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         if (id == R.id.debug_out) {
             serverConnector.gotOutside();
         }
+        if (id == R.id.debug_read) {
+            fd.loadFromFile();
+        }
+        if (id == R.id.debug_write) {
+            fd.saveToFile();
+        }
 
         return super.onOptionsItemSelected(item);
     }
