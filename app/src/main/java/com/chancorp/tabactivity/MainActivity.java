@@ -18,12 +18,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider {
 
 
-
-
     FamilyData fd;
     ServerComms serverConnector;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         //ServerComms.setup("http://172.30.86.177:5000",this.fd,rdfs);
         ServerComms.setup("http://10.0.2.2:8301",this.fd,rdfs);
+        ServerComms.setup("http://122.203.53.110:8071",this.fd,rdfs);
         serverConnector = new ServerComms();
 
         startService(new Intent(this, Service_Lockscreen.class));

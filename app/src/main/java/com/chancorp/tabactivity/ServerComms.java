@@ -47,11 +47,9 @@ public class ServerComms {
 
     public void onDataReturn(String data){
 
-        try {
-            fd.parseData(data);
-        }catch (FamilyDataException e){
 
-        }
+        fd.parseData(data);
+
 
         for(RedrawableFragment r:this.rdf){
             r.redraw();
