@@ -18,7 +18,7 @@
         android:title="Send POST - out"/>
 
     <item android:id="@+id/global_refresh"
-        android:icon="@drawable/ic_refresh_black_48dp"
+        android:icon="@drawable/ic_refresh_black_48dp_inv"
         android:title="Refresh"
         app:showAsAction="ifRoom" />
 </menu>
