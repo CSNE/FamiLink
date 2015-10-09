@@ -47,11 +47,9 @@ public class ServerComms {
 
     public void onDataReturn(String data){
 
-        try {
-            fd.parseData(data);
-        }catch (FamilyDataException e){
 
-        }
+        fd.parseData(data);
+
 
         for(RedrawableFragment r:this.rdf){
             r.redraw();
@@ -70,7 +68,7 @@ public class ServerComms {
     public void gotOutside(){
         String postReq=new String();
         POSTEncoder pe=new POSTEncoder();
-        pe.addDataSet("request_type", "chk-isInside");
+        pe.addDataSet("request type", "chk inside");
         pe.addDataSet("personID", Integer.toString(fd.getID()));
         pe.addDataSet("isInside", "0");
         postReq=pe.encode();

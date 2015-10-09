@@ -61,7 +61,7 @@ public class FamilyData{
     }
 
 
-    public void parseData(String s) throws FamilyDataException{
+    public void parseData(String s){
 
         clearMembers();
 
@@ -142,10 +142,3 @@ public class FamilyData{
 
 }
 
-class FamilyDataException extends Exception{
-    public FamilyDataException(){}
-
-    public FamilyDataException(String msg){
-        super(msg);
-    }
-}
