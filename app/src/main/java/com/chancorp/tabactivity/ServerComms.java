@@ -98,7 +98,8 @@ public class ServerComms {
     }
 
     public void onSendReturn(String data){
-        System.out.println("POST Data Returned: "+data);
+        Log.d("Familink","POST Data Returned: "+data);
+        //TODO something here.
     }
 
 
@@ -132,7 +133,7 @@ public class ServerComms {
             }catch(Exception e){
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.d("Familink",errors.toString());
+                Log.d("Familink","Error in GET(ServerComms>DataRetriever>doInBackground).\n"+errors.toString());
                 return "ERR";
             }
         }
@@ -164,6 +165,7 @@ public class ServerComms {
 
             try {
                 connection = (HttpURLConnection)url.openConnection();
+                connection.setRequestProperty("Connection", "close");
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type",
                         "application/x-www-form-urlencoded");
@@ -197,7 +199,9 @@ public class ServerComms {
 
             } catch (Exception e) {
 
-                e.printStackTrace();
+                StringWriter errors = new StringWriter();
+                e.printStackTrace(new PrintWriter(errors));
+                Log.e("Familink","Error in POST(ServerComms>DataSender>doInBackground).\n"+errors.toString());
                 return null;
 
             } finally {
