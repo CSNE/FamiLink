@@ -113,7 +113,7 @@ public class FamilyData implements Serializable{
                     String[] lines = member.split("&");
 
                     for (String line : lines) {
-                        String[] elements = line.split(":");
+                        String[] elements = line.split("=");
                         try {
                             String title = elements[0].trim();
                             String data = elements[1].trim();
