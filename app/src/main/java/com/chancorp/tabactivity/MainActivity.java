@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     FamilyData fd;
     ServerComms serverConnector;
+    RedrawableFragment[] rdfs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         super.onCreate(savedInstanceState);
 
         fd=new FamilyData(getApplicationContext());
+        /*
         fd.addMembers(new FamilyMember("Father", 0, true, 0, "010-4944-7734"));
         fd.addMembers(new FamilyMember("Mother", 1, false, 2, "0"));
         fd.addMembers(new FamilyMember("Sister", 2, true, 1, "0"));
         fd.addToDo(new ToDo(1, "Test TODO", "test.", 1443769403L, 1));
+        */
+
+        fd.loadFromFile();
 
         setContentView(R.layout.activity_main);
 
@@ -68,16 +73,17 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         actionbar.addTab(chatPageTab);
         actionbar.addTab(settingsPageTab);
 
-        RedrawableFragment[] rdfs={(RedrawableFragment)listPage,
-                (RedrawableFragment)todoPage,
-                (RedrawableFragment)notePage,
-                (RedrawableFragment)chatPage,
-                (RedrawableFragment)settingsPage};
+        rdfs=new RedrawableFragment[5];
+        rdfs[0]=(RedrawableFragment)listPage;
+        rdfs[1]=(RedrawableFragment)todoPage;
+        rdfs[2]=(RedrawableFragment)notePage;
+        rdfs[3]=(RedrawableFragment)chatPage;
+        rdfs[4]=(RedrawableFragment)settingsPage;
 
 
 
         //ServerComms.setup("http://172.30.86.177:5000",this.fd,rdfs);
-        ServerComms.setup("http://10.0.2.2:8301",this.fd,rdfs);
+        //ServerComms.setup("http://10.0.2.2:8301",this.fd,rdfs);
         ServerComms.setup("http://122.203.53.110:8071",this.fd,rdfs);
         serverConnector = new ServerComms();
 
@@ -135,6 +141,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.debug_read) {
             fd.loadFromFile();
+            for (RedrawableFragment rd:rdfs){
+                rd.redraw();
+            }
         }
         if (id == R.id.debug_write) {
             fd.saveToFile();

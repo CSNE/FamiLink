@@ -116,15 +116,10 @@ public class ServerComms {
 
                 URL url=urls[0];
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                Log.d("Familink", "Checkpoint 5");
                 urlConnection.setRequestProperty("Connection", "close");
-                Log.d("Familink","Checkpoint 1");
                 urlConnection.getInputStream();
-                Log.d("Familink", "Checkpoint 4");
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                Log.d("Familink","Checkpoint 2");
                 StringBuilder sb = new StringBuilder();
-                Log.d("Familink","Checkpoint 3");
                 String line;
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
                 while ((line = reader.readLine()) != null) {

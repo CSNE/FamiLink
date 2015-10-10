@@ -7,17 +7,31 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
 public class FamilyData implements Serializable{
+
+    static final long serialVersionUID = 1L;
+
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
     int familyID=1, myID=1;
-    Context c;
+    transient Context c;
+
+    public void copyData(FamilyData fd){
+        this.data=fd.data;
+        this.routers=fd.routers;
+        this.todos=fd.todos;
+        this.familyID=fd.familyID;
+        this.myID=fd.myID;
+
+    }
 
     //Some other data should go here.
 
@@ -27,6 +41,8 @@ public class FamilyData implements Serializable{
         routers=new ArrayList<RouterInformation>();
         this.c=c;
     }
+
+
 
     public void addMembers(FamilyMember fm){
         data.add(fm);
@@ -155,8 +171,11 @@ public class FamilyData implements Serializable{
             os.writeObject(this);
             os.close();
             fos.close();
+            Log.d("Familink", "File written successfully.");
         }catch(Exception e){
-            Log.e("Familink","File write error!");
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            Log.e("Familink","File write error!\n"+errors.toString());
         }
     }
 
@@ -164,11 +183,18 @@ public class FamilyData implements Serializable{
         try {
             FileInputStream fis = c.openFileInput("familink_family_data");
             ObjectInputStream is = new ObjectInputStream(fis);
-            FamilyData simpleClass = (FamilyData) is.readObject();
+            FamilyData readFD = (FamilyData) is.readObject();
             is.close();
             fis.close();
+
+            Log.d("Familink", "File read successfully.");
+            this.copyData(readFD);
+            Log.d("Familink", "FamilyData overwritten.");
+
         }catch(Exception e){
-            Log.e("Familink","File read error!");
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            Log.e("Familink","File read error!\n"+errors.toString());
         }
     }
 
