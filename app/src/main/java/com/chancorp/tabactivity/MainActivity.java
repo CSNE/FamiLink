@@ -122,16 +122,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.global_refresh) {
             Toast.makeText(this, "Refreshing", Toast.LENGTH_SHORT).show();
-            serverConnector.retriveData();
+            serverConnector.sendGET();
             return true;
         }
         if (id == R.id.debug_1) {
             Toast.makeText(this, "SEND TO JISUNG'S PART", Toast.LENGTH_SHORT).show();
             Intent itt=new Intent(this,Activity_Module1.class);
             startActivity(itt);
-        }
-        if (id == R.id.debug_2) {
-            serverConnector.test();
         }
         if (id == R.id.debug_in) {
             serverConnector.gotInside();

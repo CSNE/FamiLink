@@ -6,9 +6,7 @@
     <item
         android:id="@+id/debug_1"
         android:title="Backside Debug Page"/>
-    <item
-        android:id="@+id/debug_2"
-        android:title="Test POST"/>
+
 
     <item
         android:id="@+id/debug_in"

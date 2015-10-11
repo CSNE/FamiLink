@@ -39,21 +39,38 @@ public class ServerComms {
     public ServerComms(){
     }
 
-    public void retriveData(){
-        Log.d("Familink","GETting from "+this.serverURL);
-        DataRetriever dr=new DataRetriever(this);
-        dr.execute(this.serverURL);
+    public void updateStatus(RouterInformation ri){
+        if (fd.matchRouter(ri)) this.gotInside();
+        else this.gotOutside();
     }
 
-    public void onDataReturn(String data){
+    public void addFamily(String name){
+        String postReq=new String();
+        POSTEncoder pe=new POSTEncoder();
+        pe.addDataSet("request type", "add family");
+        pe.addDataSet("name", name);
+        postReq=pe.encode();
+        this.sendPOST(postReq);
+    }
 
+    public void deleteFamily(){
+        String postReq=new String();
+        POSTEncoder pe=new POSTEncoder();
+        pe.addDataSet("request type", "delete family");
+        pe.addDataSet("familyID", Integer.toString(fd.getID()));
+        postReq=pe.encode();
+        this.sendPOST(postReq);
+    }
 
-        fd.parseData(data);
-
-
-        for(RedrawableFragment r:this.rdf){
-            r.redraw();
-        }
+    public void addMe(String name, String number){
+        String postReq=new String();
+        POSTEncoder pe=new POSTEncoder();
+        pe.addDataSet("request type", "add person");
+        pe.addDataSet("familyID", Integer.toString(fd.getID()));
+        pe.addDataSet("name", name);
+        pe.addDataSet("phoneNumber", number);
+        postReq=pe.encode();
+        this.sendPOST(postReq);
     }
 
     public void gotInside(){
@@ -75,20 +92,18 @@ public class ServerComms {
         this.sendPOST(postReq);
     }
 
-    public void updateStatus(RouterInformation currentlyConnected){
-        String postReq=new String();
-        postReq=postReq;
-        Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + postReq);
-        this.sendPOST(postReq);
+
+    public void sendGET(){
+        Log.d("Familink","GETting from "+this.serverURL);
+        DataRetriever dr=new DataRetriever(this);
+        dr.execute(this.serverURL);
     }
 
-    public void test(){
-        String postReq=new String();
-        POSTEncoder pe=new POSTEncoder();
-        pe.addDataSet("percent", "100%!");
-        pe.addDataSet("wow", "qwerty");
-        postReq=pe.encode();
-        this.sendPOST(postReq);
+    public void onGETReturn(String data){
+        fd.parseData(data);
+        for(RedrawableFragment r:this.rdf){
+            r.redraw();
+        }
     }
 
     public void sendPOST(String s){
@@ -97,7 +112,7 @@ public class ServerComms {
         ds.execute(this.serverURL);
     }
 
-    public void onSendReturn(String data){
+    public void onPOSTReturn(String data){
         Log.d("Familink","POST Data Returned: "+data);
         //TODO something here.
     }
@@ -139,7 +154,7 @@ public class ServerComms {
         }
 
         protected void onPostExecute(String result) {
-            this.sc.onDataReturn(result);
+            this.sc.onGETReturn(result);
         }
 
 
@@ -247,7 +262,7 @@ public class ServerComms {
 
         @Override
         protected void onPostExecute(String res){
-            this.sc.onSendReturn(res);
+            this.sc.onPOSTReturn(res);
         }
     }
 
