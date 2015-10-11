@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo_rev3"
+        android:icon="@mipmap/logo_rev4"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
