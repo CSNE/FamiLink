@@ -3,13 +3,18 @@ package com.chancorp.tabactivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 //2번째 탭. 할일.
 public class Page2ToDo extends Fragment implements RedrawableFragment, AdapterView.OnItemClickListener{
@@ -52,9 +57,14 @@ public class Page2ToDo extends Fragment implements RedrawableFragment, AdapterVi
         super.onPause();
     }
 
-    @Override
     public void redraw() {
-
+        try {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }catch(IllegalStateException e){
+            Log.e("Familink", "IllegalStateException on Page 2>redraw() - Maybe page wasn't visible?");
+        }catch(NullPointerException e){
+            Log.e("Familink", "NullPointerException on Page 2>redraw() - Maybe page wasn't active?");
+        }
     }
 
     @Override

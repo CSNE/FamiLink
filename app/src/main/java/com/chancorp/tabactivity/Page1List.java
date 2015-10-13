@@ -14,6 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 //첫번째 탭 fragment. 가족 리스트.
 public class Page1List extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, RedrawableFragment{
 
@@ -81,11 +84,12 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
         adapter.notifyDataSetChanged();
         lv1.invalidate();
 
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
         try {
-            ft.detach(this).attach(this).commit();
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
         }catch(IllegalStateException e){
-            Log.e("Familink", "IllegalStateException on Page1List>redraw()");
+            Log.e("Familink", "IllegalStateException on Page 1>redraw() - Maybe page wasn't visible?");
+        }catch(NullPointerException e){
+            Log.e("Familink", "NullPointerException on Page 1>redraw() - Maybe page wasn't active?");
         }
     }
 }

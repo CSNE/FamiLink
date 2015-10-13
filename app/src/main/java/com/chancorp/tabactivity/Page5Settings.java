@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 //5번째 탭. 설정.
 public class Page5Settings extends Fragment implements RedrawableFragment{
@@ -80,6 +84,12 @@ public class Page5Settings extends Fragment implements RedrawableFragment{
 
     @Override
     public void redraw() {
-
+        try {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }catch(IllegalStateException e){
+            Log.e("Familink", "IllegalStateException on Page5Settings>redraw() - Maybe page wasn't visible?");
+        }catch(NullPointerException e){
+            Log.e("Familink", "NullPointerException on Page5Settings>redraw() - Maybe page wasn't active?");
+        }
     }
 }

@@ -3,9 +3,14 @@ package com.chancorp.tabactivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 //3번째 탭. 가족 노트.
 public class Page3Note extends Fragment implements RedrawableFragment{
@@ -44,6 +49,12 @@ public class Page3Note extends Fragment implements RedrawableFragment{
 
     @Override
     public void redraw() {
-
+        try {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }catch(IllegalStateException e){
+            Log.e("Familink", "IllegalStateException on Page 3>redraw() - Maybe page wasn't visible?");
+        }catch(NullPointerException e){
+            Log.e("Familink", "NullPointerException on Page 3>redraw() - Maybe page wasn't active?");
+        }
     }
 }

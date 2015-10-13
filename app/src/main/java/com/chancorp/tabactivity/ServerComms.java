@@ -152,15 +152,14 @@ public class ServerComms {
     }
 
     public void onGETReturn(String data,String requestType) {
+        Log.d("Familink", "GET returned. \nRequest type:"+requestType+"\nData Returned: " + data);
         if (requestType.equals("Parse Family Data")) {
             fd.parseData(data);
             for (RedrawableFragment r : this.rdf) {
                 r.redraw();
             }
         }
-        else if (requestType.equals("Add Family")){
-            fd.setFamilyID(Integer.parseInt(data));
-        }
+
     }
 
     public void sendPOST(String s, String requestType) {
@@ -172,8 +171,16 @@ public class ServerComms {
 
 
     public void onPOSTReturn(String data, String requestType) {
-        Log.d("Familink", "POST Data Returned: " + data);
-        //TODO something here.
+        Log.d("Familink", "POST returned. \nRequest type:"+requestType+"\nData Returned: " + data);
+        if (requestType.equals("Add Family")) {
+            try {
+                fd.setFamilyID(Integer.parseInt(data));
+            }catch(NumberFormatException e){
+                StringWriter errors = new StringWriter();
+                e.printStackTrace(new PrintWriter(errors));
+                Log.e("Familink", "NumberFormatException occurred.");
+            }
+        }
     }
 
 
