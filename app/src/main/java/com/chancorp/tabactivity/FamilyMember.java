@@ -9,16 +9,18 @@ import java.io.Serializable;
 
 //가족 구성원 1명에 대한 데이터 저장.
 public class FamilyMember implements Serializable{
+
+    static final long serialVersionUID = 1L;
+
     String name, phoneNumber;
 
-    int[] avatarIdToDrawable={R.drawable.ic_refresh_black_48dp,
-                              R.drawable.icon_father,
+    int[] avatarIdToDrawable={R.drawable.icon_father,
                               R.drawable.icon_mother,
                               R.drawable.icon_sister,
                               R.drawable.icon_son,
                               R.drawable.icon_grandfather,
                               R.drawable.icon_grandmother};
-    int defaultDrawable=R.drawable.capture;
+    int defaultDrawable=R.drawable.ic_mood_black_48dp;
 
 
     int personID;
@@ -26,7 +28,7 @@ public class FamilyMember implements Serializable{
     int avatar;
 
     public FamilyMember() {
-        this("None", -1, false, 0, "None");
+        this("None", -1, false, -1, "None");
     }
 
     public FamilyMember(String name, int personID, boolean isInside, int avatar, String num) {
@@ -52,15 +54,20 @@ public class FamilyMember implements Serializable{
     }
 
     public void openMessenger(FragmentActivity a) {
-        String uriStr = "tel:" + this.phoneNumber;
-        Intent itt = new Intent(Intent.ACTION_CALL, Uri.parse(uriStr));
+        String uriStr = "sms:" + this.phoneNumber;
+        Intent itt = new Intent(Intent.ACTION_VIEW);
+        itt.setData(Uri.parse(uriStr));
+
         a.startActivity(itt);
     }
 
     public void openDialer(FragmentActivity a) {
-        String uriStr = "sms:" + this.phoneNumber;
-        Intent itt = new Intent(Intent.ACTION_VIEW, Uri.parse(uriStr));
+        String uriStr = "tel:" + this.phoneNumber;
+        Intent itt = new Intent(Intent.ACTION_CALL, Uri.parse(uriStr));
         a.startActivity(itt);
+    }
+    public void openSettings(FragmentActivity a) {
+        //TODO avatar set here.
     }
 
     public void update() {

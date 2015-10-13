@@ -50,15 +50,38 @@
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/memberList_MsgBtn"
-            android:layout_gravity="center_vertical"
-            android:layout_alignParentLeft="false"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/memberList_MsgBtn"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/memberList_CallBtn"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/memberList_SettingBtn"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

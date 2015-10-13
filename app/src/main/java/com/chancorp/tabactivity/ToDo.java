@@ -10,6 +10,10 @@ import java.util.Date;
  * Created by Chan on 2015-09-30.
  */
 public class ToDo implements Serializable{
+
+    static final long serialVersionUID = 1L;
+
+
     long dueTime;
     String title,description;
     int creator, icon;

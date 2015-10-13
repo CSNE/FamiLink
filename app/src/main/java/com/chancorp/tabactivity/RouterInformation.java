@@ -5,6 +5,8 @@ import java.io.Serializable;
 //Class for storing router information.
 public class RouterInformation implements Serializable{
 
+    static final long serialVersionUID = 1L;
+
 
     public String name;
     public String macAddr;

@@ -53,7 +53,7 @@ public class FamilyMemberAdapter extends BaseAdapter {
         View view;
         TextView tv1, tv2;
         ImageView iv1;
-        Button btn;
+        Button msgBtn, callBtn, setBtn;
         final FamilyMember currentMember;
 
         if (convertedView==null){
@@ -66,22 +66,37 @@ public class FamilyMemberAdapter extends BaseAdapter {
 
         iv1=(ImageView) view.findViewById(R.id.memberList_Profile);
 
-        btn=(Button) view.findViewById(R.id.memberList_MsgBtn);
+        msgBtn=(Button) view.findViewById(R.id.memberList_MsgBtn);
+        callBtn=(Button) view.findViewById(R.id.memberList_CallBtn);
+        setBtn=(Button) view.findViewById(R.id.memberList_SettingBtn);
 
         tv1.setText(familyMembers[i].getName());
         tv2.setText(familyMembers[i].getDataString());
 
         iv1.setImageResource(familyMembers[i].getAvatarDrawable());
 
-        btn.setBackgroundResource(android.R.drawable.sym_action_chat);
+        callBtn.setBackgroundResource(R.drawable.ic_call_black_48dp);
+        setBtn.setBackgroundResource(R.drawable.ic_settings_black_48dp);
+        msgBtn.setBackgroundResource(R.drawable.ic_message_black_48dp);
 
         currentMember=familyMembers[i];
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "CLICK ON"+currentMember.getName(), Toast.LENGTH_SHORT).show();
+                currentMember.openDialer(ac);
+            }
+        });
+        msgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 currentMember.openMessenger(ac);
+            }
+        });
+        setBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentMember.openSettings(ac);
             }
         });
 
