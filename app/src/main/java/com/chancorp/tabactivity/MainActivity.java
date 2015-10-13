@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         serverConnector = new ServerComms();
         serverConnector.setQueryHash("qpwoeiruty");
 
-        startService(new Intent(this, Service_Lockscreen.class));
+        //startService(new Intent(this, Service_Lockscreen.class));
 
     }
 

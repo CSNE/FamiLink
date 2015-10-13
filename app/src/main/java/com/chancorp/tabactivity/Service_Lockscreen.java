@@ -31,8 +31,12 @@ public class Service_Lockscreen extends Service {
     @Override
     public void onDestroy() {
         ntf = null;
+        ntm = null;
         super.onDestroy();
+        unregisterReceiver(mreceiver);
+        return;
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
@@ -57,8 +61,7 @@ public class Service_Lockscreen extends Service {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             startForeground(1, new Notification());
         } else {
-            if(ntf != null) return;
-            startForeground(1,new Notification());
+            startForeground(1, new Notification());
         }
     }
 
