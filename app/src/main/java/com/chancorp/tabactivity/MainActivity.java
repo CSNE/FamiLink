@@ -145,6 +145,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         if (id == R.id.debug_write) {
             fd.saveToFile();
         }
+        if (id == R.id.debug_login) {
+            serverConnector.setQueryHash("qpwoeiruty");
+        }
+        if (id == R.id.debug_logout) {
+            serverConnector.resetQueryHash();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

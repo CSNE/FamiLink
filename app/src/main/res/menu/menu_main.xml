@@ -20,6 +20,12 @@
     <item
         android:id="@+id/debug_write"
         android:title="write local data"/>
+    <item
+        android:id="@+id/debug_login"
+        android:title="set hash"/>
+    <item
+        android:id="@+id/debug_logout"
+        android:title="reset hash"/>
 
     <item android:id="@+id/global_refresh"
         android:icon="@drawable/ic_refresh_black_48dp_inv"
