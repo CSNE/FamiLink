@@ -34,7 +34,7 @@ public class ToDo implements Serializable{
 
     public String getStringDue(){
 
-        DateFormat df = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date today = Calendar.getInstance().getTime();
 

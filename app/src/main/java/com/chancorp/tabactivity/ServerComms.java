@@ -19,22 +19,25 @@ import java.security.NoSuchAlgorithmException;
 //서버 통신 클래스
 public class ServerComms {
 
-    static URL serverURL;
-    static String serverURLString;
+    static String serverBaseURL,queryString;
     static FamilyData fd;
     static RedrawableFragment[] rdf;
 
 
     public static void setup(String u, FamilyData f, RedrawableFragment[] r) {
         fd = f;
-
+        serverBaseURL=u;
         rdf = r;
 
+    }
+
+    private URL getURL(){
         try {
-            serverURL = new URL(u + "/" + f.getID());
-            serverURLString = u + "/" + f.getID();
-        } catch (MalformedURLException e) {
-            Log.e("Familink", "URL parsing error in ServerComms constructor.");
+            return new URL(serverBaseURL + "/" + Integer.toString(fd.getID()) + queryString);
+
+        }catch(MalformedURLException e){
+            Log.e("Familink","MalformedURLException");
+            return null;
         }
     }
 
@@ -54,11 +57,9 @@ public class ServerComms {
             for (byte b : digest)
                 sb.append(String.format("%02x", b & 0xff));
 
-            try {
-                serverURL = new URL(serverURLString + "?pw=" + sb.toString());
-            } catch (MalformedURLException e) {
-                Log.e("Familink", "MalformedURLException on ServerComms>setQueryHash");
-            }
+
+            queryString = "?pw=" + sb.toString();
+
         } catch (NoSuchAlgorithmException e) {
             Log.e("Familink", "NoSuchAlgorithmException on ServerComms>setQueryHash");
         }
@@ -66,11 +67,7 @@ public class ServerComms {
     }
 
     public void resetQueryHash() {
-        try {
-            serverURL = new URL(serverURLString);
-        } catch (MalformedURLException e) {
-            Log.e("Familink", "MalformedURLException on ServerComms>setQueryHash");
-        }
+        queryString="";
     }
 
     public void refreshData(){
@@ -145,10 +142,10 @@ public class ServerComms {
 
 
     public void sendGET(String requestType) {
-        Log.d("Familink", "GETting from " + this.serverURL);
+        Log.d("Familink", "GETting from " + getURL());
         DataRetriever dr = new DataRetriever(this);
         dr.setRequestType(requestType);
-        dr.execute(this.serverURL);
+        dr.execute(getURL());
     }
 
     public void onGETReturn(String data,String requestType) {
@@ -163,10 +160,10 @@ public class ServerComms {
     }
 
     public void sendPOST(String s, String requestType) {
-        Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + s);
+        Log.d("FamiLink", "Sending POST to " + getURL() + " msg: " + s);
         DataSender ds = new DataSender(this, s, requestType);
         ds.setRequestType(requestType);
-        ds.execute(this.serverURL);
+        ds.execute(getURL());
     }
 
 
@@ -174,11 +171,11 @@ public class ServerComms {
         Log.d("Familink", "POST returned. \nRequest type:"+requestType+"\nData Returned: " + data);
         if (requestType.equals("Add Family")) {
             try {
-                fd.setFamilyID(Integer.parseInt(data));
+                fd.setFamilyID(Integer.parseInt(data.trim()));
             }catch(NumberFormatException e){
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.e("Familink", "NumberFormatException occurred.");
+                Log.e("Familink", "NumberFormatException occurred."+errors.toString());
             }
         }
     }

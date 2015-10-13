@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
 
+import java.util.Random;
+
 //프로그램 시작 시 보여지는 Activity..
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider {
@@ -151,6 +153,18 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.debug_logout) {
             serverConnector.resetQueryHash();
+        }
+        if (id == R.id.debug_add_family) {
+            char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+            StringBuilder sb = new StringBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 20; i++) {
+                char c = chars[random.nextInt(chars.length)];
+                sb.append(c);
+            }
+            String output = sb.toString();
+            System.out.println(output);
+            serverConnector.addFamily(output);
         }
 
 
