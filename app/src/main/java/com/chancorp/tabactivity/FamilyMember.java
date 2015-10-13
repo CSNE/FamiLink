@@ -11,7 +11,8 @@ import java.io.Serializable;
 public class FamilyMember implements Serializable{
     String name, phoneNumber;
 
-    int[] avatarIdToDrawable={R.drawable.icon_father,
+    int[] avatarIdToDrawable={R.drawable.ic_refresh_black_48dp,
+                              R.drawable.icon_father,
                               R.drawable.icon_mother,
                               R.drawable.icon_sister,
                               R.drawable.icon_son,
@@ -25,7 +26,7 @@ public class FamilyMember implements Serializable{
     int avatar;
 
     public FamilyMember() {
-        this("None", -1, false, -1, "None");
+        this("None", -1, false, 0, "None");
     }
 
     public FamilyMember(String name, int personID, boolean isInside, int avatar, String num) {
