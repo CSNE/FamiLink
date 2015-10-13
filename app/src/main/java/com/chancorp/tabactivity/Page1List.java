@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,10 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
         lv1.invalidate();
 
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
+        try {
+            ft.detach(this).attach(this).commit();
+        }catch(IllegalStateException e){
+            Log.e("Familink", "IllegalStateException on Page1List>redraw()");
+        }
     }
 }

@@ -42,10 +42,7 @@ public class ServerComms {
     }
 
 
-    public void updateStatus(RouterInformation ri) {
-        if (fd.matchRouter(ri)) this.gotInside();
-        else this.gotOutside();
-    }
+
 
     public void setQueryHash(String pass) {
         try {
@@ -75,29 +72,10 @@ public class ServerComms {
             Log.e("Familink", "MalformedURLException on ServerComms>setQueryHash");
         }
     }
-/*
-    public void logIn() {
-        String postReq = new String();
-        POSTEncoder pe = new POSTEncoder();
-        pe.addDataSet("username", "user");
-        pe.addDataSet("password", "qpwoeiruty");
-        postReq = pe.encode();
-        this.sendPOSTToLogin(postReq);
-    }
 
-    public void logOut() {
-        Log.d("Familink", "GETting from " + logoutURL);
-        DataRetriever dr = new DataRetriever(this);
-        dr.parseAfterwards(false);
-        dr.execute(logoutURL);
+    public void refreshData(){
+        sendGET("Parse Family Data");
     }
-
-    public void test() {
-        Log.d("Familink", "GETting from " + testURL);
-        DataRetriever dr = new DataRetriever(this);
-        dr.parseAfterwards(false);
-        dr.execute(testURL);
-    }*/
 
     public void addFamily(String name) {
         String postReq = new String();
@@ -105,7 +83,7 @@ public class ServerComms {
         pe.addDataSet("request type", "add family");
         pe.addDataSet("name", name);
         postReq = pe.encode();
-        this.sendPOST(postReq);
+        this.sendPOST(postReq,"Add Family");
     }
 
     public void deleteFamily() {
@@ -114,7 +92,7 @@ public class ServerComms {
         pe.addDataSet("request type", "delete family");
         pe.addDataSet("familyID", Integer.toString(fd.getID()));
         postReq = pe.encode();
-        this.sendPOST(postReq);
+        this.sendPOST(postReq,"Delete Family");
     }
 
     public void addMe(String name, String number) {
@@ -125,7 +103,12 @@ public class ServerComms {
         pe.addDataSet("name", name);
         pe.addDataSet("phoneNumber", number);
         postReq = pe.encode();
-        this.sendPOST(postReq);
+        this.sendPOST(postReq,"Add Myself");
+    }
+
+    public void updateStatus(RouterInformation ri) {
+        if (fd.matchRouter(ri)) this.gotInside();
+        else this.gotOutside();
     }
 
     public void gotInside() {
@@ -135,7 +118,7 @@ public class ServerComms {
         pe.addDataSet("personID", Integer.toString(fd.getID()));
         pe.addDataSet("isInside", "1");
         postReq = pe.encode();
-        this.sendPOST(postReq);
+        this.sendPOST(postReq, "Report Inside");
     }
 
     public void gotOutside() {
@@ -145,38 +128,57 @@ public class ServerComms {
         pe.addDataSet("personID", Integer.toString(fd.getID()));
         pe.addDataSet("isInside", "0");
         postReq = pe.encode();
-        this.sendPOST(postReq);
+        this.sendPOST(postReq, "Report Outside");
+    }
+
+    public void addToDo(ToDo td){
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "add task");
+        pe.addDataSet("personID", Integer.toString(fd.getID()));
+        pe.addDataSet("name", td.getTitle());
+        pe.addDataSet("text",td.getDescription());
+        pe.addDataSet("due", td.getStringDue());
+        postReq = pe.encode();
+        this.sendPOST(postReq, "Add ToDo");
     }
 
 
-    public void sendGET() {
+    public void sendGET(String requestType) {
         Log.d("Familink", "GETting from " + this.serverURL);
         DataRetriever dr = new DataRetriever(this);
+        dr.setRequestType(requestType);
         dr.execute(this.serverURL);
     }
 
-    public void onGETReturn(String data) {
-        fd.parseData(data);
-        for (RedrawableFragment r : this.rdf) {
-            r.redraw();
+    public void onGETReturn(String data,String requestType) {
+        if (requestType.equals("Parse Family Data")) {
+            fd.parseData(data);
+            for (RedrawableFragment r : this.rdf) {
+                r.redraw();
+            }
+        }
+        else if (requestType.equals("Add Family")){
+            fd.setFamilyID(Integer.parseInt(data));
         }
     }
 
-    public void sendPOST(String s) {
+    public void sendPOST(String s, String requestType) {
         Log.d("FamiLink", "Sending POST to " + this.serverURL + " msg: " + s);
-        DataSender ds = new DataSender(this, s);
+        DataSender ds = new DataSender(this, s, requestType);
+        ds.setRequestType(requestType);
         ds.execute(this.serverURL);
     }
 
 
-    public void onPOSTReturn(String data) {
+    public void onPOSTReturn(String data, String requestType) {
         Log.d("Familink", "POST Data Returned: " + data);
         //TODO something here.
     }
 
 
     private class DataRetriever extends AsyncTask<URL, Void, String> {
-        boolean parseAfter = true;
+        String requestType;
         ServerComms sc;
 
         public DataRetriever(ServerComms sc) {
@@ -184,8 +186,8 @@ public class ServerComms {
             this.sc = sc;
         }
 
-        public void parseAfterwards(boolean b) {
-            parseAfter = b;
+        public void setRequestType(String s){
+            this.requestType=s;
         }
 
         protected String doInBackground(URL... urls) {
@@ -217,7 +219,7 @@ public class ServerComms {
         protected void onPostExecute(String result) {
             Log.d("Familink", "DataRetruever result:" + result);
 
-            if (parseAfter) this.sc.onGETReturn(result);
+            this.sc.onGETReturn(result, requestType);
         }
 
 
@@ -228,11 +230,16 @@ public class ServerComms {
 
         ServerComms sc;
         String params;
+        String requestType;
 
-        public DataSender(ServerComms sc, String params) {
+        public DataSender(ServerComms sc, String params, String requestType) {
             this.params = params;
             this.sc = sc;
 
+        }
+
+        public void setRequestType(String s){
+            this.requestType=s;
         }
 
         @Override
@@ -290,42 +297,10 @@ public class ServerComms {
             }
         }
 
-/*
-            try {
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setDoOutput(true);
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type",
-                        "application/x-www-form-urlencoded");
-                urlConnection.setRequestProperty("Content-Length", "" +
-                        Integer.toString(this.params.getBytes().length));
-                urlConnection.setChunkedStreamingMode(0);
-
-                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                out.write(params.getBytes());
-                out.flush();
-                out.close();
-/*
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                StringBuilder sb = new StringBuilder();
-                String line;
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
-                }
-
-                urlConnection.disconnect();
-                return sb.toString();
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }*/
 
         @Override
         protected void onPostExecute(String res) {
-            this.sc.onPOSTReturn(res);
+            this.sc.onPOSTReturn(res,requestType);
         }
     }
 

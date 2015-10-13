@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         //ServerComms.setup("http://10.0.2.2:8301",this.fd,rdfs);
         ServerComms.setup("http://122.203.53.110:8071",this.fd,rdfs);
         serverConnector = new ServerComms();
+        serverConnector.setQueryHash("qpwoeiruty");
 
         startService(new Intent(this, Service_Lockscreen.class));
 
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.global_refresh) {
             Toast.makeText(this, "Refreshing", Toast.LENGTH_SHORT).show();
-            serverConnector.sendGET();
+            serverConnector.refreshData();
             return true;
         }
         if (id == R.id.debug_1) {

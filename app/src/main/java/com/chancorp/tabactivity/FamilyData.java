@@ -42,7 +42,12 @@ public class FamilyData implements Serializable{
         this.c=c;
     }
 
-
+    public void setFamilyID(int id){
+        this.familyID=id;
+    }
+    public void setMyID(int id){
+        this.myID=id;
+    }
 
     public void addMembers(FamilyMember fm){
         data.add(fm);
