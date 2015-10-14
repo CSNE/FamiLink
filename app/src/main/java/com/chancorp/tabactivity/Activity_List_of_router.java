@@ -98,7 +98,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                     String RouterTag = "Router"+String.valueOf(Resizedsz);
                     mRefEdit.putInt("RouterSz",Resizedsz+1);
                     mRefEdit.putString("Router"+String.valueOf(Resizedsz)+"_First",data.getStringExtra("new_address"));
-                    mRefEdit.putString("Router"+String.valueOf(Resizedsz)+"_Second",data.getStringExtra("neww_address_date"));
+                    mRefEdit.putString("Router"+String.valueOf(Resizedsz)+"_Second",data.getStringExtra("new_address_date"));
                     mRefEdit.commit();
                 } else {
                     Toast.makeText(this, "This Wi-fi already exists in a list!", Toast.LENGTH_LONG).show();
