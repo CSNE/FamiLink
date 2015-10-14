@@ -77,11 +77,12 @@ public class ServerComms {
         sendGET("Parse Family Data");
     }
 
-    public void addFamily(String name) {
+    public void addFamily(Credentials c) {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "add family");
-        pe.addDataSet("name", name);
+        pe.addDataSet("password hash", c.getPasswordHash());
+        pe.addDataSet("name", c.getID());
         postReq = pe.encode();
         this.sendPOST(postReq,"Add Family");
     }

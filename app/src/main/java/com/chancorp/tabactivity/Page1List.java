@@ -97,7 +97,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
                 public void onReturn(Credentials c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
-                    sc.addFamily(c.getID());
+                    sc.addFamily(c);
                 }
             });
             cg.init();

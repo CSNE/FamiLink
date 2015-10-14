@@ -20,6 +20,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider,ServerCommsProvider {
 
+    //TODO make bitmaps scaled so no anti-aliasing issues occur.
 
     FamilyData fd;
     ServerComms serverConnector;
@@ -151,18 +152,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             fd.saveToFile();
         }
 
-        if (id == R.id.debug_add_family) {
-            char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-            StringBuilder sb = new StringBuilder();
-            Random random = new Random();
-            for (int i = 0; i < 20; i++) {
-                char c = chars[random.nextInt(chars.length)];
-                sb.append(c);
-            }
-            String output = sb.toString();
-            System.out.println(output);
-            serverConnector.addFamily(output);
-        }
+
 
 
         return super.onOptionsItemSelected(item);
