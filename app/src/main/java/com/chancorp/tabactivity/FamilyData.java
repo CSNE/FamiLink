@@ -21,7 +21,7 @@ public class FamilyData implements Serializable{
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
-    int familyID=1, myID=1;
+    int familyID=-1, myID=-1;
     transient Context c;
 
     public void copyData(FamilyData fd){
@@ -40,6 +40,11 @@ public class FamilyData implements Serializable{
         todos=new ArrayList<ToDo>();
         routers=new ArrayList<RouterInformation>();
         this.c=c;
+    }
+
+    public boolean isRegistered(){
+        if (familyID==-1 || myID==-1) return false;
+        else return true;
     }
 
     public void setFamilyID(int id){

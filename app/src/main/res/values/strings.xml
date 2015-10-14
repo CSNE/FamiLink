@@ -14,4 +14,7 @@
 
     <string name="Wifi_change1">android.net.wifi.WIFI_STATE_CHANGED</string>
     <string name="Wifi_change2">android.net.wifi.STATE_CHANGE</string>
+
+
+    <string name="not_yet_registered_message">You are not connected to a family.</string>
 </resources>

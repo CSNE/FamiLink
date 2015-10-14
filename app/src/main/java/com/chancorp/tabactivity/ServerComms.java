@@ -175,7 +175,7 @@ public class ServerComms {
             }catch(NumberFormatException e){
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.e("Familink", "NumberFormatException occurred."+errors.toString());
+                Log.e("Familink", "NumberFormatException occurred.");
             }
         }
     }

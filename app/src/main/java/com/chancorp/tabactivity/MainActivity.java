@@ -17,7 +17,7 @@ import java.util.Random;
 
 //프로그램 시작 시 보여지는 Activity..
 
-public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider {
+public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider,ServerCommsProvider {
 
 
     FamilyData fd;
@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         fd=new FamilyData(getApplicationContext());
 
-        fd.addMembers(new FamilyMember("Father", 0, true, 0, "010-4944-7734"));
-        fd.addMembers(new FamilyMember("Mother", 1, false, 2, "0"));
-        fd.addMembers(new FamilyMember("Sister", 2, true, 1, "0"));
-        fd.addToDo(new ToDo(1, "Test TODO", "test.", 1443769403L, 1));
+        //fd.addMembers(new FamilyMember("Father", 0, true, 0, "010-4944-7734"));
+        //fd.addMembers(new FamilyMember("Mother", 1, false, 2, "0"));
+        //fd.addMembers(new FamilyMember("Sister", 2, true, 1, "0"));
+        //fd.addToDo(new ToDo(1, "Test TODO", "test.", 1443769403L, 1));
 
 
         //fd.loadFromFile();
@@ -174,6 +174,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public FamilyData provideData() {
         return this.fd;
+    }
+    public ServerComms provideServerComms(){
+        return this.serverConnector;
     }
 
 

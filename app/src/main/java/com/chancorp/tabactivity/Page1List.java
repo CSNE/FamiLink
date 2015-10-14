@@ -1,15 +1,21 @@
 package com.chancorp.tabactivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,10 +26,12 @@ import java.io.StringWriter;
 //첫번째 탭 fragment. 가족 리스트.
 public class Page1List extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, RedrawableFragment{
 
-    TextView tv1;
+    Button addFamilyBtn,addUserBtn;
+    LinearLayout notRegisteredMenu;
     ListView lv1;
 
     FamilyData fd;
+    ServerComms sc;
 
     FamilyMemberAdapter adapter;
 
@@ -35,7 +43,13 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
             this.fd=((FamilyDataProvider) a).provideData();
 
         }catch(ClassCastException e){
-            throw new ClassCastException("Can't cast.");
+            Log.e("Familink","Can't cast activity to FamilyDataProvider");
+        }
+        try{
+            this.sc=((ServerCommsProvider) a).provideServerComms();
+
+        }catch(ClassCastException e){
+            Log.e("Familink","Can't cast activity to ServerCommsProvider");
         }
     }
     
@@ -47,18 +61,20 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
 
         View rootView = inflater.inflate(R.layout.page_1_list, container, false);
 
-        tv1=(TextView)rootView.findViewById(R.id.page1_TopMsg);
-        tv1.setText("Family Member List");
+        addFamilyBtn=(Button) rootView.findViewById(R.id.page1_btn_add_family);
+        addUserBtn=(Button) rootView.findViewById(R.id.page1_btn_add_user);
 
 
-
-
+        notRegisteredMenu=(LinearLayout) rootView.findViewById(R.id.page1_not_registered_menu);
         adapter = new FamilyMemberAdapter(getContext(), R.layout.single_family_member_list_element, fd.getMembersInArray(),(AppCompatActivity)getActivity());
 
+        if (fd.isRegistered()) notRegisteredMenu.setVisibility(LinearLayout.GONE);
 
         lv1 = (ListView) rootView.findViewById(R.id.page1_FamilyList);
         lv1.setAdapter(adapter);
         lv1.setOnItemClickListener(this);
+        addFamilyBtn.setOnClickListener(this);
+        addUserBtn.setOnClickListener(this);
 
         return rootView;
     }
@@ -70,12 +86,24 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getContext(), "Clicked! btn", Toast.LENGTH_SHORT).show();
+        Log.d("Familink", "Clicked"+view.getId());
+        if (view.getId()==R.id.page1_btn_add_user){
+
+        }else if (view.getId()==R.id.page1_btn_add_family){
+            CredentialsGetter cg=new CredentialsGetter(getContext());
+            cg.setOnReturnListener(new CredReturnListener() {
+                public void onReturn(Credentials c) {
+                    Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
+                }
+            });
+            cg.init();
+        }
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getContext(), "Clicked."+i, Toast.LENGTH_SHORT).show();
+        Log.d("Familink","Clicked item "+i);
     }
 
     @Override
