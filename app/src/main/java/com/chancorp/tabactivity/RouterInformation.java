@@ -7,10 +7,13 @@ public class RouterInformation implements Serializable{
 
     static final long serialVersionUID = 1L;
 
-
     public String name;
     public String macAddr;
 
+    public RouterInformation() {
+        this.name="";
+        this.macAddr="";
+    }
     public RouterInformation(String name, String mac){
         this.name=name;
         this.macAddr=mac;
