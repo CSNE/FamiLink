@@ -94,7 +94,8 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
             cg.setOnReturnListener(new CredReturnListener() {
                 public void onReturn(Credentials c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
-                    //TODO server communication here.
+                    fd.setCredentials(c);
+                    sc.addFamily(c.getID());
                 }
             });
             cg.init();

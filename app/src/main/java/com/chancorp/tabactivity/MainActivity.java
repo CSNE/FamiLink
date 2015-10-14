@@ -56,32 +56,32 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         ActionBar.Tab todoPageTab = actionbar.newTab().setText("To Do");
         ActionBar.Tab notePageTab = actionbar.newTab().setText("Notes");
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
-        ActionBar.Tab settingsPageTab = actionbar.newTab().setText("Settings");
+
 
         Fragment listPage = (Fragment) new Page1List();
         Fragment todoPage = (Fragment) new Page2ToDo();
         Fragment notePage = (Fragment) new Page3Note();
         Fragment chatPage = (Fragment) new Page4Chat();
-        Fragment settingsPage = (Fragment) new Page5Settings();
+
 
         listPageTab.setTabListener(new MyTabsListener(listPage, this));
         todoPageTab.setTabListener(new MyTabsListener(todoPage,this));
         notePageTab.setTabListener(new MyTabsListener(notePage,this));
         chatPageTab.setTabListener(new MyTabsListener(chatPage,this));
-        settingsPageTab.setTabListener(new MyTabsListener(settingsPage, this));
+
 
         actionbar.addTab(listPageTab);
         actionbar.addTab(todoPageTab);
         actionbar.addTab(notePageTab);
         actionbar.addTab(chatPageTab);
-        actionbar.addTab(settingsPageTab);
 
-        rdfs=new RedrawableFragment[5];
+
+        rdfs=new RedrawableFragment[4];
         rdfs[0]=(RedrawableFragment)listPage;
         rdfs[1]=(RedrawableFragment)todoPage;
         rdfs[2]=(RedrawableFragment)notePage;
         rdfs[3]=(RedrawableFragment)chatPage;
-        rdfs[4]=(RedrawableFragment)settingsPage;
+
 
 
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         //ServerComms.setup("http://10.0.2.2:8301",this.fd,rdfs);
         ServerComms.setup("http://122.203.53.110:8071",this.fd,rdfs);
         serverConnector = new ServerComms();
-        serverConnector.setQueryHash("qpwoeiruty");
+
 
         //startService(new Intent(this, Service_Lockscreen.class));
 
@@ -150,12 +150,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         if (id == R.id.debug_write) {
             fd.saveToFile();
         }
-        if (id == R.id.debug_login) {
-            serverConnector.setQueryHash("qpwoeiruty");
-        }
-        if (id == R.id.debug_logout) {
-            serverConnector.resetQueryHash();
-        }
+
         if (id == R.id.debug_add_family) {
             char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
             StringBuilder sb = new StringBuilder();

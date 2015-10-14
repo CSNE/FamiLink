@@ -33,8 +33,11 @@ public class ServerComms {
 
     private URL getURL(){
         try {
-            return new URL(serverBaseURL + "/" + Integer.toString(fd.getID()) + queryString);
-
+            if (!fd.isRegistered()) {
+                return new URL(serverBaseURL+"/-1");
+            }else{
+                return new URL(serverBaseURL + "/" + Integer.toString(fd.getID()) + "?pw=" + fd.getCredentials().getPasswordHash());
+            }
         }catch(MalformedURLException e){
             Log.e("Familink","MalformedURLException");
             return null;
@@ -46,7 +49,7 @@ public class ServerComms {
 
 
 
-
+/*
     public void setQueryHash(String pass) {
         try {
             MessageDigest sha = MessageDigest.getInstance("SHA-256");
@@ -68,7 +71,7 @@ public class ServerComms {
 
     public void resetQueryHash() {
         queryString="";
-    }
+    }*/
 
     public void refreshData(){
         sendGET("Parse Family Data");
@@ -149,6 +152,7 @@ public class ServerComms {
     }
 
     public void onGETReturn(String data,String requestType) {
+        if (data==null) data=new String();
         Log.d("Familink", "GET returned. \nRequest type:"+requestType+"\nData Returned: " + data);
         if (requestType.equals("Parse Family Data")) {
             fd.parseData(data);
@@ -168,6 +172,7 @@ public class ServerComms {
 
 
     public void onPOSTReturn(String data, String requestType) {
+        if (data==null) data=new String();
         Log.d("Familink", "POST returned. \nRequest type:"+requestType+"\nData Returned: " + data);
         if (requestType.equals("Add Family")) {
             try {

@@ -22,6 +22,7 @@ public class FamilyData implements Serializable{
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
     int familyID=-1, myID=-1;
+    Credentials cred;
     transient Context c;
 
     public void copyData(FamilyData fd){
@@ -30,7 +31,7 @@ public class FamilyData implements Serializable{
         this.todos=fd.todos;
         this.familyID=fd.familyID;
         this.myID=fd.myID;
-
+        this.cred=fd.cred;
     }
 
     //Some other data should go here.
@@ -45,6 +46,13 @@ public class FamilyData implements Serializable{
     public boolean isRegistered(){
         if (familyID==-1 || myID==-1) return false;
         else return true;
+    }
+
+    public void setCredentials(Credentials c){
+        this.cred=c;
+    }
+    public Credentials getCredentials(){
+        return this.cred;
     }
 
     public void setFamilyID(int id){
