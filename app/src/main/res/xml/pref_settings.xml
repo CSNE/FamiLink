@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="설정">
+    <PreferenceCategory
+        android:title="설정"
+        android:summary="앱 설정을 변경할 수 있습니다.">
         <SwitchPreference
             android:defaultValue="false"
             android:key="ServiceRunning"
@@ -14,7 +16,7 @@
                 android:defaultValue="false"
                 android:key="AlarmRunning"
                 android:title="서비스 주기 설정"
-                android:summary="Here, set Alam."
+                android:summary="Here, set Alarm."
             />
         <Preference
             android:key="ListofRouter"
@@ -23,11 +25,22 @@
         </Preference>
     </PreferenceCategory>
 
-    <PreferenceCategory>
+    <PreferenceCategory android:title="개발 정보">
         <Preference
-
+            android:title="버전"
+            android:key="AppVersion"
+            android:summary="ver1.0"
             />
-
+        <Preference
+            android:title="개발자 정보"
+            android:key="DeveloperInformation"
+            android:summary="김지성, 양찬솔, 유재민. 경기과학고등학교."
+            />
+        <Preference
+            android:title="특별출연"
+            android:key="SpecialCredit"
+            android:summary="주니어소프트창작대회, JiYoung Youn, JongHye Kim"
+            />
     </PreferenceCategory>
 
 </PreferenceScreen>
