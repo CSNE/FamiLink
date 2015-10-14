@@ -36,6 +36,7 @@
         <activity android:name="com.chancorp.tabactivity.Activity_List_of_router"/>
         <activity android:name="com.chancorp.tabactivity.Activity_Lockscreen" />
         <service android:name="com.chancorp.tabactivity.Service_Lockscreen"/>
+        <activity android:name ="com.chancorp.tabactivity.Activity_Page5Settings"/>
         <receiver android:name="com.chancorp.tabactivity.Receiver_Lockscreen">
             <intent-filter>
                 <action android:name = "action"/>

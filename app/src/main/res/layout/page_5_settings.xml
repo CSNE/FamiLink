@@ -3,18 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="실시간 정보 전송"
-        android:id="@+id/textView5" />
+        android:orientation="horizontal">
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/slidingtoggleswitch"
-        android:textOn="Working"
-        android:textOff="Not Working"
-        android:checked="true" />
+    </LinearLayout>
 
 </LinearLayout>
