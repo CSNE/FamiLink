@@ -91,11 +91,24 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
 
         }else if (view.getId()==R.id.page1_btn_add_family){
             CredentialsGetter cg=new CredentialsGetter(getContext());
+            cg.setTitle("Make new family");
+            cg.setHint("New Family Name","Password");
             cg.setOnReturnListener(new CredReturnListener() {
                 public void onReturn(Credentials c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     sc.addFamily(c.getID());
+                }
+            });
+            cg.init();
+        }else if (view.getId()==R.id.page1_btn_add_user){
+            CredentialsGetter cg=new CredentialsGetter(getContext());
+            cg.setTitle("Existing family name");
+            cg.setHint("Family Name","Password");
+            cg.setOnReturnListener(new CredReturnListener() {
+                public void onReturn(Credentials c) {
+                    Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
+                    fd.setCredentials(c);
                 }
             });
             cg.init();

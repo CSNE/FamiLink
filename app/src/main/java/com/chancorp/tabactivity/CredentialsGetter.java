@@ -22,6 +22,15 @@ public class CredentialsGetter {
     EditText usernameInput,passwordInput;
     CredReturnListener cr;
     Context c;
+    String title,idHint,pwHint;
+
+    public void setTitle(String title){
+        this.title=title;
+    }
+    public void setHint(String idHint, String pwHint){
+        this.pwHint=pwHint;
+        this.idHint=idHint;
+    }
 
     public CredentialsGetter(Context c){
         this.c=c;
