@@ -77,6 +77,15 @@ public class ServerComms {
         sendGET("Parse Family Data");
     }
 
+    public void getID(String familyName){
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "get ID");
+        pe.addDataSet("name", familyName);
+        postReq = pe.encode();
+        this.sendPOST(postReq,"get ID");
+    }
+
     public void addFamily(Credentials c) {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
@@ -175,7 +184,7 @@ public class ServerComms {
     public void onPOSTReturn(String data, String requestType) {
         if (data==null) data=new String();
         Log.d("Familink", "POST returned. \nRequest type:"+requestType+"\nData Returned: " + data);
-        if (requestType.equals("Add Family")) {
+        if (requestType.equals("Add Family")||requestType.equals("get ID")) {
             try {
                 fd.setFamilyID(Integer.parseInt(data.trim()));
             }catch(NumberFormatException e){
