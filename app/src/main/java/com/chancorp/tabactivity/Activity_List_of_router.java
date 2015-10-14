@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +22,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 public class Activity_List_of_router extends Activity implements View.OnClickListener {
     Button btn;
     ListView listview;
     ArrayList<String> arraylist;
     CustomAdapter01 adapter = null;
-    final int REQUEST_CODE = 100131;
+    final int REQUEST_CODE = 100131, MaxRouterSize = 10;
+    SharedPreferences mRef;
+    SharedPreferences.Editor mRefEdit;
+
+    /*
+    when getting Router Size from SharedPreferences : mRef.getInt("RouterSz",0);
+    RouterTag = "Router"+String.ValueOf(i);
+    when getting Router name from SharedPreferences : mRef.getString(RouterTag+"_First");
+    when getting Router macAddr from SharedPreferences : mRef.getString("RouterTag"+"_Second");
+     */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +47,28 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         setContentView(R.layout.listofrouter);
 
         listview = (ListView) findViewById(R.id.listofrouterlist);
-        arraylist = new ArrayList<String>();
+        FillArrayListAsPreferences();
         adapter = new CustomAdapter01(this, R.layout.customadapter01design, arraylist);
         listview.setAdapter(adapter);
         btn = (Button) findViewById(R.id.addrouterbtn);
         btn.setOnClickListener(this);
+    }
+
+    private void FillArrayListAsPreferences() {
+        mRef = getSharedPreferences("RouterList",0);
+        mRefEdit = mRef.edit();
+        arraylist = new ArrayList<String>();
+        int RouterSz = mRef.getInt("RouterSz",0);
+        String RouterTag = new String();
+        RouterInformation RouterList[] = new RouterInformation[10];
+        for(int i=0;i<RouterSz;i++) {
+            RouterTag = "Router"+String.valueOf(i);
+            RouterList[i] = new RouterInformation();
+            RouterList[i].name = mRef.getString(RouterTag+"_First","");
+            RouterList[i].macAddr = mRef.getString(RouterTag+"_Second","");
+            arraylist.add(RouterList[i].name+"   ("+RouterList[i].macAddr+")");
+        }
+        return;
     }
 
     @Override
@@ -64,6 +94,12 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                 if(!exists) {
                     arraylist.add(newstring);
                     adapter.notifyDataSetChanged();
+                    int Resizedsz = mRef.getInt("RouterSz",0);
+                    String RouterTag = "Router"+String.valueOf(Resizedsz);
+                    mRefEdit.putInt("RouterSz",Resizedsz+1);
+                    mRefEdit.putString("Router"+String.valueOf(Resizedsz)+"_First",data.getStringExtra("new_address"));
+                    mRefEdit.putString("Router"+String.valueOf(Resizedsz)+"_Second",data.getStringExtra("neww_address_date"));
+                    mRefEdit.commit();
                 } else {
                     Toast.makeText(this, "This Wi-fi already exists in a list!", Toast.LENGTH_LONG).show();
                 }
@@ -73,7 +109,14 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
 
     public void datastechanged(int position) {
         arraylist.remove(position);
+        String RouterTag = "Router"+String.valueOf(position);
+        mRefEdit.remove(RouterTag+"_First");
+        mRefEdit.remove(RouterTag+"_Second");
+        int Resizedsz = mRef.getInt("RouterSz",0);
+        mRefEdit.putInt("RouterSz",Resizedsz-1);
+        mRefEdit.commit();
         adapter.notifyDataSetChanged();
+        return;
     }
 
 
@@ -162,7 +205,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                     builder.setTitle("Caution");
                     Log.d("Activity_List_of_router", String.valueOf(position_));
                             builder.setMessage("Erase wi-fi " + arraylist.get(position_) + "?")
-                            .setCancelable(true)
+                            .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     datastechanged(position_);
