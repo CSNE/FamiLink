@@ -11,10 +11,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.util.Log;
-import android.widget.Switch;
-
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
 
 /**
  * Created by Baranium on 2015. 10. 14..
@@ -32,7 +28,6 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
         onPreferenceChangeListener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                String stringvalue = newValue.toString();
                 if(preference instanceof SwitchPreference) {
                     BuildAlertDialog(preference);
                 }
@@ -58,7 +53,7 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
     }
 
     private void BuildAlertDialog(Preference preference) {
-        if(mPref.getBoolean("ServiceRunning",true) == false) {
+        if(mPref.getBoolean(preference.getKey(),true) == false) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Caution");
             builder.setMessage("Service is Going to Start. By pressing the switch again, you can turn off switch.")
@@ -83,6 +78,14 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
     }
     private void setOnPreferenceChange(Preference mPreference) {
         mPreference.setOnPreferenceChangeListener(onPreferenceChangeListener);
+        Log.d("pref", mPreference.getKey().toString());
+        if(mPreference.getKey().toString().equals("ServiceRunning")) {
+            if(mPref.getBoolean("ServiceRunning",false) == false) {
+                mPreference.setSummary("사용 안함");
+            } else {
+                mPreference.setSummary("사용 중");
+            }
+        }
     }
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {

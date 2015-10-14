@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="working">
+    <PreferenceCategory android:title="설정">
         <SwitchPreference
             android:defaultValue="false"
             android:key="ServiceRunning"
             android:textOn="Running"
             android:textOff="Off"
-            android:title="Real-Time Service"
+            android:title="실시간 위치제공 서비스"
             android:summary="Here, on - off service."
-            android:id="@+id/servicepref"
             />
-
         <Preference
-
+                android:defaultValue="false"
+                android:key="AlarmRunning"
+                android:title="서비스 주기 설정"
+                android:summary="Here, set Alam."
             />
-
         <Preference
             android:key="ListofRouter"
             android:summary="가정의 라우터를 추가하거나 삭제할 수 있습니다."
             android:title="공유기 관리">
         </Preference>
+    </PreferenceCategory>
 
+    <PreferenceCategory>
+        <Preference
+
+            />
 
     </PreferenceCategory>
 
