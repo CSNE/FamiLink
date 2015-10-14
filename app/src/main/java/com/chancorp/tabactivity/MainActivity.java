@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, Activity_Page5Settings.class));
             return true;
         }
         if (id == R.id.global_refresh) {
