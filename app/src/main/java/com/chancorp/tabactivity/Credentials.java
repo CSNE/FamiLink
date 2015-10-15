@@ -10,8 +10,25 @@ import java.security.NoSuchAlgorithmException;
 
 public class Credentials implements Serializable{
 
-    String password, iD;
 
+
+    String password, iD, name, phone;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
     public String getID() {
         return iD;
     }

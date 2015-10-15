@@ -34,6 +34,10 @@ public class FamilyData implements Serializable{
         this.cred=fd.cred;
     }
 
+    public void reset(){
+        copyData(new FamilyData(null));
+    }
+
     //Some other data should go here.
 
     public FamilyData(Context c){
@@ -183,7 +187,10 @@ public class FamilyData implements Serializable{
         return arr;
     }
 
-    public int getID(){
+    public int getMyID(){
+        return this.myID;
+    }
+    public int getFamilyID(){
         return this.familyID;
     }
 

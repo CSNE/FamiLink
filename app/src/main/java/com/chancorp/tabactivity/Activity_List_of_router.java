@@ -77,9 +77,10 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                 //TODO detect duplicate routers.
                 if(!fd.matchRouter(newRouter)) {
                     fd.getRouters().add(newRouter);
+                    Log.d("Familink", "Router added.");
                     fd.saveToFile();
                     adapter.notifyDataSetChanged();
-                    Log.d("Familink", "Router added.");
+
                 } else {
                     Log.d("Familink", "Router duplicate.");
                     Toast.makeText(this, "This Wi-fi already exists in a list!", Toast.LENGTH_LONG).show();

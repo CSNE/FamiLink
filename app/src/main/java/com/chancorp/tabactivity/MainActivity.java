@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public void onStart(){
         super.onStart();
-        Log.d("Familink","MainActivity started.");
-        //fd.loadFromFile();
+        Log.d("Familink", "MainActivity started.");
+        fd.loadFromFile();
     }
 
     @Override
@@ -175,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.debug_write) {
             fd.saveToFile();
+        }
+        if (id == R.id.debug_del_save) {
+            fd.reset();
         }
 
 

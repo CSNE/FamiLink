@@ -90,19 +90,19 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
     public void onClick(View view) {
         Log.d("Familink", "Clicked"+view.getId());
         if (view.getId()==R.id.page1_btn_add_user){
-            CredentialsGetter cg=new CredentialsGetter(getContext());
+            CredentialsGetter cg=new CredentialsGetter(getContext(),CredentialsGetter.NAME_AND_PHONE);
             cg.setTitle("Existing family name");
             cg.setHint("Family Name","Password");
             cg.setOnReturnListener(new CredReturnListener() {
                 public void onReturn(Credentials c) {
+                    final Credentials cf=c;
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     sc.getID(c.getID());
                     sc.setDataReturnListener(new DataReturnListener() {
                         @Override
                         public void onReturn(String data) {
-                            //TODO Actual user input.
-                            sc.addMe("asdf4362", "010-0000-1237");
+                            sc.addMe(cf.getName(), cf.getPhone());
                             sc.clearDataReturnListener();
                         }
                     });
@@ -112,7 +112,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
             });
             cg.init();
         }else if (view.getId()==R.id.page1_btn_add_family){
-            CredentialsGetter cg=new CredentialsGetter(getContext());
+            CredentialsGetter cg=new CredentialsGetter(getContext(),CredentialsGetter.BASIC);
             cg.setTitle("Make new family");
             cg.setHint("New Family Name","Password");
             cg.setOnReturnListener(new CredReturnListener() {

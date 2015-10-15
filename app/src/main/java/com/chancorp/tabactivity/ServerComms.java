@@ -37,7 +37,7 @@ public class ServerComms {
             if (!fd.isRegistered()) {
                 return new URL(serverBaseURL+"/-1");
             }else{
-                return new URL(serverBaseURL + "/" + Integer.toString(fd.getID()) + "?pw=" + fd.getCredentials().getPasswordHash());
+                return new URL(serverBaseURL + "/" + Integer.toString(fd.getFamilyID()) + "?pw=" + fd.getCredentials().getPasswordHash());
             }
         }catch(MalformedURLException e){
             Log.e("Familink","MalformedURLException");
@@ -108,7 +108,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "delete family");
-        pe.addDataSet("familyID", Integer.toString(fd.getID()));
+        pe.addDataSet("familyID", Integer.toString(fd.getFamilyID()));
         postReq = pe.encode();
         this.sendPOST(postReq,"Delete Family");
     }
@@ -117,7 +117,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "add person");
-        pe.addDataSet("familyID", Integer.toString(fd.getID()));
+        pe.addDataSet("familyID", Integer.toString(fd.getFamilyID()));
         pe.addDataSet("name", name);
         pe.addDataSet("phoneNumber", number);
         postReq = pe.encode();
@@ -133,7 +133,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "chk inside");
-        pe.addDataSet("personID", Integer.toString(fd.getID()));
+        pe.addDataSet("personID", Integer.toString(fd.getMyID()));
         pe.addDataSet("isInside", "1");
         postReq = pe.encode();
         this.sendPOST(postReq, "Report Inside");
@@ -143,7 +143,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "chk inside");
-        pe.addDataSet("personID", Integer.toString(fd.getID()));
+        pe.addDataSet("personID", Integer.toString(fd.getMyID()));
         pe.addDataSet("isInside", "0");
         postReq = pe.encode();
         this.sendPOST(postReq, "Report Outside");
@@ -153,7 +153,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "add task");
-        pe.addDataSet("personID", Integer.toString(fd.getID()));
+        pe.addDataSet("personID", Integer.toString(fd.getMyID()));
         pe.addDataSet("name", td.getTitle());
         pe.addDataSet("text",td.getDescription());
         pe.addDataSet("due", td.getStringDue());
@@ -202,7 +202,15 @@ public class ServerComms {
             }catch(NumberFormatException e){
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.e("Familink", "NumberFormatException occurred.");
+                Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>get ID");
+            }
+        }else if (requestType.equals("Add Myself")) {
+            try {
+                fd.setMyID(Integer.parseInt(data.trim()));
+            }catch(NumberFormatException e){
+                StringWriter errors = new StringWriter();
+                e.printStackTrace(new PrintWriter(errors));
+                Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>AddMyself");
             }
         }
         if (drl!=null){

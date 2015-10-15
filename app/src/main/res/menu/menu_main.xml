@@ -28,6 +28,9 @@
     <item
         android:id="@+id/debug_add_family"
         android:title="Add Family"/>
+    <item
+        android:id="@+id/debug_del_save"
+        android:title="Delete Save"/>
 
     <item android:id="@+id/global_refresh"
         android:icon="@drawable/ic_refresh_black_48dp_inv"
