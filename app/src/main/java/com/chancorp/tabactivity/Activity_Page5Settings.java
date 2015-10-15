@@ -1,6 +1,5 @@
 package com.chancorp.tabactivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
-import android.util.Log;
 
 /**
  * Created by Baranium on 2015. 10. 14..
@@ -79,10 +77,10 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
                     });
             AlertDialog dialog_ = builder.create();
             dialog_.show();
-            startService(new Intent(this, Service_Lockscreen.class));
+            startService(new Intent(this, Service_WifiStateChange.class));
             preference.setSummary("사용 중");
         } else {
-            stopService(new Intent(this, Service_Lockscreen.class));
+            stopService(new Intent(this, Service_WifiStateChange.class));
             preference.setSummary("사용하지 않음");
         }
     }

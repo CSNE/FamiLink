@@ -37,9 +37,9 @@
         <activity android:name=".Activity_add_router" />
         <activity android:name="com.chancorp.tabactivity.Activity_List_of_router"/>
         <activity android:name="com.chancorp.tabactivity.Activity_Lockscreen" />
-        <service android:name="com.chancorp.tabactivity.Service_Lockscreen"/>
+        <service android:name=".Service_WifiStateChange"/>
         <activity android:name ="com.chancorp.tabactivity.Activity_Page5Settings"/>
-        <receiver android:name="com.chancorp.tabactivity.Receiver_Lockscreen">
+        <receiver android:name=".Receiver_WifiStateChange">
             <intent-filter>
                 <action android:name = "action"/>
             </intent-filter>

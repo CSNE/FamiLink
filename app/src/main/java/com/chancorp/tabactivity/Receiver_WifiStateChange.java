@@ -8,7 +8,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-public class Receiver_Lockscreen extends BroadcastReceiver  {
+public class Receiver_WifiStateChange extends BroadcastReceiver  {
 
     static boolean AlreadyRunning = false;
 

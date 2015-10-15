@@ -2,24 +2,21 @@ package com.chancorp.tabactivity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-public class Service_Lockscreen extends Service {
+public class Service_WifiStateChange extends Service {
     String WIFI1 = new String();
     String WIFI2 = new String();
     NotificationManager ntm = null;
     Notification ntf;
 
-    private Receiver_Lockscreen mreceiver = null;
+    private Receiver_WifiStateChange mreceiver = null;
     // here, we right all final Intent receivers and add intent.
     IntentFilter intent_filter;
     //
@@ -44,7 +41,7 @@ public class Service_Lockscreen extends Service {
         if(intent != null) {
             if(intent.getAction() == null) {
                 if(mreceiver == null) {
-                    mreceiver = new Receiver_Lockscreen();
+                    mreceiver = new Receiver_WifiStateChange();
                     intent_filter = new IntentFilter();
                     intent_filter.addAction(WIFI1);
                     intent_filter.addAction(WIFI2);
@@ -70,7 +67,7 @@ public class Service_Lockscreen extends Service {
         super.onCreate();
         WIFI1 = getString(R.string.Wifi_change1);
         WIFI2 = getString(R.string.Wifi_change2);
-        mreceiver = new Receiver_Lockscreen();
+        mreceiver = new Receiver_WifiStateChange();
         intent_filter = new IntentFilter();
         intent_filter.addAction(WIFI1);
         intent_filter.addAction(WIFI2);

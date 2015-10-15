@@ -91,7 +91,7 @@ public class Activity_Lockscreen extends AppCompatActivity implements Runnable {
     }
 
     public void dislockonClick(View v) {
-        Receiver_Lockscreen.AlreadyRunning = false;
+        Receiver_WifiStateChange.AlreadyRunning = false;
         if(timertask != null) {
             timer.cancel();
             AlreadyTimer = false;
