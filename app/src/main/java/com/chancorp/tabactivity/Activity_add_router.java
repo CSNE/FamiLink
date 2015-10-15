@@ -30,7 +30,6 @@ public class Activity_add_router extends Activity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrouter);
-        ((TextView) findViewById(R.id.addrouter_readme)).setText("Press Confirm when you are connected to home router!");
         textview = (TextView) findViewById(R.id.addroutertext);
         btn = (Button) findViewById(R.id.addrouterconfirmbtn);
         btn.setOnClickListener(this);
@@ -87,7 +86,7 @@ public class Activity_add_router extends Activity implements View.OnClickListene
             }
         };
         timer = new Timer();
-        timer.schedule(timertask, 1000, 1500);
+        timer.schedule(timertask, 1000, 1000);
     }
 
     @Override
