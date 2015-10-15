@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 
 //서버 통신 클래스
 public class ServerComms {
-
+    private static final int MAX_RETRIES=10;
     static String serverBaseURL,queryString;
     static FamilyData fd;
     static RedrawableFragment[] rdf;
@@ -125,7 +125,7 @@ public class ServerComms {
     }
 
     public void updateStatus(RouterInformation ri, boolean extraCheck) {
-        Log.d("Familink","Update Status Called");
+        Log.d("Familink", "Update Status Called");
         if (fd.matchRouter(ri)){
             Log.d("Familink","router matched. inside.");
             this.gotInside();
@@ -180,6 +180,10 @@ public class ServerComms {
         if (data==null){
             Log.d("Familink","Null returned to GET request. Retrying.");
             //TODO wait one second here.
+            if (tries>MAX_RETRIES){
+                Log.e("Familink","GET failed after 10 tries.");
+                return;
+            }
             DataRetriever dr = new DataRetriever(this,tries+1);
             dr.setRequestType(requestType);
             dr.execute(getURL());
@@ -210,6 +214,11 @@ public class ServerComms {
         if (data==null){
             Log.d("Familink","Null returned to POST request. Retrying.");
             //TODO wait one second here.
+            if (tries>MAX_RETRIES){
+
+                Log.e("Familink","POST failed after 10 tries.");
+                return;
+            }
             DataSender ds = new DataSender(this, origParams, requestType,tries+1);
             ds.setRequestType(requestType);
             ds.execute(getURL());
