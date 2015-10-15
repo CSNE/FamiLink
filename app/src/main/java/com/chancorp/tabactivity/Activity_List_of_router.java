@@ -167,6 +167,7 @@ this.fd=fd;
             img2 = (ImageView) convertview.findViewById(R.id.customadapter01img02);
             text1.setText(fd.getRouters().get(position).summary());
             img1.setImageResource(R.mipmap.ic_launcher);
+            img2.setImageResource(R.drawable.delete);
 
             img2.setOnClickListener(new View.OnClickListener() {
                 @Override
