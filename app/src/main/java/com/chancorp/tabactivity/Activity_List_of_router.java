@@ -195,9 +195,6 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
             text1.setText((String) getItem(position));
             img1.setImageResource(R.mipmap.ic_launcher);
 
-            Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.delete);
-            Bitmap resized = Bitmap.createScaledBitmap(bmp, 150, 150, true);
-            img2.setImageBitmap(resized);
             img2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public  void onClick(View v) {

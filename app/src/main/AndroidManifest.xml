@@ -32,6 +32,7 @@
             android:label="@string/back_app_name" >-
         </activity>
 
+        <activity android:name=".Activity_EasterEgg" />
         <activity android:name=".Activity_add_router" />
         <activity android:name="com.chancorp.tabactivity.Activity_List_of_router"/>
         <activity android:name="com.chancorp.tabactivity.Activity_Lockscreen" />

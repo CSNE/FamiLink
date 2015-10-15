@@ -1,5 +1,6 @@
 package com.chancorp.tabactivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.util.Log;
  */
 public class Activity_Page5Settings extends PreferenceActivity implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+    int clickedcount;
     private SharedPreferences mPref;
     private Preference.OnPreferenceChangeListener onPreferenceChangeListener;
     private OnPreferenceClickListener onPreferenceClickListener;
@@ -24,6 +26,7 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        clickedcount = 0;
         this.mPref = PreferenceManager.getDefaultSharedPreferences(this);
         onPreferenceChangeListener = new Preference.OnPreferenceChangeListener() {
             @Override
@@ -39,6 +42,12 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
             public boolean onPreferenceClick(Preference preference) {
                 if(preference.getKey().toString().equals("ListofRouter")) {
                     sendActivity();
+                } else if(preference.getKey().toString().equals("DeveloperInformation")) {
+                    clickedcount ++;
+                    if(clickedcount == 4) {
+                        clickedcount = 0;
+                        sendActivity_Second();
+                    }
                 }
                 return true;
             }
@@ -46,11 +55,12 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
         addPreferencesFromResource(R.xml.pref_settings);
         setOnPreferenceChange(findPreference("ServiceRunning"));
         setOnPreferenceClick(findPreference("ListofRouter"));
+        setOnPreferenceClick(findPreference("DeveloperInformation"));
+        return;
     }
 
-    private void sendActivity() {
-        startActivity(new Intent(this, Activity_List_of_router.class));
-    }
+    private void sendActivity() {startActivity(new Intent(this, Activity_List_of_router.class));}
+    private void sendActivity_Second() {startActivity(new Intent(this, Activity_EasterEgg.class));}
 
     private void BuildAlertDialog(Preference preference) {
         if(mPref.getBoolean(preference.getKey(),true) == false) {
@@ -78,7 +88,6 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
     }
     private void setOnPreferenceChange(Preference mPreference) {
         mPreference.setOnPreferenceChangeListener(onPreferenceChangeListener);
-        Log.d("pref", mPreference.getKey().toString());
         if(mPreference.getKey().toString().equals("ServiceRunning")) {
             if(mPref.getBoolean("ServiceRunning",false) == false) {
                 mPreference.setSummary("사용 안함");
