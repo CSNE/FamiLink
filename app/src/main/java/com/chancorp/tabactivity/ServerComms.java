@@ -126,7 +126,13 @@ public class ServerComms {
 
     public void updateStatus(RouterInformation ri) {
         if (fd.matchRouter(ri)) this.gotInside();
-        else this.gotOutside();
+        else {
+            if(fd.numInside() == 1) {
+                //Here, notifying the message.
+
+            }
+            this.gotOutside();
+        }
     }
 
     public void gotInside() {

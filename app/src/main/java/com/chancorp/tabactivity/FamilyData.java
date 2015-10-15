@@ -38,6 +38,24 @@ public class FamilyData implements Serializable{
         copyData(new FamilyData(null));
     }
 
+    public int numInside() {
+        int num=0;
+        for(FamilyMember fm:data){
+            if (fm.isInside()) num++;
+        }
+        return num;
+    }
+
+    public boolean imInside() {
+        for(FamilyMember fm:data){
+            if (fm.getPersonID()==this.myID){
+                return fm.isInside();
+            }
+        }
+        Log.e("Familink","WHAT THE FUCK");
+        return false;
+    }
+
     //Some other data should go here.
 
     public FamilyData(Context c){

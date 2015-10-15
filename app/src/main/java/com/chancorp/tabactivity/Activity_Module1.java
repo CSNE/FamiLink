@@ -17,7 +17,7 @@ public class Activity_Module1 extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.backend_main);
 
-        Receiver_WifiStateChange.AlreadyRunning = false;
+        //Receiver_WifiStateChange.AlreadyRunning = false;
         onbtn = (Button) findViewById(R.id.onbtn);
         offbtn = (Button) findViewById(R.id.offbtn);
         listofrouterbtn = (Button) findViewById(R.id.listofrouterbtn);
