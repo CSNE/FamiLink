@@ -48,7 +48,7 @@ public class FamilyMember implements Serializable{
         try {
             return avatarIdToDrawable[this.avatar];
         }catch(ArrayIndexOutOfBoundsException e){
-            Log.w("Familink", "Avaratar ID to Drawable index out of bounds.");
+            Log.v("Familink", "Avaratar ID to Drawable index out of bounds.");
         }
         return defaultDrawable;
     }

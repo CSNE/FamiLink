@@ -110,7 +110,7 @@ public class ServerComms {
         pe.addDataSet("request type", "delete family");
         pe.addDataSet("familyID", Integer.toString(fd.getFamilyID()));
         postReq = pe.encode();
-        this.sendPOST(postReq,"Delete Family");
+        this.sendPOST(postReq, "Delete Family");
     }
 
     public void addMe(String name, String number) {
@@ -121,12 +121,19 @@ public class ServerComms {
         pe.addDataSet("name", name);
         pe.addDataSet("phoneNumber", number);
         postReq = pe.encode();
-        this.sendPOST(postReq,"Add Myself");
+        this.sendPOST(postReq, "Add Myself");
     }
 
     public void updateStatus(RouterInformation ri, boolean extraCheck) {
-        if (fd.matchRouter(ri)) this.gotInside();
-        else this.gotOutside();
+        Log.d("Familink","Update Status Called");
+        if (fd.matchRouter(ri)){
+            Log.d("Familink","router matched. inside.");
+            this.gotInside();
+        }
+        else{
+            Log.d("Familink","router not matched. outside.");
+            this.gotOutside();
+        }
     }
 
     public void gotInside() {
@@ -164,13 +171,18 @@ public class ServerComms {
 
     public void sendGET(String requestType) {
         Log.d("Familink", "GETting from " + getURL());
-        DataRetriever dr = new DataRetriever(this);
+        DataRetriever dr = new DataRetriever(this,1);
         dr.setRequestType(requestType);
         dr.execute(getURL());
     }
 
-    public void onGETReturn(String data,String requestType) {
-        if (data==null) data=new String();
+    public void onGETReturn(String data,String requestType, int tries) {
+        if (data==null){
+            Log.d("Familink","Null returned to GET request. Retrying.");
+            DataRetriever dr = new DataRetriever(this,tries+1);
+            dr.setRequestType(requestType);
+            dr.execute(getURL());
+        }
         Log.d("Familink", "GET returned. \nRequest type:"+requestType+"\nData Returned: " + data);
         if (requestType.equals("Parse Family Data")) {
             fd.parseData(data);
@@ -187,14 +199,19 @@ public class ServerComms {
 
     public void sendPOST(String s, String requestType) {
         Log.d("FamiLink", "Sending POST to " + getURL() + " msg: " + s);
-        DataSender ds = new DataSender(this, s, requestType);
+        DataSender ds = new DataSender(this, s, requestType,1);
         ds.setRequestType(requestType);
         ds.execute(getURL());
     }
 
 
-    public void onPOSTReturn(String data, String requestType) {
-        if (data==null) data=new String();
+    public void onPOSTReturn(String data,String origParams, String requestType, int tries) {
+        if (data==null){
+            Log.d("Familink","Null returned to POST request. Retrying.");
+            DataSender ds = new DataSender(this, origParams, requestType,tries+1);
+            ds.setRequestType(requestType);
+            ds.execute(getURL());
+        }
         Log.d("Familink", "POST returned. \nRequest type:"+requestType+"\nData Returned: " + data);
         if (requestType.equals("Add Family")||requestType.equals("get ID")) {
             try {
@@ -223,10 +240,14 @@ public class ServerComms {
     private class DataRetriever extends AsyncTask<URL, Void, String> {
         String requestType;
         ServerComms sc;
+        int tries=0;
 
-        public DataRetriever(ServerComms sc) {
+        public DataRetriever(ServerComms sc,int tries) {
+
             super();
             this.sc = sc;
+            this.tries=tries;
+            Log.d("Familink","DataRetriever initialized. try "+tries);
         }
 
         public void setRequestType(String s){
@@ -262,7 +283,7 @@ public class ServerComms {
         protected void onPostExecute(String result) {
             Log.d("Familink", "DataRetruever result:" + result);
 
-            this.sc.onGETReturn(result, requestType);
+            this.sc.onGETReturn(result, requestType,tries);
         }
 
 
@@ -274,11 +295,15 @@ public class ServerComms {
         ServerComms sc;
         String params;
         String requestType;
+        String origParams;
+        int tries;
 
-        public DataSender(ServerComms sc, String params, String requestType) {
+        public DataSender(ServerComms sc, String params, String requestType, int tries) {
             this.params = params;
             this.sc = sc;
-
+            this.origParams=params;
+            this.tries=tries;
+            Log.d("Familink","DataSender initialized. try "+tries);
         }
 
         public void setRequestType(String s){
@@ -343,7 +368,8 @@ public class ServerComms {
 
         @Override
         protected void onPostExecute(String res) {
-            this.sc.onPOSTReturn(res,requestType);
+
+            this.sc.onPOSTReturn(res,origParams,requestType,tries);
         }
     }
 
