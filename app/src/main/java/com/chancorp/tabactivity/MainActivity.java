@@ -100,13 +100,25 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     public void onStart(){
         super.onStart();
         Log.d("Familink","MainActivity started.");
-        fd.loadFromFile();
+        //fd.loadFromFile();
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("Familink","MainActivity resumed.");
+        Log.d("Familink", "MainActivity resumed.");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d("Familink","MainActivity paused.");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d("Familink","MainActivity stopped.");
     }
 
 

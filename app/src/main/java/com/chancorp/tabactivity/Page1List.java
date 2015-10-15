@@ -1,12 +1,14 @@
 package com.chancorp.tabactivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -96,6 +98,16 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     sc.getID(c.getID());
+                    sc.setDataReturnListener(new DataReturnListener() {
+                        @Override
+                        public void onReturn(String data) {
+                            //TODO Actual user input.
+                            sc.addMe("asdf4362", "010-0000-1237");
+                            sc.clearDataReturnListener();
+                        }
+                    });
+
+
                 }
             });
             cg.init();

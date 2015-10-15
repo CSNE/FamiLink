@@ -73,12 +73,15 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                 RouterInformation newRouter=new RouterInformation();
                 newRouter.setMacAddr(data.getStringExtra("new_mac"));
                 newRouter.setName(data.getStringExtra("new_name"));
-
+                Log.d("Familink","New router: "+newRouter.toString());
+                //TODO detect duplicate routers.
                 if(!fd.matchRouter(newRouter)) {
                     fd.getRouters().add(newRouter);
                     fd.saveToFile();
                     adapter.notifyDataSetChanged();
+                    Log.d("Familink", "Router added.");
                 } else {
+                    Log.d("Familink", "Router duplicate.");
                     Toast.makeText(this, "This Wi-fi already exists in a list!", Toast.LENGTH_LONG).show();
                 }
             }

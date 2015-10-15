@@ -22,6 +22,7 @@ public class ServerComms {
     static String serverBaseURL,queryString;
     static FamilyData fd;
     static RedrawableFragment[] rdf;
+    DataReturnListener drl;
 
 
     public static void setup(String u, FamilyData f, RedrawableFragment[] r) {
@@ -73,6 +74,13 @@ public class ServerComms {
         queryString="";
     }*/
 
+    public void setDataReturnListener(DataReturnListener drl){
+        this.drl=drl;
+    }
+    public void clearDataReturnListener(){
+        this.drl=null;
+    }
+
     public void refreshData(){
         sendGET("Parse Family Data");
     }
@@ -83,7 +91,7 @@ public class ServerComms {
         pe.addDataSet("request type", "get ID");
         pe.addDataSet("name", familyName);
         postReq = pe.encode();
-        this.sendPOST(postReq,"get ID");
+        this.sendPOST(postReq, "get ID");
     }
 
     public void addFamily(Credentials c) {
@@ -170,6 +178,10 @@ public class ServerComms {
                 r.redraw();
             }
         }
+        if (drl!=null){
+            Log.d("Familink","Calling DataReturnListener");
+            drl.onReturn(data);
+        }
 
     }
 
@@ -192,6 +204,10 @@ public class ServerComms {
                 e.printStackTrace(new PrintWriter(errors));
                 Log.e("Familink", "NumberFormatException occurred.");
             }
+        }
+        if (drl!=null){
+            Log.d("Familink","Calling DataReturnListener");
+            drl.onReturn(data);
         }
     }
 

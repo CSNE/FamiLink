@@ -38,4 +38,15 @@ public class RouterInformation implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
+    public String toString(){
+        return "RouterInformation. SSID: "+this.getName()+" | MAC: "+this.getMacAddr();
+    }
+
+    public boolean match(RouterInformation r){
+        if(this.getMacAddr().equals(r.getMacAddr())&&this.getName().equals(r.getName())){
+            return true;
+        }
+        else return false;
+    }
 }

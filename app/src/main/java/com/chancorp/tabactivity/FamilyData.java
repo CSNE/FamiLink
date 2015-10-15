@@ -84,7 +84,7 @@ public class FamilyData implements Serializable{
     public boolean matchRouter(RouterInformation r){
         for (int i=0;i<routers.size();i++){
             //TODO maybe this won't work?
-            if (routers.get(i).equals(r)) return true;
+            if (routers.get(i).match(r)) return true;
         }
         return false;
     }
