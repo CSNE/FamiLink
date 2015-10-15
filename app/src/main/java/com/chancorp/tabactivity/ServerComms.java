@@ -179,6 +179,7 @@ public class ServerComms {
     public void onGETReturn(String data,String requestType, int tries) {
         if (data==null){
             Log.d("Familink","Null returned to GET request. Retrying.");
+            //TODO wait one second here.
             DataRetriever dr = new DataRetriever(this,tries+1);
             dr.setRequestType(requestType);
             dr.execute(getURL());
@@ -208,6 +209,7 @@ public class ServerComms {
     public void onPOSTReturn(String data,String origParams, String requestType, int tries) {
         if (data==null){
             Log.d("Familink","Null returned to POST request. Retrying.");
+            //TODO wait one second here.
             DataSender ds = new DataSender(this, origParams, requestType,tries+1);
             ds.setRequestType(requestType);
             ds.execute(getURL());
