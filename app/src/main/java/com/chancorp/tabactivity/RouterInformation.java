@@ -20,7 +20,9 @@ public class RouterInformation implements Serializable{
     }
 
 
-
+    public String summary(){
+        return this.getName()+" ("+this.getMacAddr()+")";
+    }
     public String getMacAddr() {
         return macAddr;
     }

@@ -48,6 +48,10 @@ public class FamilyData implements Serializable{
         else return true;
     }
 
+    public ArrayList<RouterInformation> getRouters(){
+        return this.routers;
+    }
+
     public void setCredentials(Credentials c){
         this.cred=c;
     }

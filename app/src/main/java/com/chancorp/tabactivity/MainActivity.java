@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            fd.saveToFile();
             startActivity(new Intent(this, Activity_Page5Settings.class));
             return true;
         }

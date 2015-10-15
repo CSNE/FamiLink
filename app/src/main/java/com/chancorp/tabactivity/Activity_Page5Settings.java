@@ -59,8 +59,12 @@ public class Activity_Page5Settings extends PreferenceActivity implements Prefer
         return;
     }
 
-    private void sendActivity() {startActivity(new Intent(this, Activity_List_of_router.class));}
-    private void sendActivity_Second() {startActivity(new Intent(this, Activity_EasterEgg.class));}
+    private void sendActivity() {
+        startActivity(new Intent(this, Activity_List_of_router.class));
+    }
+    private void sendActivity_Second() {
+        startActivity(new Intent(this, Activity_EasterEgg.class));
+    }
 
     private void BuildAlertDialog(Preference preference) {
         if(mPref.getBoolean(preference.getKey(),true) == false) {

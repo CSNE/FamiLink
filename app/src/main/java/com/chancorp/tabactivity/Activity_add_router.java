@@ -101,8 +101,8 @@ public class Activity_add_router extends Activity implements View.OnClickListene
             try {
                 WifiManager wifimanager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                 WifiInfo wifinfo = wifimanager.getConnectionInfo();
-                it.putExtra("new_address", wifinfo.getBSSID());
-                it.putExtra("new_address_date", wifinfo.getSSID());
+                it.putExtra("new_mac", wifinfo.getBSSID());
+                it.putExtra("new_name", wifinfo.getSSID());
                 timer.cancel();
                 setResult(RESULT_OK, it);
                 finish();
