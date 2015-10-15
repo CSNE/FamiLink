@@ -124,15 +124,9 @@ public class ServerComms {
         this.sendPOST(postReq,"Add Myself");
     }
 
-    public void updateStatus(RouterInformation ri) {
+    public void updateStatus(RouterInformation ri, boolean extraCheck) {
         if (fd.matchRouter(ri)) this.gotInside();
-        else {
-            if(fd.numInside() == 1) {
-                //Here, notifying the message.
-
-            }
-            this.gotOutside();
-        }
+        else this.gotOutside();
     }
 
     public void gotInside() {
