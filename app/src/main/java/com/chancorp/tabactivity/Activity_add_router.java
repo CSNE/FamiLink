@@ -113,4 +113,9 @@ public class Activity_add_router extends Activity implements View.OnClickListene
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
