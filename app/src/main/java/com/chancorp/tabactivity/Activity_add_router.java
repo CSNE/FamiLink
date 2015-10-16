@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ public class Activity_add_router extends Activity implements View.OnClickListene
     TextView textview;
     Button btn;
     Handler handler;
-    Timer timer;
+    Timer timer = null;
     TimerTask timertask = null;
     boolean ReadytoAdd = false;
 
@@ -33,6 +34,8 @@ public class Activity_add_router extends Activity implements View.OnClickListene
         textview = (TextView) findViewById(R.id.addroutertext);
         btn = (Button) findViewById(R.id.addrouterconfirmbtn);
         btn.setOnClickListener(this);
+        ((ImageView) findViewById(R.id.help1)).setImageResource(R.drawable.wifi_icon);
+        ((ImageView) findViewById(R.id.help2)).setImageResource(R.drawable.smartphone_icon);
         makehandler();
         maketimer();
     }

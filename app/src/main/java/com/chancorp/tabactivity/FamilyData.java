@@ -12,9 +12,11 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
-public class FamilyData implements Serializable{
+public class FamilyData implements Serializable, Runnable {
 
     static final long serialVersionUID = 1L;
 
@@ -52,7 +54,7 @@ public class FamilyData implements Serializable{
                 return fm.isInside();
             }
         }
-        Log.e("Familink","WHAT THE FUCK");
+        Log.e("Familink", "WHAT THE FUCK");
         return false;
     }
 
@@ -103,12 +105,42 @@ public class FamilyData implements Serializable{
     public void deleteRouter(int idx){
         routers.remove(idx);
     }
+
+
+    int trytime;
+    final int trylimit = 5;
+    Timer mtimer = null;
+    TimerTask mtimertask = null;
+
     public boolean matchRouter(RouterInformation r){
-        for (int i=0;i<routers.size();i++){
-            //TODO maybe this won't work?
-            if (routers.get(i).match(r)) return true;
+        final RouterInformation r_ = r;
+        trytime = 0;
+        mtimer = new Timer();
+        boolean retvalue = false;
+        TimerTask mtimertask = new TimerTask() {
+            @Override
+            public void run() {
+                if(queryProcess(r_) == 1) retvalue = true; // TODO FIX THIS
+            }
+        };
+        mtimer.schedule(mtimertask, 1000, 1000);
+        return retvalue;
+    }
+    private int queryProcess(RouterInformation r) {
+        boolean ret = false;
+        for(int i=0;i<routers.size();i++) {
+            ret |= routers.get(i).match(r);
         }
-        return false;
+        trytime ++;
+        if(ret) {
+            mtimer.cancel();
+            return 1; // success code
+        }
+        if(trytime > trylimit) {
+            mtimer.cancel();
+            return 2; // end code
+        }
+        return 3; // failed code
     }
 
     public void addToDo(ToDo td){
@@ -247,6 +279,9 @@ public class FamilyData implements Serializable{
     }
 
 
+    @Override
+    public void run() {
 
+    }
 }
 
