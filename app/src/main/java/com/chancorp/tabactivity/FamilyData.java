@@ -108,6 +108,7 @@ public class FamilyData implements Serializable, Runnable {
 
 
     int trytime;
+    boolean retvalue;
     final int trylimit = 5;
     Timer mtimer = null;
     TimerTask mtimertask = null;
@@ -115,18 +116,18 @@ public class FamilyData implements Serializable, Runnable {
     public boolean matchRouter(RouterInformation r){
         final RouterInformation r_ = r;
         trytime = 0;
+        retvalue = false;
         mtimer = new Timer();
-        boolean retvalue = false;
         TimerTask mtimertask = new TimerTask() {
             @Override
             public void run() {
-                if(queryProcess(r_) == 1) retvalue = true; // TODO FIX THIS
+                queryProcess(r_); // Todo : Test!
             }
         };
         mtimer.schedule(mtimertask, 1000, 1000);
         return retvalue;
     }
-    private int queryProcess(RouterInformation r) {
+    private void queryProcess(RouterInformation r) {
         boolean ret = false;
         for(int i=0;i<routers.size();i++) {
             ret |= routers.get(i).match(r);
@@ -134,13 +135,14 @@ public class FamilyData implements Serializable, Runnable {
         trytime ++;
         if(ret) {
             mtimer.cancel();
-            return 1; // success code
+            retvalue = true;
+            return; // success code
         }
         if(trytime > trylimit) {
             mtimer.cancel();
-            return 2; // end code
+            return; // end code
         }
-        return 3; // failed code
+        return; // failed code
     }
 
     public void addToDo(ToDo td){
