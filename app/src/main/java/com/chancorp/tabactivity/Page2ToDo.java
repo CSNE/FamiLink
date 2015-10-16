@@ -61,9 +61,9 @@ public class Page2ToDo extends Fragment implements RedrawableFragment, AdapterVi
         try {
             getFragmentManager().beginTransaction().detach(this).attach(this).commit();
         }catch(IllegalStateException e){
-            Log.e("Familink", "IllegalStateException on Page 2>redraw() - Maybe page wasn't visible?");
+            Log.v("Familink", "IllegalStateException on Page 2>redraw() - Maybe page wasn't visible?");
         }catch(NullPointerException e){
-            Log.e("Familink", "NullPointerException on Page 2>redraw() - Maybe page wasn't active?");
+            Log.v("Familink", "NullPointerException on Page 2>redraw() - Maybe page wasn't active?");
         }
     }
 
