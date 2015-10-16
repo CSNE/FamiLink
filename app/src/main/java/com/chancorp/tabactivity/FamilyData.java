@@ -158,7 +158,13 @@ public class FamilyData implements Serializable, Runnable {
     }*/
 
     public boolean matchRouter(RouterInformation r) {
-        //TODO fix
+        boolean res=false;
+        for(RouterInformation ri : this.routers){
+            if(ri.match(r)){
+                res=true;
+            }
+        }
+        return res;
     }
 
     public void addToDo(ToDo td){
