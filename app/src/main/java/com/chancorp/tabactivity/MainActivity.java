@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     //TODO make bitmaps scaled so no anti-aliasing issues occur.
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
-    //TODO nickname does not update.
 
 
     FamilyData fd;
@@ -124,6 +123,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     public void onStop(){
         super.onStop();
         Log.d("Familink","MainActivity stopped.");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d("Familink","MainActivity killed.");
+
     }
 
 
