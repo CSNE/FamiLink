@@ -12,7 +12,29 @@ public class Credentials implements Serializable{
 
 
 
-    String password, iD, name, phone;
+    String password;
+    String iD;
+    String name;
+    String phone;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+    }
+
+    String nickname;
+    int avatar;
 
     public String getName() {
         return name;

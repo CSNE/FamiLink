@@ -2,6 +2,7 @@ package com.chancorp.tabactivity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,12 @@ public class FamilyMemberAdapter extends BaseAdapter {
         callBtn=(Button) view.findViewById(R.id.memberList_CallBtn);
         setBtn=(Button) view.findViewById(R.id.memberList_SettingBtn);
 
-        tv1.setText(familyMembers[i].getName());
+        if(familyMembers[i].getNickname()==null) {
+           // Log.v("Familink", "adapter debug:"+i+" "+familyMembers[i].getNickname());
+            tv1.setText(familyMembers[i].getName());
+        }else{
+            tv1.setText(familyMembers[i].getNickname()+" ("+familyMembers[i].getName()+")");
+        }
         tv2.setText(familyMembers[i].getDataString());
 
         iv1.setImageResource(familyMembers[i].getAvatarDrawable());

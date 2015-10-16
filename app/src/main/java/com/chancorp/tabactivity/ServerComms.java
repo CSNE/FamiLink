@@ -18,8 +18,8 @@ import java.security.NoSuchAlgorithmException;
 
 //서버 통신 클래스
 public class ServerComms {
-    private static final int MAX_RETRIES=10;
-    static String serverBaseURL,queryString;
+    private static final int MAX_RETRIES = 3;
+    static String serverBaseURL, queryString;
     static FamilyData fd;
     static RedrawableFragment[] rdf;
     DataReturnListener drl;
@@ -27,20 +27,20 @@ public class ServerComms {
 
     public static void setup(String u, FamilyData f, RedrawableFragment[] r) {
         fd = f;
-        serverBaseURL=u;
+        serverBaseURL = u;
         rdf = r;
 
     }
 
-    private URL getURL(){
+    private URL getURL() {
         try {
             if (!fd.isRegistered()) {
-                return new URL(serverBaseURL+"/-1");
-            }else{
+                return new URL(serverBaseURL + "/-1");
+            } else {
                 return new URL(serverBaseURL + "/" + Integer.toString(fd.getFamilyID()) + "?pw=" + fd.getCredentials().getPasswordHash());
             }
-        }catch(MalformedURLException e){
-            Log.e("Familink","MalformedURLException");
+        } catch (MalformedURLException e) {
+            Log.e("Familink", "MalformedURLException");
             return null;
         }
     }
@@ -74,18 +74,19 @@ public class ServerComms {
         queryString="";
     }*/
 
-    public void setDataReturnListener(DataReturnListener drl){
-        this.drl=drl;
-    }
-    public void clearDataReturnListener(){
-        this.drl=null;
+    public void setDataReturnListener(DataReturnListener drl) {
+        this.drl = drl;
     }
 
-    public void refreshData(){
+    public void clearDataReturnListener() {
+        this.drl = null;
+    }
+
+    public void refreshData() {
         sendGET("Parse Family Data");
     }
 
-    public void getID(String familyName){
+    public void getID(String familyName) {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "get ID");
@@ -101,7 +102,7 @@ public class ServerComms {
         pe.addDataSet("password hash", c.getPasswordHash());
         pe.addDataSet("name", c.getID());
         postReq = pe.encode();
-        this.sendPOST(postReq,"Add Family");
+        this.sendPOST(postReq, "Add Family");
     }
 
     public void deleteFamily() {
@@ -126,12 +127,11 @@ public class ServerComms {
 
     public void updateStatus(RouterInformation ri, boolean extraCheck) {
         Log.d("Familink", "Update Status Called");
-        if (fd.matchRouter(ri)){
-            Log.d("Familink","router matched. inside.");
+        if (fd.matchRouter(ri)) {
+            Log.d("Familink", "router matched. inside.");
             this.gotInside();
-        }
-        else{
-            Log.d("Familink","router not matched. outside.");
+        } else {
+            Log.d("Familink", "router not matched. outside.");
             this.gotOutside();
         }
     }
@@ -156,13 +156,13 @@ public class ServerComms {
         this.sendPOST(postReq, "Report Outside");
     }
 
-    public void addToDo(ToDo td){
+    public void addToDo(ToDo td) {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "add task");
         pe.addDataSet("personID", Integer.toString(fd.getMyID()));
         pe.addDataSet("name", td.getTitle());
-        pe.addDataSet("text",td.getDescription());
+        pe.addDataSet("text", td.getDescription());
         pe.addDataSet("due", td.getStringDue());
         postReq = pe.encode();
         this.sendPOST(postReq, "Add ToDo");
@@ -171,79 +171,81 @@ public class ServerComms {
 
     public void sendGET(String requestType) {
         Log.d("Familink", "GETting from " + getURL());
-        DataRetriever dr = new DataRetriever(this,1);
+        DataRetriever dr = new DataRetriever(this, 1);
         dr.setRequestType(requestType);
         dr.execute(getURL());
     }
 
-    public void onGETReturn(String data,String requestType, int tries) {
-        if (data==null){
-            Log.d("Familink","Null returned to GET request. Retrying.");
+    public void onGETReturn(String data, String requestType, int tries) {
+        if (data == null) {
+            Log.d("Familink", "Null returned to GET request. Retrying.");
             //TODO wait one second here.
-            if (tries>MAX_RETRIES){
-                Log.e("Familink","GET failed after 10 tries.");
+            if (tries >= MAX_RETRIES) {
+                Log.e("Familink", "GET failed after "+MAX_RETRIES+" tries.");
                 return;
             }
-            DataRetriever dr = new DataRetriever(this,tries+1);
+            DataRetriever dr = new DataRetriever(this, tries + 1);
             dr.setRequestType(requestType);
             dr.execute(getURL());
-        }
-        Log.d("Familink", "GET returned. \nRequest type:"+requestType+"\nData Returned: " + data);
-        if (requestType.equals("Parse Family Data")) {
-            fd.parseData(data);
-            for (RedrawableFragment r : this.rdf) {
-                r.redraw();
+        } else {
+            Log.d("Familink", "GET returned. \nRequest type:" + requestType + "\nData Returned: " + data);
+            if (requestType.equals("Parse Family Data")) {
+                fd.parseData(data);
+                for (RedrawableFragment r : this.rdf) {
+                    r.redraw();
+                }
             }
-        }
-        if (drl!=null){
-            Log.d("Familink","Calling DataReturnListener");
-            drl.onReturn(data);
+            if (drl != null) {
+                Log.d("Familink", "Calling DataReturnListener");
+                drl.onReturn(data);
+            }
         }
 
     }
 
     public void sendPOST(String s, String requestType) {
         Log.d("FamiLink", "Sending POST to " + getURL() + " msg: " + s);
-        DataSender ds = new DataSender(this, s, requestType,1);
+        DataSender ds = new DataSender(this, s, requestType, 1);
         ds.setRequestType(requestType);
         ds.execute(getURL());
     }
 
 
-    public void onPOSTReturn(String data,String origParams, String requestType, int tries) {
-        if (data==null){
-            Log.d("Familink","Null returned to POST request. Retrying.");
+    public void onPOSTReturn(String data, String origParams, String requestType, int tries) {
+        if (data == null) {
+            Log.d("Familink", "Null returned to POST request. Retrying.");
             //TODO wait one second here.
-            if (tries>MAX_RETRIES){
+            if (tries >= MAX_RETRIES) {
 
-                Log.e("Familink","POST failed after 10 tries.");
+                Log.e("Familink", "POST failed after "+MAX_RETRIES+" tries.");
                 return;
             }
-            DataSender ds = new DataSender(this, origParams, requestType,tries+1);
+            DataSender ds = new DataSender(this, origParams, requestType, tries + 1);
             ds.setRequestType(requestType);
             ds.execute(getURL());
-        }
-        Log.d("Familink", "POST returned. \nRequest type:"+requestType+"\nData Returned: " + data);
-        if (requestType.equals("Add Family")||requestType.equals("get ID")) {
-            try {
-                fd.setFamilyID(Integer.parseInt(data.trim()));
-            }catch(NumberFormatException e){
-                StringWriter errors = new StringWriter();
-                e.printStackTrace(new PrintWriter(errors));
-                Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>get ID");
+        } else {
+            Log.d("Familink", "POST returned. \nRequest type:" + requestType + "\nData Returned: " + data);
+            if (requestType.equals("Add Family") || requestType.equals("get ID")) {
+                try {
+                    fd.setFamilyID(Integer.parseInt(data.trim()));
+                } catch (NumberFormatException e) {
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>get ID");
+                }
+            } else if (requestType.equals("Add Myself")) {
+                try {
+                    fd.setMyID(Integer.parseInt(data.trim()));
+                } catch (NumberFormatException e) {
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>AddMyself");
+                }
             }
-        }else if (requestType.equals("Add Myself")) {
-            try {
-                fd.setMyID(Integer.parseInt(data.trim()));
-            }catch(NumberFormatException e){
-                StringWriter errors = new StringWriter();
-                e.printStackTrace(new PrintWriter(errors));
-                Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>AddMyself");
+            if (drl != null) {
+                Log.d("Familink", "Calling DataReturnListener");
+                drl.onReturn(data);
             }
-        }
-        if (drl!=null){
-            Log.d("Familink","Calling DataReturnListener");
-            drl.onReturn(data);
         }
     }
 
@@ -251,18 +253,18 @@ public class ServerComms {
     private class DataRetriever extends AsyncTask<URL, Void, String> {
         String requestType;
         ServerComms sc;
-        int tries=0;
+        int tries = 0;
 
-        public DataRetriever(ServerComms sc,int tries) {
+        public DataRetriever(ServerComms sc, int tries) {
 
             super();
             this.sc = sc;
-            this.tries=tries;
-            Log.d("Familink","DataRetriever initialized. try "+tries);
+            this.tries = tries;
+            Log.d("Familink", "DataRetriever initialized. try " + tries);
         }
 
-        public void setRequestType(String s){
-            this.requestType=s;
+        public void setRequestType(String s) {
+            this.requestType = s;
         }
 
         protected String doInBackground(URL... urls) {
@@ -287,14 +289,14 @@ public class ServerComms {
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
                 Log.d("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString());
-                return "ERR";
+                return null;
             }
         }
 
         protected void onPostExecute(String result) {
             Log.d("Familink", "DataRetruever result:" + result);
 
-            this.sc.onGETReturn(result, requestType,tries);
+            this.sc.onGETReturn(result, requestType, tries);
         }
 
 
@@ -312,13 +314,13 @@ public class ServerComms {
         public DataSender(ServerComms sc, String params, String requestType, int tries) {
             this.params = params;
             this.sc = sc;
-            this.origParams=params;
-            this.tries=tries;
-            Log.d("Familink","DataSender initialized. try "+tries);
+            this.origParams = params;
+            this.tries = tries;
+            Log.d("Familink", "DataSender initialized. try " + tries);
         }
 
-        public void setRequestType(String s){
-            this.requestType=s;
+        public void setRequestType(String s) {
+            this.requestType = s;
         }
 
         @Override
@@ -380,7 +382,7 @@ public class ServerComms {
         @Override
         protected void onPostExecute(String res) {
 
-            this.sc.onPOSTReturn(res,origParams,requestType,tries);
+            this.sc.onPOSTReturn(res, origParams, requestType, tries);
         }
     }
 

@@ -18,8 +18,6 @@ import java.util.TimerTask;
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
 public class FamilyData implements Serializable, Runnable {
 
-    static final long serialVersionUID = 1L;
-
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
@@ -27,17 +25,31 @@ public class FamilyData implements Serializable, Runnable {
     Credentials cred;
     transient Context c;
 
-    public void copyData(FamilyData fd){
+    public void exactCopy(FamilyData fd){
+
         this.data=fd.data;
         this.routers=fd.routers;
         this.todos=fd.todos;
         this.familyID=fd.familyID;
         this.myID=fd.myID;
         this.cred=fd.cred;
+
+    }
+
+    public void shallowCopyData(FamilyData fd){
+        ArrayList<FamilyMember> origData=this.data;
+
+        this.data=fd.data;
+        this.routers=fd.routers;
+        this.todos=fd.todos;
+
+        for(int i=0;i<this.data.size();i++){
+            this.data.get(i).salvageData(origData);
+        }
     }
 
     public void reset(){
-        copyData(new FamilyData(null));
+        exactCopy(new FamilyData(null));
     }
 
     public int numInside() {
@@ -106,7 +118,7 @@ public class FamilyData implements Serializable, Runnable {
         routers.remove(idx);
     }
 
-
+    /*
     int trytime;
     boolean retvalue;
     final int trylimit = 5;
@@ -127,7 +139,7 @@ public class FamilyData implements Serializable, Runnable {
         mtimer.schedule(mtimertask, 1000, 1000);
         return retvalue;
     }
-    private void queryProcess(RouterInformation r) {
+    private int queryProcess(RouterInformation r) {
         boolean ret = false;
         for(int i=0;i<routers.size();i++) {
             ret |= routers.get(i).match(r);
@@ -142,7 +154,11 @@ public class FamilyData implements Serializable, Runnable {
             mtimer.cancel();
             return; // end code
         }
-        return; // failed code
+        return 3; // failed code
+    }*/
+
+    public boolean matchRouter(RouterInformation r) {
+        //TODO fix
     }
 
     public void addToDo(ToDo td){
@@ -166,7 +182,8 @@ public class FamilyData implements Serializable, Runnable {
 
     public void parseData(String s){
 
-        clearMembers();
+        //clearMembers();
+        FamilyData parsedData=new FamilyData(null);
 
         Log.d("FamiLink", "FamilyData.parseData() input:" + s);
 
@@ -214,7 +231,7 @@ public class FamilyData implements Serializable, Runnable {
                     }
 
                     if (partTitle.equals("PersonInfo")){
-                        this.addMembers(fm);
+                        parsedData.addMembers(fm);
                     }
                 }
 
@@ -226,6 +243,7 @@ public class FamilyData implements Serializable, Runnable {
 
         }
 
+        this.shallowCopyData(parsedData);
 
 
     }
@@ -270,7 +288,7 @@ public class FamilyData implements Serializable, Runnable {
             fis.close();
 
             Log.d("Familink", "File read successfully.");
-            this.copyData(readFD);
+            this.exactCopy(readFD);
             Log.d("Familink", "FamilyData overwritten.");
 
         }catch(Exception e){

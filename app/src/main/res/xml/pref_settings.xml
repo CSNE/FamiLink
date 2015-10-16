@@ -49,6 +49,11 @@
             android:key="SpecialCredit"
             android:summary="주니어소프트창작대회, JiYoung Youn, JongHye Kim"
             />
+        <Preference
+            android:title="특별출연"
+            android:key="SpecialCredit"
+            android:summary="주니어소프트창작대회, JiYoung Youn, JongHye Kim"
+            />
     </PreferenceCategory>
 
 </PreferenceScreen>

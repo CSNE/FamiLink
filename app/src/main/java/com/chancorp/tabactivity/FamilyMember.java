@@ -6,15 +6,27 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 //가족 구성원 1명에 대한 데이터 저장.
-public class FamilyMember implements Serializable{
+public class FamilyMember implements Serializable, CredReturnListener{
 
-    static final long serialVersionUID = 1L;
 
-    String name, phoneNumber;
 
-    int[] avatarIdToDrawable={R.drawable.icon_father,
+    String name;
+    String phoneNumber;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    String nickname;
+
+    public static final int[] avatarIdToDrawable={R.drawable.icon_father,
                               R.drawable.icon_mother,
                               R.drawable.icon_sister,
                               R.drawable.icon_son,
@@ -67,7 +79,12 @@ public class FamilyMember implements Serializable{
         a.startActivity(itt);
     }
     public void openSettings(FragmentActivity a) {
-        //TODO avatar set here.
+        Log.d("Familink", "Opening settings for member" + getName());
+        CredentialsGetter cg=new CredentialsGetter(a,CredentialsGetter.NICKNAME_AND_AVATAR);
+        cg.setTitle("Set Family Info");
+        cg.setHint("Nickname");
+        cg.init();
+        cg.setOnReturnListener(this);
     }
 
     public void update() {
@@ -119,4 +136,18 @@ public class FamilyMember implements Serializable{
         this.avatar = avatar;
     }
 
+    @Override
+    public void onReturn(Credentials c) {
+        this.setAvatar(c.getAvatar());
+        this.setNickname(c.getNickname());
+    }
+
+    public void salvageData(ArrayList<FamilyMember> origData) {
+        for (FamilyMember fm:origData){
+            if(fm.getPersonID()==this.getPersonID()){
+                this.setAvatar(fm.getAvatar());
+                this.setNickname(fm.getNickname());
+            }
+        }
+    }
 }

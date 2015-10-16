@@ -21,6 +21,10 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider,ServerCommsProvider {
 
     //TODO make bitmaps scaled so no anti-aliasing issues occur.
+    //TODO images instead of avatars?
+    //TODO Diary page?(instead of notes)
+    //TODO nickname does not update.
+
 
     FamilyData fd;
     ServerComms serverConnector;
@@ -55,8 +59,10 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         // 2. 탭 생성함 create new tabs and and set up the titles of the tabs
         ActionBar.Tab listPageTab = actionbar.newTab().setText("List");
         ActionBar.Tab todoPageTab = actionbar.newTab().setText("To Do");
+        //TODO dynamic name - if there's a todo, display that.
         ActionBar.Tab notePageTab = actionbar.newTab().setText("Notes");
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
+        //TODO here too.
 
 
         Fragment listPage = (Fragment) new Page1List();

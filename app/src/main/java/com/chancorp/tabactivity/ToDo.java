@@ -11,8 +11,6 @@ import java.util.Date;
  */
 public class ToDo implements Serializable{
 
-    static final long serialVersionUID = 1L;
-
 
     long dueTime;
     String title,description;

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 /**
  * Created by Chan on 2015-10-14.
@@ -15,19 +16,25 @@ import android.widget.EditText;
 public class CredentialsGetter {
     public static final int BASIC=10239;
     public static final int NAME_AND_PHONE=884252;
+    public static final int NICKNAME_AND_AVATAR=129744;
 
-    EditText usernameInput,passwordInput,nameInput,phoneInput;
+    EditText usernameInput,passwordInput,nameInput,phoneInput, nickInput;
+    Spinner avatarSpinner;
     CredReturnListener cr;
     Context c;
-    String title,idHint,pwHint;
+    String title, hint1, hint2;
     int type;
 
     public void setTitle(String title){
         this.title=title;
     }
+    public void setHint(String hint){
+        this.hint1 =hint;
+
+    }
     public void setHint(String idHint, String pwHint){
-        this.pwHint=pwHint;
-        this.idHint=idHint;
+        this.hint2 =pwHint;
+        this.hint1 =idHint;
     }
 
     public CredentialsGetter(Context c, int type){
@@ -51,29 +58,52 @@ public class CredentialsGetter {
 
         }else if (type==NAME_AND_PHONE){
             view=inflater.inflate(R.layout.credientials_getter_name_and_phone, null);
-        }else{
+        }else if(type==NICKNAME_AND_AVATAR){
+            view=inflater.inflate(R.layout.credientials_getter_nickname_and_avatar, null);
+        }
+        else{
             Log.e("Familink", "What the fuck");
             view=null;
         }
+
         builder.setView(view);
 
-        usernameInput=(EditText)view.findViewById(R.id.cred_getter_id);
-        passwordInput=(EditText)view.findViewById(R.id.cred_getter_pw);
+        if (type==BASIC||type==NAME_AND_PHONE) {
+            usernameInput = (EditText) view.findViewById(R.id.cred_getter_id);
+            passwordInput = (EditText) view.findViewById(R.id.cred_getter_pw);
+        }
         if (type==NAME_AND_PHONE){
             nameInput=(EditText)view.findViewById(R.id.cred_getter_name);
             phoneInput=(EditText)view.findViewById(R.id.cred_getter_phone);
+        }
+        if(type==NICKNAME_AND_AVATAR){
+            nickInput=(EditText)view.findViewById(R.id.cred_getter_nickname);
+            avatarSpinner=(Spinner)view.findViewById(R.id.cred_getter_avatar_spinner);
+            Integer[] picArray=new Integer[FamilyMember.avatarIdToDrawable.length];
+            for (int i=0;i<FamilyMember.avatarIdToDrawable.length;i++){
+                picArray[i]=FamilyMember.avatarIdToDrawable[i];
+            }
+            SizeConverter szConv=new SizeConverter(c);
+            ImageArrayAdapter adapter = new ImageArrayAdapter(c, picArray,szConv.dpToPixels(100),szConv.dpToPixels(100));
+            avatarSpinner.setAdapter(adapter);
         }
 
         builder.setMessage("Enter")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Credentials cred=new Credentials();
-                        cred.setID(usernameInput.getText().toString());
-                        cred.setPassword(passwordInput.getText().toString());
+                        Credentials cred = new Credentials();
+                        if(type==NAME_AND_PHONE||type==BASIC) {
+                            cred.setID(usernameInput.getText().toString());
+                            cred.setPassword(passwordInput.getText().toString());
+                        }
                         if (type==NAME_AND_PHONE){
                             cred.setName(nameInput.getText().toString());
                             cred.setPhone(phoneInput.getText().toString());
+                        }
+                        if(type==NICKNAME_AND_AVATAR){
+                            cred.setName(nickInput.getText().toString());
+                            cred.setAvatar(avatarSpinner.getSelectedItemPosition());
                         }
                         cr.onReturn(cred);
                     }

@@ -34,8 +34,8 @@ public class Activity_add_router extends Activity implements View.OnClickListene
         textview = (TextView) findViewById(R.id.addroutertext);
         btn = (Button) findViewById(R.id.addrouterconfirmbtn);
         btn.setOnClickListener(this);
-        ((ImageView) findViewById(R.id.help1)).setImageResource(R.drawable.wifi_icon);
-        ((ImageView) findViewById(R.id.help2)).setImageResource(R.drawable.smartphone_icon);
+        //((ImageView) findViewById(R.id.help1)).setImageResource(R.drawable.wifi_icon);
+        //((ImageView) findViewById(R.id.help2)).setImageResource(R.drawable.smartphone_icon);
         makehandler();
         maketimer();
     }
