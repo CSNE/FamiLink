@@ -10,10 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
 public class FamilyData implements Serializable {
@@ -22,7 +19,7 @@ public class FamilyData implements Serializable {
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
     int familyID=-1, myID=-1;
-    Credentials cred;
+    UserInformation cred;
     transient Context c;
 
     public void exactCopy(FamilyData fd){
@@ -106,10 +103,10 @@ public class FamilyData implements Serializable {
         return this.data;
     }
 
-    public void setCredentials(Credentials c){
+    public void setCredentials(UserInformation c){
         this.cred=c;
     }
-    public Credentials getCredentials(){
+    public UserInformation getCredentials(){
         return this.cred;
     }
 
@@ -213,7 +210,7 @@ public class FamilyData implements Serializable {
                                 else if (title.equals("name")) td.setTitle(data);
                                 else if (title.equals("text")) td.setDescription(data);
                                 else if (title.equals("personID")) td.setCreator(Integer.parseInt(data));
-                                else if (title.equals("date")) td.parseDue(data);
+                                else if (title.equals("due")) td.parseDue(data);
                                 else Log.e("Familink", "TaskInfo does not match any of its parameters! Line: "+line);
                             }
                         } catch (ArrayIndexOutOfBoundsException e) {

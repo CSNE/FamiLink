@@ -13,8 +13,6 @@ import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -97,7 +95,7 @@ public class ServerComms {
         this.sendPOST(postReq, "get ID");
     }
 
-    public void addFamily(Credentials c) {
+    public void addFamily(UserInformation c) {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "add family");
@@ -388,7 +386,7 @@ public class ServerComms {
 
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString().substring(0,100)+"...");
+                Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString().substring(0, 100) + "...");
                 //Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).");
                 return null;
 

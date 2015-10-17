@@ -13,14 +13,14 @@ import android.widget.Spinner;
 /**
  * Created by Chan on 2015-10-14.
  */
-public class CredentialsGetter {
+public class UserInformationGetter {
     public static final int BASIC=10239;
     public static final int NAME_AND_PHONE=884252;
     public static final int NICKNAME_AND_AVATAR=129744;
 
     EditText usernameInput,passwordInput,nameInput,phoneInput, nickInput;
     Spinner avatarSpinner;
-    CredReturnListener cr;
+    UserInfoReturnListener cr;
     Context c;
     String title, hint1, hint2;
     int type;
@@ -37,12 +37,12 @@ public class CredentialsGetter {
         this.hint1 =idHint;
     }
 
-    public CredentialsGetter(Context c, int type){
+    public UserInformationGetter(Context c, int type){
         this.c=c;
         this.type=type;
     }
 
-    public void setOnReturnListener(CredReturnListener cr){
+    public void setOnReturnListener(UserInfoReturnListener cr){
         this.cr=cr;
     }
 
@@ -93,7 +93,7 @@ public class CredentialsGetter {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        Credentials cred = new Credentials();
+                        UserInformation cred = new UserInformation();
                         if(type==NAME_AND_PHONE||type==BASIC) {
                             cred.setID(usernameInput.getText().toString());
                             cred.setPassword(passwordInput.getText().toString());

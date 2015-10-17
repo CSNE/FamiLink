@@ -1,29 +1,17 @@
 package com.chancorp.tabactivity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 //첫번째 탭 fragment. 가족 리스트.
 public class Page1List extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, RedrawableFragment{
@@ -90,12 +78,12 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
     public void onClick(View view) {
         Log.d("Familink", "Clicked"+view.getId());
         if (view.getId()==R.id.page1_btn_add_user){
-            CredentialsGetter cg=new CredentialsGetter(getContext(),CredentialsGetter.NAME_AND_PHONE);
+            UserInformationGetter cg=new UserInformationGetter(getContext(), UserInformationGetter.NAME_AND_PHONE);
             cg.setTitle("Existing family name");
             cg.setHint("Family Name","Password");
-            cg.setOnReturnListener(new CredReturnListener() {
-                public void onReturn(Credentials c) {
-                    final Credentials cf=c;
+            cg.setOnReturnListener(new UserInfoReturnListener() {
+                public void onReturn(UserInformation c) {
+                    final UserInformation cf=c;
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     sc.getID(c.getID());
@@ -112,11 +100,11 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
             });
             cg.init();
         }else if (view.getId()==R.id.page1_btn_add_family){
-            CredentialsGetter cg=new CredentialsGetter(getContext(),CredentialsGetter.BASIC);
+            UserInformationGetter cg=new UserInformationGetter(getContext(), UserInformationGetter.BASIC);
             cg.setTitle("Make new family");
             cg.setHint("New Family Name","Password");
-            cg.setOnReturnListener(new CredReturnListener() {
-                public void onReturn(Credentials c) {
+            cg.setOnReturnListener(new UserInfoReturnListener() {
+                public void onReturn(UserInformation c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     sc.addFamily(c);

@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 //계정 정보 조장 클래스
 
-public class Credentials implements Serializable{
+public class UserInformation implements Serializable{
 
 
 
