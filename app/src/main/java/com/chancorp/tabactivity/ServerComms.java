@@ -267,8 +267,8 @@ public class ServerComms {
             }, RETRY_INTERVAL_MILLISEC);
 
         } else {
-            Log.d("Familink", "GET returned. Request type:" + requestType);
-            Log.v("Familink","Data Returned: " + data);
+            Log.d("Familink", "GET returned. | Request type:" + requestType+" | Data(newline stripped, full data on FamilinkHTML): "+data.replace("\n",""));
+            Log.v("FamilinkHTML", "Data Returned: " + data);
             if (requestType.equals("Parse Family Data")) {
                 fd.parseData(data);
                 for (RedrawableFragment r : this.rdf) {
@@ -317,8 +317,8 @@ public class ServerComms {
             }, RETRY_INTERVAL_MILLISEC);
 
         } else {
-            Log.d("Familink", "POST returned. \nRequest type:" + requestType);
-            Log.d("Familink","POST data: "+ data);
+            Log.d("Familink", "POST returned. | Request type:" + requestType+" | Data(newline stripped, full data on FamilinkHTML): "+data.replace("\n",""));
+            Log.v("FamilinkHTML", "Data Returned: " + data);
             if (requestType.equals("Add Family") || requestType.equals("get ID")) {
                 try {
                     fd.setFamilyID(Integer.parseInt(data.trim()));

@@ -14,7 +14,9 @@
         android:hint="Task Name" />
     <EditText
         android:id="@+id/cred_getter_task_desc"
-        android:inputType="text"
+        android:inputType="textMultiLine"
+        android:minLines="2"
+        android:maxLines="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
