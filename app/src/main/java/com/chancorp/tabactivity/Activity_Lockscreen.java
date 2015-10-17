@@ -1,32 +1,34 @@
 package com.chancorp.tabactivity;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Activity_Lockscreen extends AppCompatActivity{
+
+    ImageView imgview;
+    Vibrator vb = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lock_screen);
-        
+        setContentView(R.layout.activity_lock_screen);
+        getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                        | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                        | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                        | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        imgview = (ImageView) findViewById(R.id.imageview_lockscreen);
+        imgview.setImageResource(R.drawable.background_lockscreen);
+        vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        return;
     }
 
     @Override
