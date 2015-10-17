@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -28,7 +29,18 @@ public class Activity_Lockscreen extends AppCompatActivity{
         imgview = (ImageView) findViewById(R.id.imageview_lockscreen);
         imgview.setImageResource(R.drawable.background_lockscreen);
         vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vb.vibrate(2000);
         return;
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            vb.cancel();
+        } catch(Exception e) {
+            Log.w("Check", "you cannot cancel vibrator cause not working!");
+        }
+        super.onDestroy();
     }
 
     @Override

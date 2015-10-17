@@ -34,16 +34,24 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
         WIFI2 = context.getResources().getString(R.string.Wifi_change2);
 
         if (intent.getAction().equals(WIFI1) || intent.getAction().equals(WIFI2)) {
-            if(wifimanager.getWifiState()%2 == 1) {
-                int now = wifimanager.getWifiState();
-                if(now != mPref.getInt("lastest",4)) {
-                    edit.putInt("lastest", now);
+
+            if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) { // disabled
+                WifiInfo wifinfo = wifimanager.getConnectionInfo();
+                edit.putString("lastest", "undefined");
+                edit.commit();
+                Log.d("disabled", "is there server delay?");
+                ServerComms sc = new ServerComms();
+                sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, wifimanager.getWifiState(), context);
+            }
+
+            else if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_ENABLED) { // enabled
+                WifiInfo wifinfo = wifimanager.getConnectionInfo();
+                if(wifinfo.getSSID() != mPref.getString("lastest","undefined")) {
+                    edit.putString("lastest", "undefined");
                     edit.commit();
-                    Log.w("Check", toString().valueOf(wifimanager.getWifiState()));
-                    WifiInfo wifinfo = wifimanager.getConnectionInfo();
-                    Log.d("FamiLink", "Info:" + wifinfo.getSSID() + wifinfo.getBSSID());
+                    Log.d("enabled", "is there server delay?");
                     ServerComms sc = new ServerComms();
-                    sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, context);
+                    sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, wifimanager.getWifiState(), context);
                     // sending boolean electronics : check whether gonna do alarm.
                 }
             }
