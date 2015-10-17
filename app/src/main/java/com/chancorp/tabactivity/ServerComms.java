@@ -134,6 +134,10 @@ public class ServerComms {
             Log.d("Familink", "router not matched. outside.");
             this.gotOutside();
         }
+        if(extraCheck) {
+            //TODO : when extracheck activited, check if left the home last.
+
+        }
     }
 
     public void gotInside() {

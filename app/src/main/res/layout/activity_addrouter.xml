@@ -59,7 +59,7 @@
     </LinearLayout>
 
     <TextView
-        android:textSize="15dp"
+        android:textSize="12dp"
         android:layout_marginBottom="100dp"
         android:id="@+id/doum"
         android:layout_alignParentLeft="true"
