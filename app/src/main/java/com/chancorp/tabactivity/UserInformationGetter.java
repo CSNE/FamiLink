@@ -103,7 +103,7 @@ public class UserInformationGetter {
             noteTitleInput=(EditText)view.findViewById(R.id.cred_getter_note_title);
         }
 
-        builder.setMessage("Enter")
+        builder.setMessage(title)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

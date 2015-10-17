@@ -7,29 +7,10 @@
         android:icon="@drawable/ic_settings_black_48dp_inv"
         android:orderInCategory="100"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/debug_in"
-        android:title="Send POST - in"/>
-    <item
-        android:id="@+id/debug_out"
-        android:title="Send POST - out"/>
-    <item
-        android:id="@+id/debug_read"
-        android:title="Read Local data"/>
-    <item
-        android:id="@+id/debug_write"
-        android:title="write local data"/>
 
-    <item
-        android:id="@+id/debug_add_family"
-        android:title="Add Family"/>
     <item
         android:id="@+id/debug_del_save"
-        android:title="Delete Save"/>
-
-    <item
-        android:id="@+id/debug_test_data"
-        android:title="Load test data"/>
+        android:title="Log Out"/>
 
     <item android:id="@+id/global_refresh"
         android:icon="@drawable/ic_refresh_black_48dp_inv"

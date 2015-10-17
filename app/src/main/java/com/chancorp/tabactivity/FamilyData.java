@@ -219,6 +219,7 @@ public class FamilyData implements Serializable {
                     FamilyMember fm=new FamilyMember();
                     ToDo td=new ToDo();
                     RouterInformation ri=new RouterInformation();
+                    Note nt=new Note();
 
                     String[] lines = member.split("&");
 
@@ -237,7 +238,7 @@ public class FamilyData implements Serializable {
                                     else if (data.equals("1")) fm.setIsInside(true);
                                     else Log.e("Familink","IsInside data is not 0 nor 1.");
                                 }else{
-                                    Log.e("Familink", "PersonInfo does not match any of its parameters! Line: "+line);
+                                    Log.e("Familink", "PersonInfo did not match any of its parameters! Line: "+line);
                                 }
                             }else if (partTitle.equals("TaskInfo")){
                                 if (title.equals("taskID")) td.setID(Integer.parseInt(data));
@@ -245,12 +246,17 @@ public class FamilyData implements Serializable {
                                 else if (title.equals("text")) td.setDescription(data);
                                 else if (title.equals("personID")) td.setCreator(Integer.parseInt(data));
                                 else if (title.equals("due")) td.parseDue(data,true);
-                                else Log.e("Familink", "TaskInfo does not match any of its parameters! Line: "+line);
+                                else Log.e("Familink", "TaskInfo did not match any of its parameters! Line: "+line);
                             }else if (partTitle.equals("WifiInfo")){
                                 if (title.equals("wifiID")) ri.setID(Integer.parseInt(data));
                                 else if (title.equals("name")) ri.setName(data);
                                 else if (title.equals("address")) ri.setMacAddr(data);
-                                else Log.e("Familink", "WiFiInfo does not match any of its parameters! Line: "+line);
+                                else Log.e("Familink", "WiFiInfo did not match any of its parameters! Line: "+line);
+                            }else if (partTitle.equals("NoteInfo")){
+                                if (title.equals("title")) nt.setTitle(data);
+                                else if (title.equals("body")) nt.setBody(data);
+                                else if (title.equals("noteID")) nt.setID(Integer.parseInt(data));
+                                else Log.e("Familink", "NoteInfo did not match any of its parameters! Line: " + line);
                             }
                         } catch (ArrayIndexOutOfBoundsException e) {
                             Log.v("Familink", "Array out of bounds caught in line: " + line);
@@ -264,6 +270,8 @@ public class FamilyData implements Serializable {
                         parsedData.addToDo(td);
                     }else if (partTitle.equals("WifiInfo")&&(ri.getName()!=null)){
                         parsedData.addRouter(ri);
+                    }else if (partTitle.equals("NoteInfo")&&(nt.getTitle()!=null)){
+                        parsedData.addNote(nt);
                     }
                 }
 
@@ -274,9 +282,8 @@ public class FamilyData implements Serializable {
 
 
         }
-        Log.d("Familink","Parsed routers:"+parsedData.getRouterListAsString());
+        //Log.d("Familink","Parsed routers:"+parsedData.getRouterListAsString());
         this.shallowCopyData(parsedData);
-
 
     }
 

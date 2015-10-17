@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
     <EditText
         android:id="@+id/cred_getter_id"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -25,7 +25,7 @@
         android:hint="Password"/>
     <EditText
         android:id="@+id/cred_getter_name"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -35,7 +35,7 @@
         android:hint="Your Name" />
     <EditText
         android:id="@+id/cred_getter_phone"
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

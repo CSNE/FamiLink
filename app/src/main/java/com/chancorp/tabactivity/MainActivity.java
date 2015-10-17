@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     //TODO make bitmaps into mipmaps so no anti-aliasing issues occur.
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
+    //TODO prettier UserInformationGetter
+    //TODO text color change in/out
 
 
     FamilyData fd;
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Log.d("Familink","MainActivity killed.");
+        Log.d("Familink", "MainActivity killed.");
 
     }
 
@@ -177,32 +179,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             serverConnector.refreshData();
             return true;
         }
-        if (id == R.id.debug_in) {
-            serverConnector.gotInside();
-        }
-        if (id == R.id.debug_out) {
-            serverConnector.gotOutside();
-        }
-        if (id == R.id.debug_read) {
-            fd.loadFromFile();
-            for (RedrawableFragment rd:rdfs){
-                rd.redraw();
-            }
-        }
-        if (id == R.id.debug_write) {
-            fd.saveToFile();
-        }
         if (id == R.id.debug_del_save) {
             fd.reset();
+            serverConnector.redrawFragments();
+            return true;
         }
-        if (id==R.id.debug_test_data){
-            FamilyData nfd=new FamilyData(this);
-            nfd.addMembers(new FamilyMember("test",1,false,1,"56192384",null));
-            nfd.addToDo("test", "test todo", 0, 1);
-            fd.exactCopy(nfd);
-        }
-
-
 
 
         return super.onOptionsItemSelected(item);

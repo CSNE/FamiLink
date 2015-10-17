@@ -279,7 +279,12 @@ public class ServerComms {
                 drl.onReturn(data);
             }
         }
+    }
 
+    public void redrawFragments(){
+        for (RedrawableFragment r : this.rdf) {
+            r.redraw();
+        }
     }
 
     public void sendPOST(String s, String requestType) {

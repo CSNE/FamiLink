@@ -4,23 +4,25 @@
     android:layout_height="wrap_content">
     <EditText
         android:id="@+id/cred_getter_note_title"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Task Name" />
+        android:hint="Note title" />
     <EditText
         android:id="@+id/cred_getter_note_body"
-        android:inputType="textEmailAddress"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:maxLines="7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Task Description" />
+        android:hint="Note body" />
 
 </LinearLayout>
