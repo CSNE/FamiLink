@@ -26,13 +26,13 @@ public class FamilyMember implements Serializable, CredReturnListener{
 
     String nickname;
 
-    public static final int[] avatarIdToDrawable={R.drawable.icon_father,
+    transient public static final int[] avatarIdToDrawable={R.drawable.icon_father,
                               R.drawable.icon_mother,
                               R.drawable.icon_sister,
                               R.drawable.icon_son,
                               R.drawable.icon_grandfather,
                               R.drawable.icon_grandmother};
-    int defaultDrawable=R.drawable.ic_mood_black_48dp;
+    transient public static final int defaultDrawable=R.drawable.ic_mood_black_48dp;
 
 
     int personID;

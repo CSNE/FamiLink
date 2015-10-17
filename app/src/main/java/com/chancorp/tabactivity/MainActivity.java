@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider,ServerCommsProvider {
 
-    //TODO make bitmaps scaled so no anti-aliasing issues occur.
+    //TODO make bitmaps into mipmaps so no anti-aliasing issues occur.
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
 
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     FamilyData fd;
     ServerComms serverConnector;
     RedrawableFragment[] rdfs;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         ActionBar.Tab listPageTab = actionbar.newTab().setText("List");
         ActionBar.Tab todoPageTab = actionbar.newTab().setText("To Do");
         //TODO dynamic name - if there's a todo, display that.
-        ActionBar.Tab notePageTab = actionbar.newTab().setText("Notes");
+        ActionBar.Tab notePageTab = actionbar.newTab().setText("Note");
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
         //TODO here too.
 
@@ -141,8 +142,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         MenuItem mi = menu.findItem(R.id.debug_1);
         mi.setOnMenuItemClickListener(this);
 
+        this.menu=menu;
+
         return true;
 
+    }
+
+    public Menu getMenu(){
+        return this.menu;
     }
 
     @Override
@@ -190,6 +197,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id == R.id.debug_del_save) {
             fd.reset();
+        }
+        if (id==R.id.debug_test_data){
+            FamilyData nfd=new FamilyData(this);
+            nfd.addMembers(new FamilyMember("test",1,false,1,"56192384"));
+            nfd.addToDo("test", "test todo", 0, 1);
+            fd.exactCopy(nfd);
         }
 
 
