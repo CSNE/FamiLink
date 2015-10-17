@@ -35,14 +35,16 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
 
         if (intent.getAction().equals(WIFI1) || intent.getAction().equals(WIFI2)) {
 
+            Log.d("!!", String.valueOf(wifimanager.getWifiState()) + "   " + mPref.getString("familink_lastest_BSSID", "undefined"));
+
             if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) { // disabled
                 WifiInfo wifinfo = wifimanager.getConnectionInfo();
                 if(mPref.getString("familink_lastest_BSSID", "undefined").equals("undefined") == false) {
                     Log.d("disabled", "is there server delay?");
+                    boolean decision = ServerComms.fd.matchRouter(new RouterInformation(mPref.getString("familink_lastest_SSID",""),mPref.getString("familink_lastest_BSSID","")));
+                    Log.d("Decision  :  ", String.valueOf(decision));
                     ServerComms sc = new ServerComms();
-                    sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics,
-                            ServerComms.fd.matchRouter(new RouterInformation(mPref.getString("familink_lastest_SSID",""),mPref.getString("familink_lastest_BSSID",""))),
-                            context);
+                    sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, decision, context);
                     edit.putString("familink_lastest_BSSID", "undefined");
                     edit.putString("familink_lastest_SSID", "undefined");
                     edit.commit();
@@ -52,7 +54,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
             else if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_ENABLED) { // enabled
                 WifiInfo wifinfo = wifimanager.getConnectionInfo();
                 try {
-                    if(wifinfo.getBSSID().equals(mPref.getString("familink_lastest","undefined")) == false) {
+                    if(wifinfo.getBSSID().equals(mPref.getString("familink_lastest_BSSID","undefined")) == false) {
                         edit.putString("familink_lastest_BSSID", wifinfo.getBSSID());
                         edit.putString("familink_lastest_SSID", wifinfo.getSSID());
                         edit.commit();
