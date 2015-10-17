@@ -31,8 +31,9 @@
 
         <activity android:name=".Activity_EasterEgg" />
         <activity android:name=".Activity_add_router" />
-        <activity android:name="com.chancorp.tabactivity.Activity_List_of_router"/>
-        <activity android:name="com.chancorp.tabactivity.Activity_Lockscreen" />
+        <activity android:name=".Activity_List_of_router"/>
+        <activity android:name=".Activity_Lockscreen"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <service android:name=".Service_WifiStateChange"/>
         <activity android:name =".Page5Settings"/>
         <receiver android:name=".Receiver_WifiStateChange">

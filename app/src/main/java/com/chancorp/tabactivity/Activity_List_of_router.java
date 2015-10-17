@@ -1,5 +1,6 @@
 package com.chancorp.tabactivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -57,7 +59,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         btn = (Button) findViewById(R.id.addrouterbtn);
         btn.setOnClickListener(this);
 
-        Log.d("Familink","Activity_list_of_router starting. Router data: "+fd.getRouterListAsString());
+        Log.d("Familink", "Activity_list_of_router starting. Router data: " + fd.getRouterListAsString());
     }
 
 
