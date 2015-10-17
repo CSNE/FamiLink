@@ -131,8 +131,13 @@ public class FamilyData implements Serializable {
     public void addRouter(RouterInformation r){
         routers.add(r);
     }
-    public void deleteRouter(int idx){
-        routers.remove(idx);
+    public void deleteRouter(RouterInformation ri){
+        for (int i=0;i<this.routers.size();i++) {
+            if (routers.get(i).match(ri)) {
+                routers.remove(i);
+                break;
+            }
+        }
     }
 
     public boolean matchRouter(RouterInformation r) {

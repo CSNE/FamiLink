@@ -34,6 +34,10 @@ public class ServerComms {
 
     }
 
+    public static FamilyData getStaticFamilyData(){
+        return fd;
+    }
+
     private URL getURL() {
         try {
             if (!fd.isRegistered()) {
@@ -201,6 +205,16 @@ public class ServerComms {
         this.sendPOST(postReq, "Add Wi-Fi");
     }
 
+    public void deleteRouter(RouterInformation ri){
+        fd.deleteRouter(ri);
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "delete wifi");
+        pe.addDataSet("wifiID", Integer.toString(ri.getID()));
+        postReq = pe.encode();
+        this.sendPOST(postReq, "Delete Wi-Fi");
+    }
+
 
     public void sendGET(String requestType) {
         Log.d("Familink", "GETting from " + getURL());
@@ -293,6 +307,9 @@ public class ServerComms {
                     Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>AddMyself");
                 }
             }
+
+            refreshData();
+
             if (drl != null) {
                 Log.d("Familink", "Calling DataReturnListener");
                 drl.onReturn(data);

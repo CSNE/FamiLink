@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         ServerComms.setup("http://122.203.53.110:8071",this.fd,rdfs);
         serverConnector = new ServerComms();
 
-
+        fd.loadFromFile();
 
     }
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     public void onStart(){
         super.onStart();
         Log.d("Familink", "MainActivity started.");
-        fd.loadFromFile();
+
     }
 
     @Override
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public void onStop(){
         super.onStop();
-        Log.d("Familink","MainActivity stopped.");
+        Log.d("Familink", "MainActivity stopped.");
         fd.saveToFile();
     }
 
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            fd.saveToFile();
+            //fd.saveToFile();
             startActivity(new Intent(this, Page5Settings.class));
             return true;
         }

@@ -40,7 +40,7 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
     int avatar;
 
     public FamilyMember() {
-        this("None", -1, false, -1, "None");
+
     }
 
     public FamilyMember(String name, int personID, boolean isInside, int avatar, String num) {
