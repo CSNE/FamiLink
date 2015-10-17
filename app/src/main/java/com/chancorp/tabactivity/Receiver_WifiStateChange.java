@@ -32,6 +32,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
         WIFI2 = context.getResources().getString(R.string.Wifi_change2);
 
         if (intent.getAction().equals(WIFI1) || intent.getAction().equals(WIFI2)) {
+            Log.w("CheckWifiSate", String.valueOf(wifimanager.getWifiState()));
             WifiInfo wifinfo = wifimanager.getConnectionInfo();
             Log.d("FamiLink", "Info:" + wifinfo.getSSID() + wifinfo.getBSSID());
             ServerComms sc = new ServerComms();
