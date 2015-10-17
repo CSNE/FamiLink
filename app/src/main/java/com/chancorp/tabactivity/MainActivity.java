@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         if (id==R.id.debug_test_data){
             FamilyData nfd=new FamilyData(this);
-            nfd.addMembers(new FamilyMember("test",1,false,1,"56192384"));
+            nfd.addMembers(new FamilyMember("test",1,false,1,"56192384",null));
             nfd.addToDo("test", "test todo", 0, 1);
             fd.exactCopy(nfd);
         }

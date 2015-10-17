@@ -56,7 +56,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
 
 
         notRegisteredMenu=(LinearLayout) rootView.findViewById(R.id.page1_not_registered_menu);
-        adapter = new FamilyMemberAdapter(getContext(), R.layout.single_family_member_list_element, fd.getMembersInArray(),(AppCompatActivity)getActivity());
+        adapter = new FamilyMemberAdapter(getContext(), R.layout.single_family_member_list_element, fd.getMembersInArray(),(AppCompatActivity)getActivity(),this);
 
         if (fd.isRegistered()) notRegisteredMenu.setVisibility(LinearLayout.GONE);
 
