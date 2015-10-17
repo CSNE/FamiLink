@@ -7,28 +7,33 @@ import java.io.Serializable;
  */
 public class Note implements Serializable{
     String title,body;
-    long creationDate;
 
+
+
+    int iD;
 
 
     public Note(){
 
     }
-    public Note(String title, String body, long date){
+    public Note(String title, String body, int id){
         this.title=title;
         this.body=body;
-        this.creationDate=date;
+        this.iD=id;
+    }
+
+    public boolean match(Note n){
+        if(n.body.equals(this.body)&&n.title.equals(this.title)) return true;
+        else return false;
     }
 
 
-
-
-    public long getCreationDate() {
-        return creationDate;
+    public int getID() {
+        return iD;
     }
 
-    public void setCreationDate(long creationDate) {
-        this.creationDate = creationDate;
+    public void setID(int iD) {
+        this.iD = iD;
     }
 
     public String getBody() {

@@ -120,6 +120,8 @@ public class ServerComms {
         this.sendPOST(postReq, "Delete Family");
     }
 
+
+
     public void addMe(String name, String number) {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
@@ -212,6 +214,27 @@ public class ServerComms {
         pe.addDataSet("wifiID", Integer.toString(ri.getID()));
         postReq = pe.encode();
         this.sendPOST(postReq, "Delete Wi-Fi");
+    }
+
+    public void addNote(Note n){
+        fd.addNote(n);
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "add note");
+        pe.addDataSet("title", n.getTitle());
+        pe.addDataSet("body", n.getBody());
+        postReq = pe.encode();
+        this.sendPOST(postReq, "Add Note");
+    }
+
+    public void deleteNote(Note n){
+        fd.deleteNote(n);
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "delete note");
+        pe.addDataSet("noteID", Integer.toString(n.getID()));
+        postReq = pe.encode();
+        this.sendPOST(postReq, "Delete Note");
     }
 
 

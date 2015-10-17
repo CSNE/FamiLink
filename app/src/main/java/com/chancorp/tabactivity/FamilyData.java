@@ -21,9 +21,18 @@ public class FamilyData implements Serializable {
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
+    ArrayList<Note> notes;
     int familyID=-1, myID=-1;
     UserInformation cred;
     transient Context c;
+
+    public FamilyData(Context c){
+        data=new ArrayList<FamilyMember>();
+        todos=new ArrayList<ToDo>();
+        routers=new ArrayList<RouterInformation>();
+        notes=new ArrayList<Note>();
+        this.c=c;
+    }
 
     public void exactCopy(FamilyData fd){
 
@@ -32,6 +41,7 @@ public class FamilyData implements Serializable {
         this.todos=fd.todos;
         this.familyID=fd.familyID;
         this.myID=fd.myID;
+        this.notes=fd.notes;
         this.cred=fd.cred;
 
     }
@@ -42,6 +52,7 @@ public class FamilyData implements Serializable {
         this.data=fd.data;
         this.routers=fd.routers;
         this.todos=fd.todos;
+        this.notes=fd.notes;
 
         for(int i=0;i<this.data.size();i++){
             this.data.get(i).salvageData(origData);
@@ -74,13 +85,24 @@ public class FamilyData implements Serializable {
 
     //Some other data should go here.
 
-    public FamilyData(Context c){
-        data=new ArrayList<FamilyMember>();
-        todos=new ArrayList<ToDo>();
-        routers=new ArrayList<RouterInformation>();
-        this.c=c;
-    }
 
+    public ArrayList<Note> getNotes(){
+        return notes;
+    }
+    public void addNote(Note n){
+        notes.add(n);
+    }
+    public void deleteNote(Note n){
+        for (int i=0;i<this.routers.size();i++) {
+            if (notes.get(i).match(n)) {
+                notes.remove(i);
+                break;
+            }
+        }
+    }
+    public Note getNoteAt(int idx){
+        return notes.get(idx);
+    }
     public boolean isRegistered(){
         if (familyID==-1) return false;
         else return true;

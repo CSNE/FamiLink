@@ -18,8 +18,9 @@ public class UserInformationGetter {
     public static final int NAME_AND_PHONE=884252;
     public static final int NICKNAME_AND_AVATAR=129744;
     public static final int TASK=385791;
+    public static final int NOTE=189516;
 
-    EditText usernameInput,passwordInput,nameInput,phoneInput, nickInput, timeInput, taskNameInput, taskDescInput;
+    EditText usernameInput,passwordInput,nameInput,phoneInput, nickInput, timeInput, taskNameInput, taskDescInput, noteTitleInput, noteBodyInput;
     Spinner avatarSpinner;
     UserInfoReturnListener cr;
     Context c;
@@ -63,6 +64,8 @@ public class UserInformationGetter {
             view=inflater.inflate(R.layout.credientials_getter_nickname_and_avatar, null);
         }else if(type==TASK){
             view=inflater.inflate(R.layout.credientials_getter_task, null);
+        }else if(type==NOTE){
+            view=inflater.inflate(R.layout.credientials_getter_note, null);
         }
         else{
             Log.d("Familink", "What the fuck");
@@ -95,6 +98,10 @@ public class UserInformationGetter {
             taskNameInput=(EditText)view.findViewById(R.id.cred_getter_task_name);
             taskDescInput=(EditText)view.findViewById(R.id.cred_getter_task_desc);
         }
+        if(type==NOTE){
+            noteBodyInput=(EditText)view.findViewById(R.id.cred_getter_note_body);
+            noteTitleInput=(EditText)view.findViewById(R.id.cred_getter_note_title);
+        }
 
         builder.setMessage("Enter")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -118,6 +125,10 @@ public class UserInformationGetter {
                             cred.setTaskName(taskNameInput.getText().toString());
                             cred.setTaskTime(timeInput.getText().toString());
                             cred.setTaskDesc(taskDescInput.getText().toString());
+                        }
+                        if(type==NOTE){
+                            cred.setNoteBody(noteBodyInput.getText().toString());
+                            cred.setNoteTitle(noteTitleInput.getText().toString());
                         }
                         cr.onReturn(cred);
                     }

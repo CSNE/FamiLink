@@ -17,6 +17,24 @@ public class UserInformation implements Serializable{
     String name;
     String phone;
     String taskName;
+    String noteBody;
+    String noteTitle;
+
+    public String getNoteBody() {
+        return noteBody;
+    }
+
+    public void setNoteBody(String noteBody) {
+        this.noteBody = noteBody;
+    }
+
+    public String getNoteTitle() {
+        return noteTitle;
+    }
+
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
+    }
 
     public String getTaskDesc() {
         return taskDesc;
