@@ -267,7 +267,8 @@ public class ServerComms {
             }, RETRY_INTERVAL_MILLISEC);
 
         } else {
-            Log.d("Familink", "GET returned. \nRequest type:" + requestType + "\nData Returned: " + data);
+            Log.d("Familink", "GET returned. Request type:" + requestType);
+            Log.v("Familink","Data Returned: " + data);
             if (requestType.equals("Parse Family Data")) {
                 fd.parseData(data);
                 for (RedrawableFragment r : this.rdf) {
@@ -316,7 +317,8 @@ public class ServerComms {
             }, RETRY_INTERVAL_MILLISEC);
 
         } else {
-            Log.d("Familink", "POST returned. \nRequest type:" + requestType + "\nData Returned: " + data);
+            Log.d("Familink", "POST returned. \nRequest type:" + requestType);
+            Log.d("Familink","POST data: "+ data);
             if (requestType.equals("Add Family") || requestType.equals("get ID")) {
                 try {
                     fd.setFamilyID(Integer.parseInt(data.trim()));
@@ -375,6 +377,7 @@ public class ServerComms {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
+                    sb.append("\n");
                 }
 
                 urlConnection.disconnect();
@@ -390,8 +393,6 @@ public class ServerComms {
         }
 
         protected void onPostExecute(String result) {
-            Log.d("Familink", "DataRetruever result:" + result);
-
             this.sc.onGETReturn(result, requestType, tries);
         }
 
@@ -478,7 +479,6 @@ public class ServerComms {
 
         @Override
         protected void onPostExecute(String res) {
-
             this.sc.onPOSTReturn(res, origParams, requestType, tries);
         }
     }

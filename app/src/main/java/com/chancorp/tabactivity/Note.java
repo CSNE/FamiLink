@@ -14,7 +14,7 @@ public class Note implements Serializable{
 
 
     public Note(){
-
+        iD=-1;
     }
     public Note(String title, String body, int id){
         this.title=title;

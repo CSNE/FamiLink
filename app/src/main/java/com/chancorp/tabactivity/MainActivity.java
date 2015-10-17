@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     //TODO make bitmaps into mipmaps so no anti-aliasing issues occur.
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
-    //TODO prettier UserInformationGetter
     //TODO text color change in/out
 
 

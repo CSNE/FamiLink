@@ -193,11 +193,11 @@ public class FamilyData implements Serializable {
 
         FamilyData parsedData=new FamilyData(null);
 
-        Log.d("FamiLink", "FamilyData.parseData() input:" + s);
-
-        Log.d("Familink","Converted: "+StringUtils.unescapeHtml3(s));
+        //Log.d("FamiLink", "FamilyData.parseData() input:" + s);
 
         s=StringUtils.unescapeHtml3(s);
+
+        Log.v("Familink","FamilyData.parseData() input (Converted using StringUtils): "+s);
 
         s=s.replace("<ul class=entries>","").replace("</ul>","");
 
