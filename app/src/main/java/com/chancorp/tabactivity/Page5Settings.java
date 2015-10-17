@@ -32,8 +32,8 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if(preference instanceof SwitchPreference) {
                     String Tag = preference.getKey().toString();
-                    if(Tag.equals("ServiceRunning")) BuildAlertDialog_ServiceRunning(preference);
-                    else if(Tag.equals("Electronics"))  BuildAlertDialog_Electornics(preference);
+                    if(Tag.equals("familink_ServiceRunning")) BuildAlertDialog_familink_ServiceRunning(preference);
+                    else if(Tag.equals("familink_Electronics"))  BuildAlertDialog_Electornics(preference);
                 }
                 return true;
             }
@@ -54,8 +54,8 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
             }
         };
         addPreferencesFromResource(R.xml.pref_settings);
-        setOnPreferenceChange(findPreference("ServiceRunning"));
-        setOnPreferenceChange(findPreference("Electronics"));
+        setOnPreferenceChange(findPreference("familink_ServiceRunning"));
+        setOnPreferenceChange(findPreference("familink_Electronics"));
         setOnPreferenceClick(findPreference("ListofRouter"));
         setOnPreferenceClick(findPreference("DeveloperInformation"));
         return;
@@ -68,7 +68,7 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         startActivity(new Intent(this, Activity_EasterEgg.class));
     }
 
-    private void BuildAlertDialog_ServiceRunning(Preference preference) {
+    private void BuildAlertDialog_familink_ServiceRunning(Preference preference) {
         if(mPref.getBoolean(preference.getKey(),true) == false) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("알림");
@@ -115,14 +115,14 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     }
     private void setOnPreferenceChange(Preference mPreference) {
         mPreference.setOnPreferenceChangeListener(onPreferenceChangeListener);
-        if(mPreference.getKey().toString().equals("ServiceRunning")) {
-            if(mPref.getBoolean("ServiceRunning",false) == false) {
+        if(mPreference.getKey().toString().equals("familink_ServiceRunning")) {
+            if(mPref.getBoolean("familink_ServiceRunning",false) == false) {
                 mPreference.setSummary("사용 안함");
             } else {
                 mPreference.setSummary("사용 중");
             }
-        } else if(mPreference.getKey().toString().equals("Electronics")) {
-            if(mPref.getBoolean("Electronics", false) == false) {
+        } else if(mPreference.getKey().toString().equals("familink_Electronics")) {
+            if(mPref.getBoolean("familink_Electronics", false) == false) {
                 mPreference.setSummary("사용 안함");
             } else {
                 mPreference.setSummary("사용 중");
