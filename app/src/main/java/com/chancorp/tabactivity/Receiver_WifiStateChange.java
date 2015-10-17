@@ -35,7 +35,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
             WifiInfo wifinfo = wifimanager.getConnectionInfo();
             Log.d("FamiLink", "Info:" + wifinfo.getSSID() + wifinfo.getBSSID());
             ServerComms sc = new ServerComms();
-            sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics);
+            sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics,context);
             // sending boolean electronics : check whether gonna do alarm.
         }
     }

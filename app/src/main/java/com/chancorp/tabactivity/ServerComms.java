@@ -1,5 +1,7 @@
 package com.chancorp.tabactivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -125,19 +127,27 @@ public class ServerComms {
         this.sendPOST(postReq, "Add Myself");
     }
 
-    public void updateStatus(RouterInformation ri, boolean extraCheck) {
-        Log.d("Familink", "Update Status Called");
+    public void updateStatus(RouterInformation ri, boolean extraCheck, Context c) {
+        Log.d("Familink", "ServerComms>updateStatus() called");
+
         if (fd.matchRouter(ri)) {
             Log.d("Familink", "router matched. inside.");
             this.gotInside();
         } else {
             Log.d("Familink", "router not matched. outside.");
+            if(extraCheck) {
+                //TODO : when extracheck activited, check if left the home last.
+                if (fd.numInside()<=1) {
+                    Log.d("Familink", "Only one person in home, and going out. Starting lockscreen.");
+                    Intent itt = new Intent(c, Activity_Lockscreen.class);
+                    itt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    c.startActivity(itt);
+                }
+
+            }
             this.gotOutside();
         }
-        if(extraCheck) {
-            //TODO : when extracheck activited, check if left the home last.
 
-        }
     }
 
     public void gotInside() {
