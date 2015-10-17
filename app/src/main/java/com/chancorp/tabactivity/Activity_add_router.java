@@ -3,6 +3,8 @@ package com.chancorp.tabactivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -10,11 +12,14 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,12 +35,20 @@ public class Activity_add_router extends Activity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.addrouter);
+        setContentView(R.layout.activity_addrouter);
         textview = (TextView) findViewById(R.id.addroutertext);
         btn = (Button) findViewById(R.id.addrouterconfirmbtn);
         btn.setOnClickListener(this);
-        //((ImageView) findViewById(R.id.help1)).setImageResource(R.drawable.wifi_icon);
-        //((ImageView) findViewById(R.id.help2)).setImageResource(R.drawable.smartphone_icon);
+
+        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon_router);
+        Bitmap resizebmp = Bitmap.createScaledBitmap(bmp, width/2, width/2, true);
+        ((ImageView) findViewById(R.id.help1)).setImageBitmap(resizebmp);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon_smartphone);
+        resizebmp = Bitmap.createScaledBitmap(bmp, width / 2, width / 2, true);
+        ((ImageView) findViewById(R.id.help2)).setImageBitmap(resizebmp);
+        ((TextView) findViewById(R.id.doum)).setText("집의 공유기에 핸드폰의 와이파이를 연결해주세요.\n연결이 되었으면, 위의 버튼을 눌러 가족 공유기 추가를 진행해주세요.\n가족 공유기 정보는 자동으로 서버에 저장되어 가족이 공유하게 됩니다.");
         makehandler();
         maketimer();
     }
