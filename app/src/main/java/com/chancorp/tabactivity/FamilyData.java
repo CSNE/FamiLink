@@ -11,9 +11,12 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
 public class FamilyData implements Serializable {
+    transient public static boolean lock=false;
+    int saveIdentifier=1;
 
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
@@ -127,7 +130,6 @@ public class FamilyData implements Serializable {
 
     public void addRouter(RouterInformation r){
         routers.add(r);
-
     }
     public void deleteRouter(int idx){
         routers.remove(idx);
@@ -189,6 +191,7 @@ public class FamilyData implements Serializable {
 
                     FamilyMember fm=new FamilyMember();
                     ToDo td=new ToDo();
+                    RouterInformation ri=new RouterInformation();
 
                     String[] lines = member.split("&");
 
@@ -209,13 +212,18 @@ public class FamilyData implements Serializable {
                                 }else{
                                     Log.e("Familink", "PersonInfo does not match any of its parameters! Line: "+line);
                                 }
-                            }if (partTitle.equals("TaskInfo")){
+                            }else if (partTitle.equals("TaskInfo")){
                                 if (title.equals("taskID")) td.setID(Integer.parseInt(data));
                                 else if (title.equals("name")) td.setTitle(data);
                                 else if (title.equals("text")) td.setDescription(data);
                                 else if (title.equals("personID")) td.setCreator(Integer.parseInt(data));
                                 else if (title.equals("due")) td.parseDue(data,true);
                                 else Log.e("Familink", "TaskInfo does not match any of its parameters! Line: "+line);
+                            }else if (partTitle.equals("WifiInfo")){
+                                if (title.equals("wifiID")) ri.setID(Integer.parseInt(data));
+                                else if (title.equals("name")) ri.setName(data);
+                                else if (title.equals("address")) ri.setMacAddr(data);
+                                else Log.e("Familink", "WiFiInfo does not match any of its parameters! Line: "+line);
                             }
                         } catch (ArrayIndexOutOfBoundsException e) {
                             Log.v("Familink", "Array out of bounds caught in line: " + line);
@@ -223,10 +231,12 @@ public class FamilyData implements Serializable {
 
                     }
 
-                    if (partTitle.equals("PersonInfo")){
+                    if (partTitle.equals("PersonInfo")&&(fm.getName()!=null)){
                         parsedData.addMembers(fm);
-                    }else if (partTitle.equals("TaskInfo")){
+                    }else if (partTitle.equals("TaskInfo")&&(td.getTitle()!=null)){
                         parsedData.addToDo(td);
+                    }else if (partTitle.equals("WifiInfo")&&(ri.getName()!=null)){
+                        parsedData.addRouter(ri);
                     }
                 }
 
@@ -237,7 +247,7 @@ public class FamilyData implements Serializable {
 
 
         }
-
+        Log.d("Familink","Parsed routers:"+parsedData.getRouterListAsString());
         this.shallowCopyData(parsedData);
 
 
@@ -260,13 +270,16 @@ public class FamilyData implements Serializable {
     }
 
     public void saveToFile(){
+        lock=false;
         try {
+            saveIdentifier=new Random().nextInt();
+            Log.d("Familink","Data saving... identifier: "+saveIdentifier);
             FileOutputStream fos = c.openFileOutput("familink_family_data", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(this);
             os.close();
             fos.close();
-            Log.d("Familink", "File written successfully.");
+            Log.i("Familink", "FamilyData saved.");
         }catch(Exception e){
             StringWriter errors = new StringWriter();
             e.printStackTrace(new PrintWriter(errors));
@@ -275,6 +288,9 @@ public class FamilyData implements Serializable {
     }
 
     public void loadFromFile(){
+        if (lock==true) Log.e("Familink","FamilyData>loadFromFile() called but it is locked! Are two instances running at the same time?");
+        lock=true;
+
         try {
             FileInputStream fis = c.openFileInput("familink_family_data");
             ObjectInputStream is = new ObjectInputStream(fis);
@@ -282,7 +298,7 @@ public class FamilyData implements Serializable {
             is.close();
             fis.close();
 
-            Log.d("Familink", "File read successfully.");
+            Log.i("Familink", "FamilyData Loaded. Identifier: " + readFD.saveIdentifier);
             this.exactCopy(readFD);
             Log.d("Familink", "FamilyData overwritten.");
 
@@ -293,7 +309,13 @@ public class FamilyData implements Serializable {
         }
     }
 
-
+    public String getRouterListAsString(){
+        String res=new String();
+        for(int i=0;i<routers.size();i++){
+            res=res+routers.get(i).toString()+"\n";
+        }
+        return res;
+    }
 
 }
 

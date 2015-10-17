@@ -20,8 +20,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
+
+import java.util.Random;
 
 
 //프로그램 시작 시 보여지는 Activity..
@@ -125,13 +128,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public void onPause(){
         super.onPause();
-        Log.d("Familink", "MainActivity paused.");
+        Log.d("Familink","MainActivity paused.");
     }
 
     @Override
     public void onStop(){
         super.onStop();
         Log.d("Familink","MainActivity stopped.");
+        fd.saveToFile();
     }
 
     @Override
@@ -147,8 +151,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        MenuItem mi = menu.findItem(R.id.debug_1);
-        mi.setOnMenuItemClickListener(this);
 
         this.menu=menu;
 
@@ -182,11 +184,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             Toast.makeText(this, "Refreshing", Toast.LENGTH_SHORT).show();
             serverConnector.refreshData();
             return true;
-        }
-        if (id == R.id.debug_1) {
-            Toast.makeText(this, "SEND TO JISUNG'S PART", Toast.LENGTH_SHORT).show();
-            Intent itt=new Intent(this,Activity_Module1.class);
-            startActivity(itt);
         }
         if (id == R.id.debug_in) {
             serverConnector.gotInside();

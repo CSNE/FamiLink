@@ -10,6 +10,16 @@ public class RouterInformation implements Serializable{
     public String name;
     public String macAddr;
 
+    public int getID() {
+        return iD;
+    }
+
+    public void setID(int iD) {
+        this.iD = iD;
+    }
+
+    public int iD;
+
     public RouterInformation() {
         this.name="";
         this.macAddr="";

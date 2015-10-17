@@ -190,6 +190,17 @@ public class ServerComms {
         this.sendPOST(postReq, "Report Outside");
     }
 
+    public void addRouter(RouterInformation ri){
+        fd.addRouter(ri);
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "add wifi");
+        pe.addDataSet("name", ri.getName());
+        pe.addDataSet("address", ri.getMacAddr());
+        postReq = pe.encode();
+        this.sendPOST(postReq, "Add Wi-Fi");
+    }
+
 
     public void sendGET(String requestType) {
         Log.d("Familink", "GETting from " + getURL());

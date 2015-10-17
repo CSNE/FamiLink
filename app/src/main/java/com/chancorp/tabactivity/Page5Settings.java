@@ -17,6 +17,7 @@ import android.preference.SwitchPreference;
 public class Page5Settings extends PreferenceActivity implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     int clickedcount;
+    FamilyData fd;
     private SharedPreferences mPref;
     private Preference.OnPreferenceChangeListener onPreferenceChangeListener;
     private OnPreferenceClickListener onPreferenceClickListener;

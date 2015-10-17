@@ -28,10 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.chancorp.tabactivity.Activity_Module1"
-            android:label="@string/back_app_name" >-
-        </activity>
 
         <activity android:name=".Activity_EasterEgg" />
         <activity android:name=".Activity_add_router" />

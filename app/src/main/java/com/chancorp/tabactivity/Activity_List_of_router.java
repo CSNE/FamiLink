@@ -29,11 +29,11 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     ListView listview;
     CustomAdapter01 adapter = null;
     final int REQUEST_CODE = 100131, MaxRouterSize = 10;
-    SharedPreferences mRef;
-    SharedPreferences.Editor mRefEdit;
+    //SharedPreferences mRef;
+    //SharedPreferences.Editor mRefEdit;
 
     FamilyData fd;
-
+    ServerComms sc;
     /*
     when getting Router Size from SharedPreferences : mRef.getInt("RouterSz",0);
     RouterTag = "Router"+String.ValueOf(i);
@@ -49,12 +49,15 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
 
         fd=new FamilyData(this);
         fd.loadFromFile();
+        sc=new ServerComms();
 
         listview = (ListView) findViewById(R.id.listofrouterlist);
         adapter = new CustomAdapter01(this, R.layout.customadapter01design, fd);
         listview.setAdapter(adapter);
         btn = (Button) findViewById(R.id.addrouterbtn);
         btn.setOnClickListener(this);
+
+        Log.d("Familink","Activity_list_of_router starting. Router data: "+fd.getRouterListAsString());
     }
 
 
@@ -75,9 +78,10 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                 newRouter.setName(data.getStringExtra("new_name"));
                 Log.d("Familink","New router: "+newRouter.toString());
                 if(!fd.matchRouter(newRouter)) {
-                    fd.getRouters().add(newRouter);
+                    //fd.getRouters().add(newRouter);
+                    sc.addRouter(newRouter);
                     Log.d("Familink", "Router added.");
-                    fd.saveToFile();
+                    //fd.saveToFile();
                     adapter.notifyDataSetChanged();
 
                 } else {
@@ -89,8 +93,10 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     }
 
     public void datastechanged(int position) {
-        fd.getRouters().remove(position);
-        fd.saveToFile();
+        //fd.getRouters().remove(position);
+        //fd.saveToFile();
+
+        //sc.deleteRouter(sc.fd.getRouters().get(position));
         adapter.notifyDataSetChanged();
         return;
     }
