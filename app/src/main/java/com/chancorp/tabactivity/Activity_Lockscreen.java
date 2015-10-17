@@ -1,10 +1,10 @@
 package com.chancorp.tabactivity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,11 +12,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-public class Activity_Lockscreen extends AppCompatActivity{
+public class Activity_Lockscreen extends Activity {
 
     ImageView imgview;
     Vibrator vb = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
