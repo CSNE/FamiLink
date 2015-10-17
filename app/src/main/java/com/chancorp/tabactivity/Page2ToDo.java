@@ -47,7 +47,7 @@ public class Page2ToDo extends Fragment implements RedrawableFragment, AdapterVi
         View rootView = inflater.inflate(R.layout.page_2_todo, container, false);
 
 
-        tdl = new ToDoListAdapter(getContext(), R.layout.single_todo_list_element, fd.getToDosInArray(),(AppCompatActivity)getActivity());
+        tdl = new ToDoListAdapter(R.layout.single_todo_list_element, fd,(AppCompatActivity)getActivity());
 
 
         lv = (ListView) rootView.findViewById(R.id.page2_todolist);

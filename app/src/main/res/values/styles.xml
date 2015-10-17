@@ -6,4 +6,16 @@
         <item name="android:windowActionBar">true</item>
     </style>
 
+    <style name="TitleText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#FF000000</item>
+    </style>
+    <style name="SubTitleText">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#88000000</item>
+    </style>
+    <style name="SubTitleText.Important">
+        <item name="android:textColor">#88AA0000</item>
+    </style>
+
 </resources>

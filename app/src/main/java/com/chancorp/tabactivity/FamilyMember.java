@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 //가족 구성원 1명에 대한 데이터 저장.
-public class FamilyMember implements Serializable, CredReturnListener{
+public class FamilyMember implements Serializable, UserInfoReturnListener {
 
 
 
@@ -80,7 +80,7 @@ public class FamilyMember implements Serializable, CredReturnListener{
     }
     public void openSettings(FragmentActivity a) {
         Log.d("Familink", "Opening settings for member" + getName());
-        CredentialsGetter cg=new CredentialsGetter(a,CredentialsGetter.NICKNAME_AND_AVATAR);
+        UserInformationGetter cg=new UserInformationGetter(a, UserInformationGetter.NICKNAME_AND_AVATAR);
         cg.setTitle("Set Family Info");
         cg.setHint("Nickname");
         cg.init();
@@ -137,8 +137,8 @@ public class FamilyMember implements Serializable, CredReturnListener{
     }
 
     @Override
-    public void onReturn(Credentials c) {
-        Log.d("Familink","Credentials returned "+c.getNickname());
+    public void onReturn(UserInformation c) {
+        Log.d("Familink","UserInformation returned "+c.getNickname());
         this.setAvatar(c.getAvatar());
         this.setNickname(c.getNickname());
     }

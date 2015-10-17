@@ -10,19 +10,16 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 //이 클래스는 가족 데이터를 저장하고 관리하는 클래스입니다.
-public class FamilyData implements Serializable, Runnable {
+public class FamilyData implements Serializable {
 
     ArrayList<FamilyMember> data;
     ArrayList<RouterInformation> routers;
     ArrayList<ToDo> todos;
     int familyID=-1, myID=-1;
-    Credentials cred;
+    UserInformation cred;
     transient Context c;
 
     public void exactCopy(FamilyData fd){
@@ -70,6 +67,8 @@ public class FamilyData implements Serializable, Runnable {
         return false;
     }
 
+
+
     //Some other data should go here.
 
     public FamilyData(Context c){
@@ -84,14 +83,30 @@ public class FamilyData implements Serializable, Runnable {
         else return true;
     }
 
+    public String personIDToName(int id){
+        for (FamilyMember fm:this.data){
+            if (fm.getPersonID()==id){
+                return fm.getName();
+            }
+        }
+        Log.e("Familink","FamilyData.personIDToName > ID not matched. (ID: "+id+")");
+        return null;
+    }
+
     public ArrayList<RouterInformation> getRouters(){
         return this.routers;
     }
+    public ArrayList<ToDo> getToDos(){
+        return this.todos;
+    }
+    public ArrayList<FamilyMember> getFamilyMembers(){
+        return this.data;
+    }
 
-    public void setCredentials(Credentials c){
+    public void setCredentials(UserInformation c){
         this.cred=c;
     }
-    public Credentials getCredentials(){
+    public UserInformation getCredentials(){
         return this.cred;
     }
 
@@ -117,45 +132,6 @@ public class FamilyData implements Serializable, Runnable {
     public void deleteRouter(int idx){
         routers.remove(idx);
     }
-
-    /*
-    int trytime;
-    boolean retvalue;
-    final int trylimit = 5;
-    Timer mtimer = null;
-    TimerTask mtimertask = null;
-
-    public boolean matchRouter(RouterInformation r){
-        final RouterInformation r_ = r;
-        trytime = 0;
-        retvalue = false;
-        mtimer = new Timer();
-        TimerTask mtimertask = new TimerTask() {
-            @Override
-            public void run() {
-                queryProcess(r_); // Todo : Test!
-            }
-        };
-        mtimer.schedule(mtimertask, 1000, 1000);
-        return retvalue;
-    }
-    private int queryProcess(RouterInformation r) {
-        boolean ret = false;
-        for(int i=0;i<routers.size();i++) {
-            ret |= routers.get(i).match(r);
-        }
-        trytime ++;
-        if(ret) {
-            mtimer.cancel();
-            retvalue = true;
-            return; // success code
-        }
-        if(trytime > trylimit) {
-            mtimer.cancel();
-            return; // end code
-        }
-        return 3; // failed code
-    }*/
 
     public boolean matchRouter(RouterInformation r) {
         boolean res=false;
@@ -186,7 +162,6 @@ public class FamilyData implements Serializable, Runnable {
 
     public void parseData(String s){
 
-        //clearMembers();
         FamilyData parsedData=new FamilyData(null);
 
         Log.d("FamiLink", "FamilyData.parseData() input:" + s);
@@ -235,9 +210,8 @@ public class FamilyData implements Serializable, Runnable {
                                 else if (title.equals("name")) td.setTitle(data);
                                 else if (title.equals("text")) td.setDescription(data);
                                 else if (title.equals("personID")) td.setCreator(Integer.parseInt(data));
-                                else if (title.equals("date")) td.parseDue(data);
+                                else if (title.equals("due")) td.parseDue(data);
                                 else Log.e("Familink", "TaskInfo does not match any of its parameters! Line: "+line);
-
                             }
                         } catch (ArrayIndexOutOfBoundsException e) {
                             Log.v("Familink", "Array out of bounds caught in line: " + line);
@@ -316,9 +290,6 @@ public class FamilyData implements Serializable, Runnable {
     }
 
 
-    @Override
-    public void run() {
 
-    }
 }
 

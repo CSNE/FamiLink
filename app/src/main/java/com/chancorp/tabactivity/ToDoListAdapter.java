@@ -16,27 +16,27 @@ public class ToDoListAdapter extends BaseAdapter {
 
     // LayoutInflater : 레이아웃 xml을 view객체로 만드는 클래스
     int mResource;
-    ToDo[] todos;
+    FamilyData fd;
     LayoutInflater minflater;
 
     AppCompatActivity ac;
 
     //FamilyMemberAdapter 생성자 정의
-    public ToDoListAdapter(Context context, int layoutId, ToDo[] td, AppCompatActivity ac){
+    public ToDoListAdapter(int layoutId, FamilyData fd, AppCompatActivity ac){
         mResource=layoutId;
-        this.todos=td;
-        minflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.fd=fd;
+        minflater=(LayoutInflater)ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.ac=ac;
     }
 
     @Override
     public int getCount() {
-        return todos.length;
+        return fd.getToDos().size();
     }
 
     @Override
     public Object getItem(int i) {
-        return todos[i];
+        return fd.getToDoAt(i);
     }
 
     @Override
@@ -48,9 +48,9 @@ public class ToDoListAdapter extends BaseAdapter {
     public View getView(int i, View convertedView, ViewGroup parent) {
 
         View view;
-        TextView nameV, dueV;
-        ImageView imgV;
-        Button btn;
+        TextView nameV, dueV, byV, descV;
+        ImageView iconV;
+        Button btn, resolveBtn;
         final ToDo currentTD;
 
 
@@ -62,19 +62,26 @@ public class ToDoListAdapter extends BaseAdapter {
 
         nameV=(TextView) view.findViewById(R.id.todoList_Name);
         dueV=(TextView) view.findViewById(R.id.todoList_Due);
+        byV=(TextView) view.findViewById(R.id.todoList_made_by);
+        descV=(TextView) view.findViewById(R.id.todoList_desc);
 
-        imgV=(ImageView) view.findViewById(R.id.todoList_Icon);
+        iconV=(ImageView) view.findViewById(R.id.todoList_Icon);
 
+        resolveBtn=(Button) view.findViewById(R.id.todoList_Resolve);
         btn=(Button) view.findViewById(R.id.todoList_Resolve);
 
-        nameV.setText(todos[i].getTitle());
-        dueV.setText(todos[i].getStringDue());
+        nameV.setText(fd.getToDoAt(i).getTitle());
+        dueV.setText(fd.getToDoAt(i).getStringDue());
+        byV.setText(fd.personIDToName(fd.getToDoAt(i).getCreator()));
+        descV.setText(fd.getToDoAt(i).getDescription());
 
-        imgV.setImageResource(todos[i].getIconDrawable());
+        resolveBtn.setBackgroundResource(R.drawable.ic_done_black_48dp);
+
+        iconV.setImageResource(fd.getToDoAt(i).getIconDrawable());
 
 
 
-        currentTD=todos[i];
+        currentTD=fd.getToDoAt(i);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
