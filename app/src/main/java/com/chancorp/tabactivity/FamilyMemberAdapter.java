@@ -70,9 +70,9 @@ public class FamilyMemberAdapter extends BaseAdapter {
         msgBtn=(Button) view.findViewById(R.id.memberList_MsgBtn);
         callBtn=(Button) view.findViewById(R.id.memberList_CallBtn);
         setBtn=(Button) view.findViewById(R.id.memberList_SettingBtn);
-
+        //Log.v("Familink", "adapter debug:"+familyMembers[i].getName()+" "+familyMembers[i].getNickname());
         if(familyMembers[i].getNickname()==null) {
-           // Log.v("Familink", "adapter debug:"+i+" "+familyMembers[i].getNickname());
+
             tv1.setText(familyMembers[i].getName());
         }else{
             tv1.setText(familyMembers[i].getNickname()+" ("+familyMembers[i].getName()+")");

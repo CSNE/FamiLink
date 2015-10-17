@@ -141,9 +141,9 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
         try {
             getFragmentManager().beginTransaction().detach(this).attach(this).commit();
         }catch(IllegalStateException e){
-            Log.e("Familink", "IllegalStateException on Page 1>redraw() - Maybe page wasn't visible?");
+            Log.v("Familink", "IllegalStateException on Page 1>redraw() - Maybe page wasn't visible?");
         }catch(NullPointerException e){
-            Log.e("Familink", "NullPointerException on Page 1>redraw() - Maybe page wasn't active?");
+            Log.v("Familink", "NullPointerException on Page 1>redraw() - Maybe page wasn't active?");
         }
     }
 }

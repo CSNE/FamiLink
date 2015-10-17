@@ -32,6 +32,10 @@
         android:id="@+id/debug_del_save"
         android:title="Delete Save"/>
 
+    <item
+        android:id="@+id/debug_test_data"
+        android:title="Load test data"/>
+
     <item android:id="@+id/global_refresh"
         android:icon="@drawable/ic_refresh_black_48dp_inv"
         android:title="Refresh"

@@ -15,10 +15,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //서버 통신 클래스
 public class ServerComms {
-    private static final int MAX_RETRIES = 3;
+    private static final int MAX_RETRIES = 5, RETRY_INTERVAL_MILLISEC=5000;
     static String serverBaseURL, queryString;
     static FamilyData fd;
     static RedrawableFragment[] rdf;
@@ -178,15 +180,25 @@ public class ServerComms {
 
     public void onGETReturn(String data, String requestType, int tries) {
         if (data == null) {
-            Log.d("Familink", "Null returned to GET request. Retrying.");
-            //TODO wait one second here.
+
             if (tries >= MAX_RETRIES) {
                 Log.e("Familink", "GET failed after "+MAX_RETRIES+" tries.");
                 return;
-            }
-            DataRetriever dr = new DataRetriever(this, tries + 1);
-            dr.setRequestType(requestType);
-            dr.execute(getURL());
+            } else Log.d("Familink", "Null returned to GET request. Retrying. (try "+tries+")");
+
+            final String requestTypeF=requestType;
+            final int triesF=tries;
+            final ServerComms scF=this;
+
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    DataRetriever dr = new DataRetriever(scF, triesF + 1);
+                    dr.setRequestType(requestTypeF);
+                    dr.execute(getURL());
+                }
+            }, RETRY_INTERVAL_MILLISEC);
+
         } else {
             Log.d("Familink", "GET returned. \nRequest type:" + requestType + "\nData Returned: " + data);
             if (requestType.equals("Parse Family Data")) {
@@ -213,16 +225,24 @@ public class ServerComms {
 
     public void onPOSTReturn(String data, String origParams, String requestType, int tries) {
         if (data == null) {
-            Log.d("Familink", "Null returned to POST request. Retrying.");
-            //TODO wait one second here.
             if (tries >= MAX_RETRIES) {
-
                 Log.e("Familink", "POST failed after "+MAX_RETRIES+" tries.");
                 return;
-            }
-            DataSender ds = new DataSender(this, origParams, requestType, tries + 1);
-            ds.setRequestType(requestType);
-            ds.execute(getURL());
+            } else Log.d("Familink", "Null returned to POST request. Retrying. (try "+tries+")");
+
+            final String requestTypeF=requestType,origParamsF=origParams;
+            final int triesF=tries;
+            final ServerComms scF=this;
+
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    DataSender ds = new DataSender(scF, origParamsF, requestTypeF, triesF + 1);
+                    ds.setRequestType(requestTypeF);
+                    ds.execute(getURL());
+                }
+            }, RETRY_INTERVAL_MILLISEC);
+
         } else {
             Log.d("Familink", "POST returned. \nRequest type:" + requestType + "\nData Returned: " + data);
             if (requestType.equals("Add Family") || requestType.equals("get ID")) {
@@ -288,7 +308,8 @@ public class ServerComms {
             } catch (Exception e) {
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.d("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString());
+                Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString());
+                //Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).");
                 return null;
             }
         }
@@ -367,7 +388,8 @@ public class ServerComms {
 
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.e("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString());
+                Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString().substring(0,100)+"...");
+                //Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).");
                 return null;
 
             } finally {

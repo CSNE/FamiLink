@@ -62,7 +62,7 @@ public class CredentialsGetter {
             view=inflater.inflate(R.layout.credientials_getter_nickname_and_avatar, null);
         }
         else{
-            Log.e("Familink", "What the fuck");
+            Log.d("Familink", "What the fuck");
             view=null;
         }
 
@@ -92,6 +92,7 @@ public class CredentialsGetter {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         Credentials cred = new Credentials();
                         if(type==NAME_AND_PHONE||type==BASIC) {
                             cred.setID(usernameInput.getText().toString());
@@ -102,7 +103,7 @@ public class CredentialsGetter {
                             cred.setPhone(phoneInput.getText().toString());
                         }
                         if(type==NICKNAME_AND_AVATAR){
-                            cred.setName(nickInput.getText().toString());
+                            cred.setNickname(nickInput.getText().toString());
                             cred.setAvatar(avatarSpinner.getSelectedItemPosition());
                         }
                         cr.onReturn(cred);

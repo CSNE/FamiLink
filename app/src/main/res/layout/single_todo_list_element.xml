@@ -10,8 +10,8 @@
         android:layout_alignParentLeft="true">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/todoList_Icon" />
 
         <LinearLayout
@@ -36,7 +36,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Accept"
         android:id="@+id/todoList_Resolve"
         android:layout_alignParentRight="true" />
 

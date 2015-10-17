@@ -159,10 +159,8 @@ public class FamilyData implements Serializable, Runnable {
 
     public boolean matchRouter(RouterInformation r) {
         boolean res=false;
-        for(RouterInformation ri : this.routers){
-            if(ri.match(r)){
-                res=true;
-            }
+        for (RouterInformation ri:this.routers){
+            if (ri.match(r)) res=true;
         }
         return res;
     }
@@ -211,6 +209,7 @@ public class FamilyData implements Serializable, Runnable {
                     Log.v("Familink", "   New member");
 
                     FamilyMember fm=new FamilyMember();
+                    ToDo td=new ToDo();
 
                     String[] lines = member.split("&");
 
@@ -222,13 +221,23 @@ public class FamilyData implements Serializable, Runnable {
                             Log.v("Familink", "      Title:" + title + " | Data:" + data);
                             if (partTitle.equals("PersonInfo")){
                                 if (title.equals("name")) fm.setName(data);
-                                if (title.equals("personID")) fm.setPersonID(Integer.parseInt(data));
-                                if (title.equals("phoneNumber")) fm.setPhoneNumber(data);
-                                if (title.equals("isInside")){
+                                else if (title.equals("personID")) fm.setPersonID(Integer.parseInt(data));
+                                else if (title.equals("phoneNumber")) fm.setPhoneNumber(data);
+                                else if (title.equals("isInside")){
                                     if (data.equals("0")) fm.setIsInside(false);
                                     else if (data.equals("1")) fm.setIsInside(true);
                                     else Log.e("Familink","IsInside data is not 0 nor 1.");
+                                }else{
+                                    Log.e("Familink", "PersonInfo does not match any of its parameters! Line: "+line);
                                 }
+                            }if (partTitle.equals("TaskInfo")){
+                                if (title.equals("taskID")) td.setID(Integer.parseInt(data));
+                                else if (title.equals("name")) td.setTitle(data);
+                                else if (title.equals("text")) td.setDescription(data);
+                                else if (title.equals("personID")) td.setCreator(Integer.parseInt(data));
+                                else if (title.equals("date")) td.parseDue(data);
+                                else Log.e("Familink", "TaskInfo does not match any of its parameters! Line: "+line);
+
                             }
                         } catch (ArrayIndexOutOfBoundsException e) {
                             Log.v("Familink", "Array out of bounds caught in line: " + line);
@@ -238,6 +247,8 @@ public class FamilyData implements Serializable, Runnable {
 
                     if (partTitle.equals("PersonInfo")){
                         parsedData.addMembers(fm);
+                    }else if (partTitle.equals("TaskInfo")){
+                        parsedData.addToDo(td);
                     }
                 }
 

@@ -26,13 +26,13 @@ public class FamilyMember implements Serializable, CredReturnListener{
 
     String nickname;
 
-    public static final int[] avatarIdToDrawable={R.drawable.icon_father,
+    transient public static final int[] avatarIdToDrawable={R.drawable.icon_father,
                               R.drawable.icon_mother,
                               R.drawable.icon_sister,
                               R.drawable.icon_son,
                               R.drawable.icon_grandfather,
                               R.drawable.icon_grandmother};
-    int defaultDrawable=R.drawable.ic_mood_black_48dp;
+    transient public static final int defaultDrawable=R.drawable.ic_mood_black_48dp;
 
 
     int personID;
@@ -60,7 +60,7 @@ public class FamilyMember implements Serializable, CredReturnListener{
         try {
             return avatarIdToDrawable[this.avatar];
         }catch(ArrayIndexOutOfBoundsException e){
-            Log.v("Familink", "Avaratar ID to Drawable index out of bounds.");
+            //Log.v("Familink", "Avaratar ID to Drawable index out of bounds.");
         }
         return defaultDrawable;
     }
@@ -138,6 +138,7 @@ public class FamilyMember implements Serializable, CredReturnListener{
 
     @Override
     public void onReturn(Credentials c) {
+        Log.d("Familink","Credentials returned "+c.getNickname());
         this.setAvatar(c.getAvatar());
         this.setNickname(c.getNickname());
     }
