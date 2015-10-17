@@ -140,7 +140,6 @@ public class ServerComms {
         } else {
             Log.d("Familink", "router not matched. outside.");
             if(extraCheck && now == 1) {
-                //TODO : when extracheck activited, check if left the home last.
                 if (fd.numInside()<=1) {
                     Log.d("Familink", "Only one person in home, and going out. Starting lockscreen.");
                     Intent itt = new Intent(c, Activity_Lockscreen.class);

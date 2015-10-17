@@ -41,7 +41,7 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
     boolean isInside;
     int avatar;
 
-    RedrawableFragment parentPage;
+    transient RedrawableFragment parentPage;
 
     public FamilyMember() {
 
