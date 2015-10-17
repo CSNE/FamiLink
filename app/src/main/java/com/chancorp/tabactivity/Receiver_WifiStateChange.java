@@ -16,6 +16,7 @@ import java.util.TimerTask;
 public class Receiver_WifiStateChange extends BroadcastReceiver {
 
     SharedPreferences mPref = null;
+    SharedPreferences.Editor edit = null;
     boolean electronics = false;
     Timer mTimer = null;
     TimerTask mTimerTask = null;
@@ -23,6 +24,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (mPref == null) mPref = PreferenceManager.getDefaultSharedPreferences(context);
+        if(edit == null) edit = mPref.edit();
         electronics = mPref.getBoolean("Electronics", false);
         WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
@@ -32,12 +34,19 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
         WIFI2 = context.getResources().getString(R.string.Wifi_change2);
 
         if (intent.getAction().equals(WIFI1) || intent.getAction().equals(WIFI2)) {
-            Log.w("CheckWifiSate", String.valueOf(wifimanager.getWifiState()));
-            WifiInfo wifinfo = wifimanager.getConnectionInfo();
-            Log.d("FamiLink", "Info:" + wifinfo.getSSID() + wifinfo.getBSSID());
-            ServerComms sc = new ServerComms();
-            sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics,context);
-            // sending boolean electronics : check whether gonna do alarm.
+            if(wifimanager.getWifiState()%2 == 1) {
+                int now = wifimanager.getWifiState();
+                if(now != mPref.getInt("lastest",4)) {
+                    edit.putInt("lastest", now);
+                    edit.commit();
+                    Log.w("Check", toString().valueOf(wifimanager.getWifiState()));
+                    WifiInfo wifinfo = wifimanager.getConnectionInfo();
+                    Log.d("FamiLink", "Info:" + wifinfo.getSSID() + wifinfo.getBSSID());
+                    ServerComms sc = new ServerComms();
+                    sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, context);
+                    // sending boolean electronics : check whether gonna do alarm.
+                }
+            }
         }
     }
 }
