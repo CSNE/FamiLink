@@ -37,22 +37,28 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
 
             if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) { // disabled
                 WifiInfo wifinfo = wifimanager.getConnectionInfo();
-                edit.putString("familink_lastest", "undefined");
-                edit.commit();
-                Log.d("disabled", "is there server delay?");
-                ServerComms sc = new ServerComms();
-                sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, wifimanager.getWifiState(), context);
+                if(mPref.getString("familink_lastest_BSSID", "undefined").equals("undefined") == false) {
+                    Log.d("disabled", "is there server delay?");
+                    ServerComms sc = new ServerComms();
+                    sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics,
+                            ServerComms.fd.matchRouter(new RouterInformation(mPref.getString("familink_lastest_SSID",""),mPref.getString("familink_lastest_BSSID",""))),
+                            context);
+                    edit.putString("familink_lastest_BSSID", "undefined");
+                    edit.putString("familink_lastest_SSID", "undefined");
+                    edit.commit();
+                }
             }
 
             else if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_ENABLED) { // enabled
                 WifiInfo wifinfo = wifimanager.getConnectionInfo();
                 try {
                     if(wifinfo.getBSSID().equals(mPref.getString("familink_lastest","undefined")) == false) {
-                        edit.putString("familink_lastest", wifinfo.getBSSID());
+                        edit.putString("familink_lastest_BSSID", wifinfo.getBSSID());
+                        edit.putString("familink_lastest_SSID", wifinfo.getSSID());
                         edit.commit();
                         Log.d("enabled", "is there server delay?  " + wifinfo.getBSSID());
                         ServerComms sc = new ServerComms();
-                        sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, wifimanager.getWifiState(), context);
+                        sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, false, context);
                         // sending boolean electronics : check whether gonna do alarm.
                     }
                 } catch(NullPointerException e) {

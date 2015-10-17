@@ -116,13 +116,13 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     private void setOnPreferenceChange(Preference mPreference) {
         mPreference.setOnPreferenceChangeListener(onPreferenceChangeListener);
         if(mPreference.getKey().toString().equals("familink_ServiceRunning")) {
-            if(mPref.getBoolean("familink_ServiceRunning",false) == false) {
+            if(mPref.getBoolean("familink_ServiceRunning",true) == false) {
                 mPreference.setSummary("사용 안함");
             } else {
                 mPreference.setSummary("사용 중");
             }
         } else if(mPreference.getKey().toString().equals("familink_Electronics")) {
-            if(mPref.getBoolean("familink_Electronics", false) == false) {
+            if(mPref.getBoolean("familink_Electronics", true) == false) {
                 mPreference.setSummary("사용 안함");
             } else {
                 mPreference.setSummary("사용 중");

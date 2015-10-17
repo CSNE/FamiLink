@@ -38,11 +38,6 @@ public class Activity_Lockscreen extends Activity {
 
     @Override
     protected void onDestroy() {
-        try {
-            vb.cancel();
-        } catch(Exception e) {
-            Log.w("Check", "you cannot cancel vibrator cause not working!");
-        }
         super.onDestroy();
     }
 

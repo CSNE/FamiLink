@@ -131,15 +131,15 @@ public class ServerComms {
         this.sendPOST(postReq, "Add Myself");
     }
 
-    public void updateStatus(RouterInformation ri, boolean extraCheck, int now, Context c) {
-        Log.d("Familink", "is there server delay ???! ServerComms>updateStatus() called");
+    public void updateStatus(RouterInformation ri, boolean extraCheck, boolean doextra, Context c) {
+        Log.d("Familink", "is there server delay ? ServerComms>updateStatus() called");
 
-        if (fd.matchRouter(ri)) {
-            Log.d("Familink", "is there server delay ???! router matched. inside.");
+        if (doextra == false && fd.matchRouter(ri)) { // when connected to wifi and wifi is home wifi
+            Log.d("Familink", "is there server delay ? router matched. inside.");
             this.gotInside();
         } else {
             Log.d("Familink", "router not matched. outside.");
-            if(extraCheck && now == 1) {
+            if(extraCheck && doextra) {
                 if (fd.numInside()<=1) {
                     Log.d("Familink", "Only one person in home, and going out. Starting lockscreen.");
                     Intent itt = new Intent(c, Activity_Lockscreen.class);
