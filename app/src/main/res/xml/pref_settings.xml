@@ -6,7 +6,7 @@
         android:summary="앱과 관련된 설정을 변경할 수 있습니다.">
         <SwitchPreference
             android:defaultValue="false"
-            android:key="ServiceRunning"
+            android:key="familink_ServiceRunning"
             android:textOn="On"
             android:textOff="Off"
             android:title="실시간 위치제공 서비스"
@@ -14,7 +14,7 @@
             />
         <SwitchPreference
             android:defaultValue="false"
-            android:key="Electronics"
+            android:key="familink_Electronics"
             android:textOn="On"
             android:textOff="Of"
             android:title="'가전제품은 끄셨나요?'"

@@ -25,7 +25,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (mPref == null) mPref = PreferenceManager.getDefaultSharedPreferences(context);
         if(edit == null) edit = mPref.edit();
-        electronics = mPref.getBoolean("Electronics", false);
+        electronics = mPref.getBoolean("familink_Electronics", false);
         WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
         String WIFI1 = new String();
@@ -37,7 +37,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
 
             if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) { // disabled
                 WifiInfo wifinfo = wifimanager.getConnectionInfo();
-                edit.putString("lastest", "undefined");
+                edit.putString("familink_lastest", "undefined");
                 edit.commit();
                 Log.d("disabled", "is there server delay?");
                 ServerComms sc = new ServerComms();
@@ -46,15 +46,21 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
 
             else if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_ENABLED) { // enabled
                 WifiInfo wifinfo = wifimanager.getConnectionInfo();
-                if(wifinfo.getSSID() != mPref.getString("lastest","undefined")) {
-                    edit.putString("lastest", "undefined");
-                    edit.commit();
-                    Log.d("enabled", "is there server delay?");
-                    ServerComms sc = new ServerComms();
-                    sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, wifimanager.getWifiState(), context);
-                    // sending boolean electronics : check whether gonna do alarm.
+                try {
+                    if(wifinfo.getBSSID().equals(mPref.getString("familink_lastest","undefined")) == false) {
+                        edit.putString("familink_lastest", wifinfo.getBSSID());
+                        edit.commit();
+                        Log.d("enabled", "is there server delay?  " + wifinfo.getBSSID());
+                        ServerComms sc = new ServerComms();
+                        sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, wifimanager.getWifiState(), context);
+                        // sending boolean electronics : check whether gonna do alarm.
+                    }
+                } catch(NullPointerException e) {
+                    Log.d("Android Developers: ", "Such an idiot!");
+                    e.printStackTrace();
                 }
             }
+
         }
     }
 }
