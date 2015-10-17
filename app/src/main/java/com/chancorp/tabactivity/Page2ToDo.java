@@ -47,7 +47,7 @@ public class Page2ToDo extends Fragment implements RedrawableFragment, AdapterVi
         View rootView = inflater.inflate(R.layout.page_2_todo, container, false);
 
 
-        tdl = new ToDoListAdapter(R.layout.single_todo_list_element, fd,(AppCompatActivity)getActivity());
+        tdl = new ToDoListAdapter(R.layout.single_todo_list_element, fd,(AppCompatActivity)getActivity(), sc);
 
 
         lv = (ListView) rootView.findViewById(R.id.page2_todolist);
@@ -83,9 +83,21 @@ public class Page2ToDo extends Fragment implements RedrawableFragment, AdapterVi
     @Override
     public void onClick(View view) {
         if (view.getId()==R.id.page2_add_button){
-            Log.d("Familink","Page 2 add button clicked");
-            ToDo td=new ToDo(fd.getMyID(),"Test","A test task.",0,1);
-            sc.addToDo(td);
+            Log.d("Familink", "Page 2 add button clicked");
+            UserInformationGetter uig=new UserInformationGetter(getContext(),UserInformationGetter.TASK);
+            uig.setTitle("New Task");
+            uig.setOnReturnListener(new UserInfoReturnListener() {
+                @Override
+                public void onReturn(UserInformation c) {
+                    ToDo td=new ToDo();
+                    td.setTitle(c.getTaskName());
+                    td.parseDue(c.getTaskTime(),false);
+                    td.setDescription(c.getTaskDesc());
+                    sc.addToDo(td);
+                }
+            });
+            uig.init();
+
         }else{
             Log.wtf("Familink", "Page 2 - What the hell did you press?!?!?");
         }

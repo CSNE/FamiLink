@@ -16,6 +16,37 @@ public class UserInformation implements Serializable{
     String iD;
     String name;
     String phone;
+    String taskName;
+
+    public String getTaskDesc() {
+        return taskDesc;
+    }
+
+    public void setTaskDesc(String taskDesc) {
+        this.taskDesc = taskDesc;
+    }
+
+
+
+    String taskDesc;
+
+    public String getTaskTime() {
+        return taskTime;
+    }
+
+    public void setTaskTime(String taskTime) {
+        this.taskTime = taskTime;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    String taskTime;
 
     public String getNickname() {
         return nickname;

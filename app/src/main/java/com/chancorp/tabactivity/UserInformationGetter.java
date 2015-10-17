@@ -17,8 +17,9 @@ public class UserInformationGetter {
     public static final int BASIC=10239;
     public static final int NAME_AND_PHONE=884252;
     public static final int NICKNAME_AND_AVATAR=129744;
+    public static final int TASK=385791;
 
-    EditText usernameInput,passwordInput,nameInput,phoneInput, nickInput;
+    EditText usernameInput,passwordInput,nameInput,phoneInput, nickInput, timeInput, taskNameInput, taskDescInput;
     Spinner avatarSpinner;
     UserInfoReturnListener cr;
     Context c;
@@ -60,6 +61,8 @@ public class UserInformationGetter {
             view=inflater.inflate(R.layout.credientials_getter_name_and_phone, null);
         }else if(type==NICKNAME_AND_AVATAR){
             view=inflater.inflate(R.layout.credientials_getter_nickname_and_avatar, null);
+        }else if(type==TASK){
+            view=inflater.inflate(R.layout.credientials_getter_task, null);
         }
         else{
             Log.d("Familink", "What the fuck");
@@ -87,6 +90,11 @@ public class UserInformationGetter {
             ImageArrayAdapter adapter = new ImageArrayAdapter(c, picArray,szConv.dpToPixels(100),szConv.dpToPixels(100));
             avatarSpinner.setAdapter(adapter);
         }
+        if (type==TASK){
+            timeInput=(EditText)view.findViewById(R.id.cred_getter_task_time);
+            taskNameInput=(EditText)view.findViewById(R.id.cred_getter_task_name);
+            taskDescInput=(EditText)view.findViewById(R.id.cred_getter_task_desc);
+        }
 
         builder.setMessage("Enter")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -105,6 +113,11 @@ public class UserInformationGetter {
                         if(type==NICKNAME_AND_AVATAR){
                             cred.setNickname(nickInput.getText().toString());
                             cred.setAvatar(avatarSpinner.getSelectedItemPosition());
+                        }
+                        if(type==TASK){
+                            cred.setTaskName(taskNameInput.getText().toString());
+                            cred.setTaskTime(timeInput.getText().toString());
+                            cred.setTaskDesc(taskDescInput.getText().toString());
                         }
                         cr.onReturn(cred);
                     }

@@ -18,15 +18,17 @@ public class ToDoListAdapter extends BaseAdapter {
     int mResource;
     FamilyData fd;
     LayoutInflater minflater;
+    ServerComms sc;
 
     AppCompatActivity ac;
 
     //FamilyMemberAdapter 생성자 정의
-    public ToDoListAdapter(int layoutId, FamilyData fd, AppCompatActivity ac){
+    public ToDoListAdapter(int layoutId, FamilyData fd, AppCompatActivity ac, ServerComms sc){
         mResource=layoutId;
         this.fd=fd;
         minflater=(LayoutInflater)ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.ac=ac;
+        this.sc=sc;
     }
 
     @Override
@@ -70,8 +72,22 @@ public class ToDoListAdapter extends BaseAdapter {
         resolveBtn=(Button) view.findViewById(R.id.todoList_Resolve);
         btn=(Button) view.findViewById(R.id.todoList_Resolve);
 
+
+        int urg=fd.getToDoAt(i).checkUrgency();
+        if (urg==ToDo.TOO_LATE) dueV=new Button(ac,null,R.style.SubTitleText_DarkRed);
+        else if (urg==ToDo.URGENT) dueV=new Button(ac,null,R.style.SubTitleText_Red);
+        else if (urg==ToDo.KINDA_URGENT) dueV=new Button(ac,null,R.style.SubTitleText_Orange);
+        else if (urg==ToDo.NOT_URGENT) dueV=new Button(ac,null,R.style.SubTitleText_Blue);
+/*
+        int urg=fd.getToDoAt(i).checkUrgency();
+        if (urg==ToDo.TOO_LATE) dueV.setTextAppearance(R.style.SubTitleText_DarkRed);
+        else if (urg==ToDo.URGENT) dueV.setTextAppearance(R.style.SubTitleText_Red);
+        else if (urg==ToDo.KINDA_URGENT) dueV.setTextAppearance(R.style.SubTitleText_Orange);
+        else if (urg==ToDo.NOT_URGENT) dueV.setTextAppearance(R.style.SubTitleText_Blue);*/
+
+
         nameV.setText(fd.getToDoAt(i).getTitle());
-        dueV.setText(fd.getToDoAt(i).getStringDue());
+        dueV.setText(fd.getToDoAt(i).getStringDue(false));
         byV.setText(fd.personIDToName(fd.getToDoAt(i).getCreator()));
         descV.setText(fd.getToDoAt(i).getDescription());
 
@@ -87,7 +103,7 @@ public class ToDoListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "CLICK ON "+currentTD.getTitle(), Toast.LENGTH_SHORT).show();
-                currentTD.accept();
+                sc.deleteToDo(currentTD);
             }
         });
 

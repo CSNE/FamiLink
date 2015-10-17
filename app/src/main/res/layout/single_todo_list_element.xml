@@ -25,7 +25,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentTop="false"
         android:orientation="vertical"
-        android:layout_toRightOf="@+id/todolist_divider">
+        android:layout_toRightOf="@+id/todolist_divider"
+        android:layout_toLeftOf="@+id/todoList_Resolve">
 
         <TextView
             android:layout_width="wrap_content"

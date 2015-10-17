@@ -163,9 +163,17 @@ public class ServerComms {
         pe.addDataSet("personID", Integer.toString(fd.getMyID()));
         pe.addDataSet("name", td.getTitle());
         pe.addDataSet("text", td.getDescription());
-        pe.addDataSet("due", td.getStringDue());
+        pe.addDataSet("due", td.getStringDue(true));
         postReq = pe.encode();
         this.sendPOST(postReq, "Add ToDo");
+    }
+    public void deleteToDo(ToDo td){
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "delete task");
+        pe.addDataSet("taskID", Integer.toString(td.getID()));
+        postReq = pe.encode();
+        this.sendPOST(postReq, "Report Outside");
     }
 
 

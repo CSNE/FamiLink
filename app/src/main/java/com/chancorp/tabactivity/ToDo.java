@@ -18,6 +18,7 @@ public class ToDo implements Serializable{
     transient public static final int[] icons={R.drawable.ic_event_black_48dp,R.drawable.ic_access_alarm_black_48dp};
     transient public static final int defaultDrawable=R.drawable.ic_event_black_48dp;
     transient public static final int DUE_WARNING=18000, DUE_CRITICAL=3600;
+    transient public static final int NOT_URGENT=24613, KINDA_URGENT=12353473, URGENT=843621, TOO_LATE=75465;
     long dueTime;
     String title,description;
     int creator;
@@ -38,8 +39,8 @@ public class ToDo implements Serializable{
     }
 
 
-    public String getStringDue(){
-        Log.d("Familink","Converting UNIX time: "+this.dueTime);
+    public String getStringDue(boolean seconds){
+        Log.v("Familink","Converting UNIX time: "+this.dueTime);
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -47,29 +48,43 @@ public class ToDo implements Serializable{
 
         String reportDate = df.format(time);
 
-        Log.d("Familink","Converted to: "+reportDate);
+        Log.v("Familink","Converted to: "+reportDate);
+        if (seconds) Log.v("Familink","deleting last 3 chars.");
 
-        return reportDate;
+        if (seconds) return reportDate;
+        else return reportDate.substring(0, reportDate.length()-3);
     }
 
-    public void parseDue(String s){
-        Log.d("Familink","ToDo parsing date from string: "+s);
+    public void parseDue(String s, boolean seconds){
+        Log.v("Familink", "ToDo parsing date from string: " + s);
+        if (!seconds) Log.v("Familink",":00 added to string.");
+        s=s+":00";
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dt= null;
         try {
             dt = sdf.parse(s);
+            Calendar calendar= GregorianCalendar.getInstance();
+            calendar.setTime(dt);
+            this.dueTime=(calendar.getTimeInMillis() / 1000);
         } catch (ParseException e) {
-            Log.e("Familink","ParseException while parsing date.");
+            Log.e("Familink", "ParseException while parsing date.");
+            this.dueTime=0;
         }
-        Calendar calendar= GregorianCalendar.getInstance();
-        calendar.setTime(dt);
-        this.setDueTime(calendar.getTimeInMillis() / 1000);
-        Log.d("Familink","Parsed UNIX time: "+this.dueTime);
+
+        Log.v("Familink", "Parsed UNIX time: " + this.dueTime);
     }
 
     public long timeLeft(){
         long currentTime = System.currentTimeMillis() / 1000L;
         return (dueTime-currentTime);
+    }
+
+    public int checkUrgency(){
+        long left=this.timeLeft();
+        if (left<0) return TOO_LATE;
+        else if (left<DUE_CRITICAL) return URGENT;
+        else if (left<DUE_WARNING) return KINDA_URGENT;
+        else return NOT_URGENT;
     }
 
     public int getIconDrawable(){
@@ -81,9 +96,7 @@ public class ToDo implements Serializable{
         }
     }
 
-    public void accept(){
 
-    }
 
 
 

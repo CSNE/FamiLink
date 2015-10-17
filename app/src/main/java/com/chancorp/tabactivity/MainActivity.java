@@ -1,3 +1,13 @@
+/*
+COPYRIGHT CONTROL
+
+Family Logos By Snehal Patil (CC-BY-3.0-US)
+Material Design Icons by Google (CC-BY-4.0)
+StringUtils class by Nick Frolov
+
+
+*/
+
 package com.chancorp.tabactivity;
 
 import android.content.Context;
@@ -15,6 +25,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import java.util.Random;
+
 
 //프로그램 시작 시 보여지는 Activity..
 

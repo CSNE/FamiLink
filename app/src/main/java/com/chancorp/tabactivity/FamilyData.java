@@ -166,6 +166,10 @@ public class FamilyData implements Serializable {
 
         Log.d("FamiLink", "FamilyData.parseData() input:" + s);
 
+        Log.d("Familink","Converted: "+StringUtils.unescapeHtml3(s));
+
+        s=StringUtils.unescapeHtml3(s);
+
         s=s.replace("<ul class=entries>","").replace("</ul>","");
 
         String[] parts=s.split("\\[");
@@ -210,7 +214,7 @@ public class FamilyData implements Serializable {
                                 else if (title.equals("name")) td.setTitle(data);
                                 else if (title.equals("text")) td.setDescription(data);
                                 else if (title.equals("personID")) td.setCreator(Integer.parseInt(data));
-                                else if (title.equals("due")) td.parseDue(data);
+                                else if (title.equals("due")) td.parseDue(data,true);
                                 else Log.e("Familink", "TaskInfo does not match any of its parameters! Line: "+line);
                             }
                         } catch (ArrayIndexOutOfBoundsException e) {
