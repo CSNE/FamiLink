@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class Activity_List_of_router extends Activity implements View.OnClickListener {
-    Button btn;
+    Button btn, refBtn;
     ListView listview;
     CustomAdapter01 adapter = null;
     final int REQUEST_CODE = 100131, MaxRouterSize = 10;
@@ -49,15 +49,18 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listofrouter);
 
-        fd=new FamilyData(this);
-        fd.loadFromFile();
+        //fd=new FamilyData(this);
+        //fd.loadFromFile();
+        fd=ServerComms.getStaticFamilyData();
         sc=new ServerComms();
 
         listview = (ListView) findViewById(R.id.listofrouterlist);
         adapter = new CustomAdapter01(this, R.layout.customadapter01design, fd);
         listview.setAdapter(adapter);
         btn = (Button) findViewById(R.id.addrouterbtn);
+        refBtn=(Button) findViewById(R.id.router_refresh);
         btn.setOnClickListener(this);
+        refBtn.setOnClickListener(this);
 
         Log.d("Familink", "Activity_list_of_router starting. Router data: " + fd.getRouterListAsString());
     }
@@ -67,6 +70,9 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     public void onClick(View v) {
         if(v.getId() == R.id.addrouterbtn) {
             startActivityForResult(new Intent(this, Activity_add_router.class), REQUEST_CODE);
+        }else if (v.getId()==R.id.router_refresh){
+            sc.refreshData();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -95,10 +101,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     }
 
     public void datastechanged(int position) {
-        //fd.getRouters().remove(position);
-        //fd.saveToFile();
-
-        //sc.deleteRouter(sc.fd.getRouters().get(position));
+        sc.deleteRouter(fd.getRouters().get(position));
         adapter.notifyDataSetChanged();
         return;
     }

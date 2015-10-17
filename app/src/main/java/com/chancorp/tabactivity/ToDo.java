@@ -26,7 +26,7 @@ public class ToDo implements Serializable{
     int iD;
 
     public ToDo(){
-        this(0,"","",0,-1);
+
     }
 
 

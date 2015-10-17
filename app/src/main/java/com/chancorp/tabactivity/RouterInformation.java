@@ -21,8 +21,6 @@ public class RouterInformation implements Serializable{
     public int iD;
 
     public RouterInformation() {
-        this.name="";
-        this.macAddr="";
     }
     public RouterInformation(String name, String mac){
         this.name=name;
