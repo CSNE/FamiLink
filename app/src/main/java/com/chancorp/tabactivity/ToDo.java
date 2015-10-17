@@ -80,7 +80,11 @@ public class ToDo implements Serializable{
     }
 
     public int checkUrgency(){
+
         long left=this.timeLeft();
+
+        Log.v("Familink","Checking urgency.... time left: "+left);
+
         if (left<0) return TOO_LATE;
         else if (left<DUE_CRITICAL) return URGENT;
         else if (left<DUE_WARNING) return KINDA_URGENT;

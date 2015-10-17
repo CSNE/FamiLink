@@ -74,10 +74,10 @@ public class ToDoListAdapter extends BaseAdapter {
 
 
         int urg=fd.getToDoAt(i).checkUrgency();
-        if (urg==ToDo.TOO_LATE) dueV=new Button(ac,null,R.style.SubTitleText_DarkRed);
-        else if (urg==ToDo.URGENT) dueV=new Button(ac,null,R.style.SubTitleText_Red);
-        else if (urg==ToDo.KINDA_URGENT) dueV=new Button(ac,null,R.style.SubTitleText_Orange);
-        else if (urg==ToDo.NOT_URGENT) dueV=new Button(ac,null,R.style.SubTitleText_Blue);
+        if (urg==ToDo.TOO_LATE) dueV.setTextColor(ac.getResources().getColor(R.color.text_redder));
+        else if (urg==ToDo.URGENT) dueV.setTextColor(ac.getResources().getColor(R.color.text_red));
+        else if (urg==ToDo.KINDA_URGENT) dueV.setTextColor(ac.getResources().getColor(R.color.text_orange));
+        else if (urg==ToDo.NOT_URGENT) dueV.setTextColor(ac.getResources().getColor(R.color.text_blue));
 /*
         int urg=fd.getToDoAt(i).checkUrgency();
         if (urg==ToDo.TOO_LATE) dueV.setTextAppearance(R.style.SubTitleText_DarkRed);
