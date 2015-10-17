@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 //가족 구성원 1명에 대한 데이터 저장.
@@ -39,16 +41,23 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
     boolean isInside;
     int avatar;
 
+    RedrawableFragment parentPage;
+
     public FamilyMember() {
 
     }
 
-    public FamilyMember(String name, int personID, boolean isInside, int avatar, String num) {
+    public FamilyMember(String name, int personID, boolean isInside, int avatar, String num, RedrawableFragment parentPage) {
         this.name = name;
         this.personID = personID;
         this.isInside = isInside;
         this.avatar = avatar;
         this.phoneNumber = num;
+        this.parentPage=parentPage;
+    }
+
+    public void setParentPage(RedrawableFragment rdf){
+        this.parentPage=rdf;
     }
 
     public String getDataString() {
@@ -141,6 +150,13 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
         Log.d("Familink","UserInformation returned "+c.getNickname());
         this.setAvatar(c.getAvatar());
         this.setNickname(c.getNickname());
+        try {
+            parentPage.redraw();
+        }catch(Exception e){
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            Log.e("Familink","Error when redrawing parent page."+e.toString());
+        }
     }
 
     public void salvageData(ArrayList<FamilyMember> origData) {

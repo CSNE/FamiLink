@@ -356,7 +356,7 @@ public class ServerComms {
             } catch (Exception e) {
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString());
+                Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString().substring(0, 100) + "...(omitted)");
                 //Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).");
                 return null;
             }
@@ -436,7 +436,7 @@ public class ServerComms {
 
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString().substring(0, 100) + "...");
+                Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString().substring(0, 100) + "...(omitted)");
                 //Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).");
                 return null;
 

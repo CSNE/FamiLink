@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Ref;
+
 //List page의 가족 데이터르르 표시할 때 쓰는 어댑터.
 public class FamilyMemberAdapter extends BaseAdapter {
 
@@ -21,13 +23,15 @@ public class FamilyMemberAdapter extends BaseAdapter {
     LayoutInflater minflater;
 
     AppCompatActivity ac;
+    RedrawableFragment parentPage;
 
     //FamilyMemberAdapter 생성자 정의
-    public FamilyMemberAdapter(Context context, int layoutId, FamilyMember[] fm, AppCompatActivity ac){
+    public FamilyMemberAdapter(Context context, int layoutId, FamilyMember[] fm, AppCompatActivity ac, RedrawableFragment rdf){
         mResource=layoutId;
         this.familyMembers=fm;
         minflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.ac=ac;
+        this.parentPage=rdf;
         //setareAllItemsEnabled();
         //isEnabled(true);
 
@@ -84,6 +88,8 @@ public class FamilyMemberAdapter extends BaseAdapter {
         callBtn.setBackgroundResource(R.drawable.ic_call_black_48dp);
         setBtn.setBackgroundResource(R.drawable.ic_settings_black_48dp);
         msgBtn.setBackgroundResource(R.drawable.ic_message_black_48dp);
+
+        familyMembers[i].setParentPage(parentPage);
 
         currentMember=familyMembers[i];
 
