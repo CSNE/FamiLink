@@ -20,11 +20,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
-
-import java.util.Random;
 
 
 //프로그램 시작 시 보여지는 Activity..
@@ -128,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public void onPause(){
         super.onPause();
-        Log.d("Familink","MainActivity paused.");
+        Log.d("Familink", "MainActivity paused.");
     }
 
     @Override
@@ -178,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         if (id == R.id.action_settings) {
             fd.saveToFile();
-            startActivity(new Intent(this, Activity_Page5Settings.class));
+            startActivity(new Intent(this, Page5Settings.class));
             return true;
         }
         if (id == R.id.global_refresh) {

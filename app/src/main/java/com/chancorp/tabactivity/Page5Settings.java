@@ -14,7 +14,7 @@ import android.preference.SwitchPreference;
 /**
  * Created by Baranium on 2015. 10. 14..
  */
-public class Activity_Page5Settings extends PreferenceActivity implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class Page5Settings extends PreferenceActivity implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     int clickedcount;
     private SharedPreferences mPref;
