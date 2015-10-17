@@ -100,14 +100,21 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
             });
             cg.init();
         }else if (view.getId()==R.id.page1_btn_add_family){
-            UserInformationGetter cg=new UserInformationGetter(getContext(), UserInformationGetter.BASIC);
+            UserInformationGetter cg=new UserInformationGetter(getContext(), UserInformationGetter.NAME_AND_PHONE);
             cg.setTitle("Make new family");
             cg.setHint("New Family Name","Password");
             cg.setOnReturnListener(new UserInfoReturnListener() {
-                public void onReturn(UserInformation c) {
+                public void onReturn(final UserInformation c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     sc.addFamily(c);
+                    sc.setDataReturnListener(new DataReturnListener() {
+                        @Override
+                        public void onReturn(String data) {
+                            sc.addMe(c.getName(),c.getPhone());
+                            sc.clearDataReturnListener();
+                        }
+                    });
                 }
             });
             cg.init();
