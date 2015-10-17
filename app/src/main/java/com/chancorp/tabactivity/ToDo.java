@@ -17,6 +17,7 @@ public class ToDo implements Serializable{
 
     transient public static final int[] icons={R.drawable.ic_event_black_48dp,R.drawable.ic_access_alarm_black_48dp};
     transient public static final int defaultDrawable=R.drawable.ic_event_black_48dp;
+    transient public static final int DUE_WARNING=18000, DUE_CRITICAL=3600;
     long dueTime;
     String title,description;
     int creator;
