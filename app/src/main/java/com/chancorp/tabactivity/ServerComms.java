@@ -43,7 +43,7 @@ public class ServerComms {
 
     private URL getURL() {
         try {
-            if (fd.isRegistered()) {
+            if (fd.hasFamilyIdAndCred()) {
                 return new URL(serverBaseURL + "/" + Integer.toString(fd.getFamilyID()) + "?pw=" + fd.getCredentials().getPasswordHash());
             }else return new URL(serverBaseURL + "/-1");
 
@@ -99,7 +99,8 @@ public class ServerComms {
     }
 
     public void refreshData() {
-        sendGET("Parse Family Data");
+        if (fd.isRegistered()) sendGET("Parse Family Data");
+        else Log.d("Familink","ServerComms>refreshData() called, but it's not registered - ignoring request.");
     }
 
     public void getID(String familyName) {

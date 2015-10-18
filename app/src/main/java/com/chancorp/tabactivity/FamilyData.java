@@ -104,9 +104,14 @@ public class FamilyData implements Serializable {
         return notes.get(idx);
     }
     public boolean isRegistered(){
+        if (familyID==-1||myID==-1||cred==null) return false;
+        else return true;
+    }
+    public boolean hasFamilyIdAndCred(){
         if (familyID==-1||cred==null) return false;
         else return true;
     }
+
 
     public String personIDToName(int id){
         for (FamilyMember fm:this.data){
