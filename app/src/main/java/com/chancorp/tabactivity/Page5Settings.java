@@ -71,12 +71,11 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     }
 
     private void logoutProcess() {
-        BuildAlertDialog_Logout();
+        BuildAlertDialog_Logout_or_DeleteAccount(true);
     }
 
     private void delAccountProcess(){
-        new ServerComms(this).deleteMe();
-        finish();
+        BuildAlertDialog_Logout_or_DeleteAccount(false);
     }
 
     private void sendActivity()   {startActivity(new Intent(this, Activity_List_of_router.class));}
@@ -124,14 +123,17 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         return;
     }
 
-    private void BuildAlertDialog_Logout() {
+    private void BuildAlertDialog_Logout_or_DeleteAccount(boolean isLogout) {
+        final boolean isLogout_ = isLogout;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(isLogout_) builder.setMessage("확인 버튼을 누르시면, 가족을 나가게 됩니다.\n 가족을 나간 후 다시 가입할 수 있습니다.");
+        else builder.setMessage("확인 버튼을 누르시면, 가족을 나가게 됩니다. \n 서버에 저장된 나에 대한 정보는 완전히 삭제됩니다.");
         builder.setTitle("경고")
-                .setMessage("확인 버튼을 누르시면, 가족을 나가게 됩니다.\n 가족을 나간 후 다시 가입할 수 있습니다.")
                 .setCancelable(true)
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        HereComesDeleteTiming();
+                        if (isLogout_) HereComesDeleteTiming(true);
+                        else HereComesDeleteTiming(false);
                         dialog.dismiss();
                         finish();
                     }
@@ -146,8 +148,9 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         dialog_.show();
     }
 
-    private void HereComesDeleteTiming() {
-        new ServerComms(this).logOut();
+    private void HereComesDeleteTiming(boolean isLogout) {
+        if(isLogout) new ServerComms(this).logOut();
+        else new ServerComms(this).deleteMe();
         SharedPreferences.Editor edit = mPref.edit();
         edit.clear();
         if(mPref.getBoolean("familink_ServiceRunning",false)) {
