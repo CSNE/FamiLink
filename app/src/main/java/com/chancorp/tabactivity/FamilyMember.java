@@ -41,14 +41,14 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
     boolean isInside;
     int avatar;
 
-    transient RedrawableFragment parentPage;
+    transient Redrawable parentPage;
 
     public FamilyMember() {
         this.personID = -1;
         this.avatar = -1;
     }
 
-    public FamilyMember(String name, int personID, boolean isInside, int avatar, String num, RedrawableFragment parentPage) {
+    public FamilyMember(String name, int personID, boolean isInside, int avatar, String num, Redrawable parentPage) {
         this.name = name;
         this.personID = personID;
         this.isInside = isInside;
@@ -57,7 +57,7 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
         this.parentPage=parentPage;
     }
 
-    public void setParentPage(RedrawableFragment rdf){
+    public void setParentPage(Redrawable rdf){
         this.parentPage=rdf;
     }
 

@@ -2,7 +2,6 @@ package com.chancorp.tabactivity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.sql.Ref;
 
 //List page의 가족 데이터르르 표시할 때 쓰는 어댑터.
 public class FamilyMemberAdapter extends BaseAdapter {
@@ -23,10 +19,10 @@ public class FamilyMemberAdapter extends BaseAdapter {
     LayoutInflater minflater;
 
     AppCompatActivity ac;
-    RedrawableFragment parentPage;
+    Redrawable parentPage;
 
     //FamilyMemberAdapter 생성자 정의
-    public FamilyMemberAdapter(Context context, int layoutId, FamilyMember[] fm, AppCompatActivity ac, RedrawableFragment rdf){
+    public FamilyMemberAdapter(Context context, int layoutId, FamilyMember[] fm, AppCompatActivity ac, Redrawable rdf){
         mResource=layoutId;
         this.familyMembers=fm;
         minflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -23,11 +23,11 @@ public class ServerComms {
     private static final int MAX_RETRIES = 5, RETRY_INTERVAL_MILLISEC=5000;
     static String serverBaseURL;
     static FamilyData fd;
-    static RedrawableFragment[] rdf;
+    static Redrawable[] rdf;
     DataReturnListener drl;
 
 
-    public static void setup(String u, FamilyData f, RedrawableFragment[] r) {
+    public static void setup(String u, FamilyData f, Redrawable[] r) {
         fd = f;
         serverBaseURL = u;
         rdf = r;
@@ -271,7 +271,7 @@ public class ServerComms {
             Log.v("FamilinkHTML", "Data Returned: " + data);
             if (requestType.equals("Parse Family Data")) {
                 fd.parseData(data);
-                for (RedrawableFragment r : this.rdf) {
+                for (Redrawable r : this.rdf) {
                     r.redraw();
                 }
             }
@@ -283,7 +283,7 @@ public class ServerComms {
     }
 
     public void redrawFragments(){
-        for (RedrawableFragment r : this.rdf) {
+        for (Redrawable r : this.rdf) {
             r.redraw();
         }
     }

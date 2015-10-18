@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 //첫번째 탭 fragment. 가족 리스트.
-public class Page1List extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, RedrawableFragment{
+public class Page1List extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, Redrawable {
 
     Button addFamilyBtn,addUserBtn;
     LinearLayout notRegisteredMenu;

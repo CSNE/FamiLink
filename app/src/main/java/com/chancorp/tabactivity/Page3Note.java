@@ -1,10 +1,8 @@
 package com.chancorp.tabactivity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 //3번째 탭. 가족 노트.
-public class Page3Note extends Fragment implements RedrawableFragment, AdapterView.OnItemClickListener, View.OnClickListener{
+public class Page3Note extends Fragment implements Redrawable, AdapterView.OnItemClickListener, View.OnClickListener{
 
     FamilyData fd;
     NoteListAdapter nla;

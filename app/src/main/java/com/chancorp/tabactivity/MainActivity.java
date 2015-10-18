@@ -12,6 +12,7 @@ package com.chancorp.tabactivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -22,14 +23,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Random;
 
 
 //프로그램 시작 시 보여지는 Activity..
 
-public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider,ServerCommsProvider {
+public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider,ServerCommsProvider,Redrawable {
 
     //TODO make bitmaps into mipmaps so no anti-aliasing issues occur.
     //TODO images instead of avatars?
@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     FamilyData fd;
     ServerComms serverConnector;
-    RedrawableFragment[] rdfs;
+    Redrawable[] rd =new Redrawable[5];
+    View tab1View,tab2View,tab3View,tab4View;
     Menu menu;
 
     @Override
@@ -68,8 +69,22 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
         //TODO here too.
 
-        View tab1View=getLayoutInflater().inflate(R.layout.tab_1,null);
+        tab1View=getLayoutInflater().inflate(R.layout.tab_layout,null);
         listPageTab.setCustomView(tab1View);
+        setupTab(tab1View, "List", null, 0);
+
+        tab2View=getLayoutInflater().inflate(R.layout.tab_layout,null);
+        todoPageTab.setCustomView(tab2View);
+        setupTab(tab2View,"To Do",null,0);
+
+        tab3View=getLayoutInflater().inflate(R.layout.tab_layout,null);
+        notePageTab.setCustomView(tab3View);
+        setupTab(tab3View,"Notes",null,0);
+
+        tab4View=getLayoutInflater().inflate(R.layout.tab_layout,null);
+        chatPageTab.setCustomView(tab4View);
+        setupTab(tab4View,"Chat",null,0);
+
 
 
         Fragment listPage = (Fragment) new Page1List();
@@ -81,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         listPageTab.setTabListener(new MyTabsListener(listPage, this));
         todoPageTab.setTabListener(new MyTabsListener(todoPage,this));
         notePageTab.setTabListener(new MyTabsListener(notePage,this));
-        chatPageTab.setTabListener(new MyTabsListener(chatPage,this));
+        chatPageTab.setTabListener(new MyTabsListener(chatPage, this));
 
 
         actionbar.addTab(listPageTab);
@@ -89,19 +104,18 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         actionbar.addTab(notePageTab);
         actionbar.addTab(chatPageTab);
 
-
-        rdfs=new RedrawableFragment[4];
-        rdfs[0]=(RedrawableFragment)listPage;
-        rdfs[1]=(RedrawableFragment)todoPage;
-        rdfs[2]=(RedrawableFragment)notePage;
-        rdfs[3]=(RedrawableFragment)chatPage;
-
+        rd[0]=(Redrawable)listPage;
+        rd[1]=(Redrawable)todoPage;
+        rd[2]=(Redrawable)notePage;
+        rd[3]=(Redrawable)chatPage;
+        rd[4]=(Redrawable)this;
 
 
 
-        //ServerComms.setup("http://172.30.86.177:5000",this.fd,rdfs);
-        //ServerComms.setup("http://10.0.2.2:8301",this.fd,rdfs);
-        ServerComms.setup("http://122.203.53.110:8071",this.fd,rdfs);
+
+        //ServerComms.setup("http://172.30.86.177:5000",this.fd,rd);
+        //ServerComms.setup("http://10.0.2.2:8301",this.fd,rd);
+        ServerComms.setup("http://122.203.53.110:8071",this.fd, rd);
         serverConnector = new ServerComms();
 
         fd.loadFromFile();
@@ -197,6 +211,23 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     }
     public ServerComms provideServerComms(){
         return this.serverConnector;
+    }
+
+    @Override
+    public void redraw() {
+        setupTab(tab2View,"To Do",Integer.toString(fd.getToDos().size()),getResources().getColor(R.color.text_orange));
+    }
+
+    public static void setupTab(View v, String name, String message, int color){
+        TextView tText=(TextView)v.findViewById(R.id.tab_text);
+        TextView tNum=(TextView)v.findViewById(R.id.tab_num);
+        tText.setText(name);
+        if (message==null || message.equals("") || message.equals("0")) {
+            tNum.setText("");
+        }else{
+            tNum.setText("["+message+"] ");
+            tNum.setTextColor(color);
+        }
     }
 
 

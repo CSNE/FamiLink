@@ -3,17 +3,13 @@ package com.chancorp.tabactivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 //4번째 탭. 채팅.
-public class Page4Chat extends Fragment implements RedrawableFragment{
+public class Page4Chat extends Fragment implements Redrawable {
 
     FamilyData fd;
 
