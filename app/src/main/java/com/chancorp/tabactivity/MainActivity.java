@@ -4,7 +4,7 @@ COPYRIGHT CONTROL
 Family Logos By Snehal Patil (CC-BY-3.0-US)
 Material Design Icons by Google (CC-BY-4.0)
 StringUtils class by Nick Frolov
-
+ServerComms POST code from http://www.xyzws.com/javafaq/how-to-use-httpurlconnection-post-data-to-web-server/139
 
 */
 
@@ -209,8 +209,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     }
 
     private void HereComesDeleteTiming() {
-        fd.reset();
-        serverConnector.redrawFragments();
+        new ServerComms(this).logOut();
         SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = mPref.edit();
         edit.clear();

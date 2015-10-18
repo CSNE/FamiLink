@@ -26,6 +26,7 @@ public class ServerComms {
     static FamilyData fd;
     static Redrawable[] rdf;
     DataReturnListener drl;
+    FailListener fl;
     Context c;
 
 
@@ -42,8 +43,9 @@ public class ServerComms {
 
     private URL getURL() {
         try {
-
-            return new URL(serverBaseURL + "/" + Integer.toString(fd.getFamilyID()) + "?pw=" + fd.getCredentials().getPasswordHash());
+            if (fd.isRegistered()) {
+                return new URL(serverBaseURL + "/" + Integer.toString(fd.getFamilyID()) + "?pw=" + fd.getCredentials().getPasswordHash());
+            }else return new URL(serverBaseURL + "/-1");
 
         } catch (MalformedURLException e) {
             Log.e("Familink", "MalformedURLException");
@@ -81,8 +83,17 @@ public class ServerComms {
         queryString="";
     }*/
 
+    public void logOut(){
+        Log.d("Familink","ServerComms: Logging out.");
+        fd.reset();
+        redrawFragments();
+    }
+
     public void setDataReturnListener(DataReturnListener drl) {
         this.drl = drl;
+    }
+    public void setFailListener(FailListener fl){
+        this.fl=fl;
     }
 
     public void clearDataReturnListener() {
@@ -238,6 +249,15 @@ public class ServerComms {
         this.sendPOST(postReq, "Delete Note");
     }
 
+    public void deleteMe(){
+        String postReq = new String();
+        POSTEncoder pe = new POSTEncoder();
+        pe.addDataSet("request type", "delete person");
+        pe.addDataSet("personID", Integer.toString(fd.getMyID()));
+        postReq = pe.encode();
+        this.sendPOST(postReq, "Delete Me");
+    }
+
 
 
 
@@ -257,7 +277,6 @@ public class ServerComms {
                 return;
             } else {
                 Log.d("Familink", "Null returned to GET request. Retrying. (try " + tries + ")");
-
             }
 
             final String requestTypeF=requestType;
@@ -272,6 +291,8 @@ public class ServerComms {
                     dr.execute(getURL());
                 }
             }, RETRY_INTERVAL_MILLISEC);
+
+            this.fl.onFail();
 
         } else {
             Log.d("Familink", "GET returned. | Request type:" + requestType+" | Data(newline stripped, full data on FamilinkHTML): "+data.replace("\n",""));
@@ -324,6 +345,8 @@ public class ServerComms {
                 }
             }, RETRY_INTERVAL_MILLISEC);
 
+            this.fl.onFail();
+
         } else {
             Log.d("Familink", "POST returned. | Request type:" + requestType+" | Data(newline stripped, full data on FamilinkHTML): "+data.replace("\n",""));
             Log.v("FamilinkHTML", "Data Returned: " + data);
@@ -343,9 +366,11 @@ public class ServerComms {
                     e.printStackTrace(new PrintWriter(errors));
                     Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>AddMyself");
                 }
+            }else if (requestType.equals("Delete Me")) {
+                this.logOut();
             }
 
-            refreshData();
+            if (!requestType.equals("Add Family")) refreshData(); //Add Family calls Add Myself right after, so refreshing at this phase won't be necessary.
 
             if (drl != null) {
                 Log.d("Familink", "Calling DataReturnListener");

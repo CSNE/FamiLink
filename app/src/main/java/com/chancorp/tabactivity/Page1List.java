@@ -103,8 +103,9 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
                     svc.setDataReturnListener(new DataReturnListener() {
                         @Override
                         public void onReturn(String data) {
-                            svc.addMe(c.getName(), c.getPhone());
-                            svc.clearDataReturnListener();
+                            ServerComms svc2=new ServerComms(getContext());
+                            svc2.addMe(c.getName(), c.getPhone());
+                            svc2.clearDataReturnListener();
                         }
                     });
                 }

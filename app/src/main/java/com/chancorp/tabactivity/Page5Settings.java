@@ -5,12 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
+import android.util.Log;
 
 /**
  * Created by Baranium on 2015. 10. 14..
@@ -27,6 +27,7 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         clickedcount = 0;
+        this.fd=ServerComms.getStaticFamilyData();
         this.mPref = PreferenceManager.getDefaultSharedPreferences(this);
         onPreferenceChangeListener = new Preference.OnPreferenceChangeListener() {
             @Override
@@ -42,16 +43,19 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         onPreferenceClickListener = new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(preference.getKey().toString().equals("ListofRouter")) {
+                String comparison = preference.getKey().toString();
+                if(comparison.equals("ListofRouter")) {
                     sendActivity();
-                } else if(preference.getKey().toString().equals("DeveloperInformation")) {
+                } else if(comparison.equals("DeveloperInformation")) {
                     clickedcount ++;
                     if(clickedcount == 4) {
                         clickedcount = 0;
                         sendActivity_Second();
                     }
-                } else if(preference.getKey().toString().equals("familnk_Logout")) {
-                    LogoutProcess();
+                } else if(comparison.equals("familink_Logout")) {
+                    logoutProcess();
+                } else if(comparison.equals("familink_DelAccount")) {
+                    delAccountProcess();
                 }
                 return true;
             }
@@ -60,13 +64,21 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         setOnPreferenceChange(findPreference("familink_ServiceRunning"));
         setOnPreferenceChange(findPreference("familink_Electronics"));
         setOnPreferenceClick(findPreference("familink_Logout"));
+        setOnPreferenceClick(findPreference("familink_DelAccount"));
         setOnPreferenceClick(findPreference("ListofRouter"));
         setOnPreferenceClick(findPreference("DeveloperInformation"));
         return;
     }
 
-    private void LogoutProcess() {
-        //TODO when clicked
+    private void logoutProcess() {
+        Log.d("Familink", "Logging out...");
+        new ServerComms(this).logOut();
+        finish();
+    }
+
+    private void delAccountProcess(){
+        new ServerComms(this).deleteMe();
+        finish();
     }
 
     private void sendActivity()   {startActivity(new Intent(this, Activity_List_of_router.class));}
@@ -115,8 +127,9 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     }
 
     private void setOnPreferenceClick(Preference mPreference) {
-        mPreference.setOnPreferenceClickListener(onPreferenceClickListener);;
+        mPreference.setOnPreferenceClickListener(onPreferenceClickListener);
     }
+
     private void setOnPreferenceChange(Preference mPreference) {
         mPreference.setOnPreferenceChangeListener(onPreferenceChangeListener);
         if(mPreference.getKey().toString().equals("familink_ServiceRunning")) {
