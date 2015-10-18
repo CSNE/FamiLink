@@ -31,7 +31,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,Redrawable {
 
-    //TODO make bitmaps into mipmaps so no anti-aliasing issues occur.
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
 
