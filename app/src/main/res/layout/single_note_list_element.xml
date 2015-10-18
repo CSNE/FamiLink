@@ -15,14 +15,16 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:layout_margin="8dp" />
 
         <TextView
             android:id="@+id/notelist_title"
             style="@style/BigTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text" />
+            android:text="New Text"
+            android:layout_margin="8dp" />
     </RelativeLayout>
 
     <TextView
@@ -30,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/BodyText"
-        android:text="New Text" />
+        android:text="New Text"
+        android:layout_margin="8dp" />
 
 </LinearLayout>

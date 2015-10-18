@@ -17,6 +17,7 @@
         android:id="@+id/page2_add_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        style="@style/ButtonText"/>
 
 </RelativeLayout>

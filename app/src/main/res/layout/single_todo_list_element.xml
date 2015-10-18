@@ -4,18 +4,17 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:id="@+id/todoList_Icon"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp" />
 
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/todoList_Icon"
         android:id="@+id/todolist_divider"/>
 
@@ -26,7 +25,8 @@
         android:layout_alignParentTop="false"
         android:orientation="vertical"
         android:layout_toRightOf="@+id/todolist_divider"
-        android:layout_toLeftOf="@+id/todoList_Resolve">
+        android:layout_toLeftOf="@+id/todoList_Resolve"
+        android:layout_margin="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,6 +62,7 @@
         android:layout_height="36dp"
         android:id="@+id/todoList_Resolve"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp" />
 
 </RelativeLayout>

@@ -13,25 +13,27 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true">
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ll161"
+            android:layout_toLeftOf="@+id/ll1236">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/memberList_Profile"
-                android:layout_marginLeft="10dp" />
+                android:layout_margin="8dp" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -45,7 +47,8 @@
                     android:layout_height="wrap_content"
                     android:text="New Text"
                     style="@style/SubTitleText"
-                    android:id="@+id/memberList_Data" />
+                    android:id="@+id/memberList_Data"
+                    android:layout_marginTop="8dp" />
 
 
             </LinearLayout>
@@ -57,8 +60,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/ll1236"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp">
 
             <Button
                 android:layout_width="30dp"
