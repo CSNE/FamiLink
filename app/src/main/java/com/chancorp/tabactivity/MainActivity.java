@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     //TODO make bitmaps into mipmaps so no anti-aliasing issues occur.
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
-    //TODO text color change in/out
 
 
     FamilyData fd;
@@ -64,10 +63,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         // 2. 탭 생성함 create new tabs and and set up the titles of the tabs
         ActionBar.Tab listPageTab = actionbar.newTab().setText("List");
         ActionBar.Tab todoPageTab = actionbar.newTab().setText("To Do");
-        //TODO dynamic name - if there's a todo, display that.
         ActionBar.Tab notePageTab = actionbar.newTab().setText("Note");
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
-        //TODO here too.
+
 
         tab1View=getLayoutInflater().inflate(R.layout.tab_layout,null);
         listPageTab.setCustomView(tab1View);

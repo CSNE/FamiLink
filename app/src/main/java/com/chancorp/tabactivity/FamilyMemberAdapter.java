@@ -78,6 +78,8 @@ public class FamilyMemberAdapter extends BaseAdapter {
             tv1.setText(familyMembers[i].getNameAndNickname());
         }
         tv2.setText(familyMembers[i].getDataString());
+        if (familyMembers[i].isInside()) tv2.setTextColor(ac.getResources().getColor(R.color.text_blue));
+        else tv2.setTextColor(ac.getResources().getColor(R.color.text_orange));
 
         iv1.setImageResource(familyMembers[i].getAvatarDrawable());
 
