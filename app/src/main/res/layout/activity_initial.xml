@@ -11,6 +11,13 @@
         android:layout_centerInParent="true"
         android:id="@+id/tut_not_registered_menu">
 
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo_rev5_full"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +26,9 @@
             android:layout_gravity="center_horizontal"
 
             style="@style/BodyText"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -35,5 +44,6 @@
             android:id="@+id/tut_btn_add_user"
             android:layout_gravity="center_horizontal"
             style="@style/ButtonText"/>
+
     </LinearLayout>
 </RelativeLayout>
