@@ -180,7 +180,6 @@ this.fd=fd;
             img1 = (ImageView) convertview.findViewById(R.id.customadapter01img01);
             img2 = (ImageView) convertview.findViewById(R.id.customadapter01img02);
             text1.setText(fd.getRouters().get(position).summary());
-            img1.setImageResource(R.drawable.icon_router);
             img2.setImageResource(R.drawable.icon_delete);
 
             img2.setOnClickListener(new View.OnClickListener() {

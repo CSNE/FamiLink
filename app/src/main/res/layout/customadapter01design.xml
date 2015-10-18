@@ -23,12 +23,12 @@
 
     <ImageView
             
-            android:id="@+id/customadapter01img02"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentRight="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        android:id="@+id/customadapter01img02"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentRight="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_centerVertical="true" />
 
 </RelativeLayout>
