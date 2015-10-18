@@ -75,16 +75,15 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         tab2View=getLayoutInflater().inflate(R.layout.tab_layout,null);
         todoPageTab.setCustomView(tab2View);
-        setupTab(tab2View,"To Do",null,0);
+        setupTab(tab2View, "ToDo", null, 0);
 
         tab3View=getLayoutInflater().inflate(R.layout.tab_layout,null);
         notePageTab.setCustomView(tab3View);
-        setupTab(tab3View,"Notes",null,0);
+        setupTab(tab3View, "Note", null, 0);
 
         tab4View=getLayoutInflater().inflate(R.layout.tab_layout,null);
         chatPageTab.setCustomView(tab4View);
         setupTab(tab4View,"Chat",null,0);
-
 
 
         Fragment listPage = (Fragment) new Page1List();
@@ -120,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         fd.loadFromFile();
 
+        redraw();
     }
 
     @Override

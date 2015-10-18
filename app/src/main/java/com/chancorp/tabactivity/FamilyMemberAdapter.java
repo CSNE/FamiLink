@@ -75,7 +75,7 @@ public class FamilyMemberAdapter extends BaseAdapter {
 
             tv1.setText(familyMembers[i].getName());
         }else{
-            tv1.setText(familyMembers[i].getNickname()+" ("+familyMembers[i].getName()+")");
+            tv1.setText(familyMembers[i].getNameAndNickname());
         }
         tv2.setText(familyMembers[i].getDataString());
 

@@ -303,6 +303,16 @@ public class FamilyData implements Serializable {
         return this.familyID;
     }
 
+    public FamilyMember findFamilyMemberByID(int id){
+        for(FamilyMember fm:data){
+            if (fm.getPersonID()==id){
+                return fm;
+            }
+        }
+        Log.e("Familink","FamilyData>findFamilyMemberByID() called with ID "+id+" but none matched!");
+        return null;
+    }
+
     public void saveToFile(){
         lock=false;
         try {

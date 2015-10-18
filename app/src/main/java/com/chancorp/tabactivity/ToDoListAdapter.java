@@ -2,6 +2,7 @@ package com.chancorp.tabactivity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,14 @@ public class ToDoListAdapter extends BaseAdapter {
 
         nameV.setText(fd.getToDoAt(i).getTitle());
         dueV.setText(fd.getToDoAt(i).getStringDue(false));
-        byV.setText(fd.personIDToName(fd.getToDoAt(i).getCreator()));
+        FamilyMember fm=fd.findFamilyMemberByID(fd.getToDoAt(i).getCreator());
+        try {
+            byV.setText(fm.getNameAndNickname());
+        }catch (NullPointerException e){
+            Log.d("Familink","Null returned from findFamilyMemberByID. Fallback to default creator name.");
+            byV.setText("???");
+        }
+
         descV.setText(fd.getToDoAt(i).getDescription());
 
         resolveBtn.setBackgroundResource(R.drawable.ic_done_black_48dp);

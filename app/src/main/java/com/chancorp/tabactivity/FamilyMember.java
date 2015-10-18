@@ -66,6 +66,16 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
         else return new String("Not Inside");
     }
 
+    public String getNameAndNickname(){
+        if (nickname==null){
+            return name;
+        }else{
+            if(nickname.equals("")){
+                return name;
+            }else return nickname+" ("+name+")";
+        }
+    }
+
     public int getAvatarDrawable() {
         try {
             return avatarIdToDrawable[this.avatar];
