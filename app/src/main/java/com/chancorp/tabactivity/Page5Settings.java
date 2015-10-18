@@ -49,6 +49,8 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
                         clickedcount = 0;
                         sendActivity_Second();
                     }
+                } else if(preference.getKey().toString().equals("familink_LogOut")) {
+                    sendActivity_Third();
                 }
                 return true;
             }
@@ -61,12 +63,9 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         return;
     }
 
-    private void sendActivity() {
-        startActivity(new Intent(this, Activity_List_of_router.class));
-    }
-    private void sendActivity_Second() {
-        startActivity(new Intent(this, Activity_EasterEgg.class));
-    }
+    private void sendActivity_Third()   { startActivity(new Intent(this, Activity_Log_Out.class));}
+    private void sendActivity()   {startActivity(new Intent(this, Activity_List_of_router.class));}
+    private void sendActivity_Second() {startActivity(new Intent(this, Activity_EasterEgg.class));}
 
     private void BuildAlertDialog_familink_ServiceRunning(Preference preference) {
         if(mPref.getBoolean(preference.getKey(),true) == false) {
@@ -111,7 +110,7 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     }
 
     private void setOnPreferenceClick(Preference mPreference) {
-        mPreference.setOnPreferenceClickListener(onPreferenceClickListener);
+        mPreference.setOnPreferenceClickListener(onPreferenceClickListener);;
     }
     private void setOnPreferenceChange(Preference mPreference) {
         mPreference.setOnPreferenceChangeListener(onPreferenceChangeListener);

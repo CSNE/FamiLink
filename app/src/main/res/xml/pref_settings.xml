@@ -21,15 +21,14 @@
             android:summary="Here, electronics telling service."
             />
         <Preference
-                android:defaultValue="false"
-                android:key="AlarmRunning"
-                android:title="서비스 주기 설정"
-                android:summary="Here, set Alarm."
-            />
-        <Preference
             android:key="ListofRouter"
             android:summary="가정의 라우터를 추가하거나 삭제할 수 있습니다."
             android:title="공유기 관리">
+        </Preference>
+        <Preference
+            android:key="familink_LogOut"
+            android:summary="현재 소속되어 있는 가족을 나갑니다."
+            android:title="로그아웃">
         </Preference>
     </PreferenceCategory>
 
@@ -45,9 +44,9 @@
             android:summary="김지성, 양찬솔, 유재민. 경기과학고등학교."
             />
         <Preference
-            android:title="특별출연"
-            android:key="SpecialCredit"
-            android:summary="주니어소프트창작대회, JiYoung Youn, JongHye Kim"
+            android:title="개발 환경"
+            android:key="developmentinfra"
+            android:summary="MinSDK = 15(JellyBean), TargetSDK = 22(Lollipop 5.0)"
             />
     </PreferenceCategory>
 

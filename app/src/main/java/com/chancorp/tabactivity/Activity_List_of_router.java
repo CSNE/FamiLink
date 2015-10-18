@@ -193,7 +193,7 @@ this.fd=fd;
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Caution");
                     Log.d("Activity_List_of_router", String.valueOf(position_));
-                            builder.setMessage("Erase wi-fi " + fd.getRouters().get(position_).summary() + "?")
+                            builder.setMessage(fd.getRouters().get(position_).summary() + "을 목록에서 지울까요?")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
