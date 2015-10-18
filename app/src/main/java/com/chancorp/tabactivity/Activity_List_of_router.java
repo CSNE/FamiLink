@@ -35,7 +35,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     //SharedPreferences.Editor mRefEdit;
 
     FamilyData fd;
-    ServerComms sc;
+
     /*
     when getting Router Size from SharedPreferences : mRef.getInt("RouterSz",0);
     RouterTag = "Router"+String.ValueOf(i);
@@ -52,7 +52,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         //fd=new FamilyData(this);
         //fd.loadFromFile();
         fd=ServerComms.getStaticFamilyData();
-        sc=new ServerComms();
+
 
         listview = (ListView) findViewById(R.id.listofrouterlist);
         adapter = new CustomAdapter01(this, R.layout.customadapter01design, fd);
@@ -71,8 +71,15 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         if(v.getId() == R.id.addrouterbtn) {
             startActivityForResult(new Intent(this, Activity_add_router.class), REQUEST_CODE);
         }else if (v.getId()==R.id.router_refresh){
+            ServerComms sc=new ServerComms();
+            sc.setDataReturnListener(new DataReturnListener() {
+                @Override
+                public void onReturn(String data) {
+                    adapter.notifyDataSetChanged();
+                }
+            });
             sc.refreshData();
-            adapter.notifyDataSetChanged();
+
         }
     }
 
@@ -84,13 +91,20 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                 RouterInformation newRouter=new RouterInformation();
                 newRouter.setMacAddr(data.getStringExtra("new_mac"));
                 newRouter.setName(data.getStringExtra("new_name"));
-                Log.d("Familink","New router: "+newRouter.toString());
+
                 if(!fd.matchRouter(newRouter)) {
-                    //fd.getRouters().add(newRouter);
+                    Log.d("Familink", "New router: " + newRouter.toString());
+
+                    final ServerComms sc=new ServerComms();
                     sc.addRouter(newRouter);
-                    Log.d("Familink", "Router added.");
-                    //fd.saveToFile();
-                    adapter.notifyDataSetChanged();
+                    sc.setDataReturnListener(new DataReturnListener() {
+                        @Override
+                        public void onReturn(String data) {
+                            adapter.notifyDataSetChanged();
+                            sc.clearDataReturnListener();
+                        }
+                    });
+
                 } else {
                     Log.d("Familink", "Router duplicate.");
                     Toast.makeText(this, "이 공유기는 이미 목록에 있는 공유기입니다.", Toast.LENGTH_LONG).show();
@@ -101,20 +115,10 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     }
 
     public void datastechanged(int position) {
-        sc.deleteRouter(fd.getRouters().get(position));
+        new ServerComms().deleteRouter(fd.getRouters().get(position));
         adapter.notifyDataSetChanged();
         return;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

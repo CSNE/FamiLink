@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
         //TODO here too.
 
+        View tab1View=getLayoutInflater().inflate(R.layout.tab_1,null);
+        listPageTab.setCustomView(tab1View);
+
 
         Fragment listPage = (Fragment) new Page1List();
         Fragment todoPage = (Fragment) new Page2ToDo();
