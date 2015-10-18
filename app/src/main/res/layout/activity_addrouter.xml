@@ -1,35 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    
-    <TextView
-        android:id="@+id/addroutertext"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:textSize="18dp"
-        android:textColor="@android:color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/addrouterconfirmbtn"
-        android:text="이 와이파이를 가족 공유기로 추가합니다."
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addroutertext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp" />
+        android:gravity="center"
+        android:background="#ffedcc" >
+
+        <TextView
+            android:id="@+id/addroutertext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:lineSpacingExtra="7dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp" />
+
+        <Button
+            android:id="@+id/addrouterconfirmbtn"
+            android:text="현재 와이파이를 가족 공유기로 추가합니다."
+            android:textColor="@android:color/black"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/round_button1"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/doumal"
-        android:text="도움말"
+        android:text="  도움말"
         android:textColor="@android:color/black"
+        android:textSize="13dp"
+        android:background="#ffd4cc"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/addrouterconfirmbtn"
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
@@ -38,11 +52,12 @@
         android:layout_below="@+id/doumal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp" >
+        android:paddingTop="40dp"
+        android:background="#ffedcc" >
 
         <ImageView
             android:id="@+id/help1"
-            android:layout_margin="5dp"
+            android:padding="5dp"
             android:cropToPadding="true"
             android:adjustViewBounds="true"
             android:layout_width="wrap_content"
@@ -50,7 +65,7 @@
 
         <ImageView
             android:id="@+id/help2"
-            android:layout_margin="5dp"
+            android:padding="5dp"
             android:cropToPadding="true"
             android:adjustViewBounds="true"
             android:layout_width="wrap_content"
@@ -59,13 +74,16 @@
     </LinearLayout>
 
     <TextView
-        android:textSize="12dp"
-        android:layout_marginBottom="100dp"
+        android:background="#ffedcc"
+        android:textSize="13dp"
+        android:textColor="@android:color/black"
+        android:lineSpacingExtra="6dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="40dp"
         android:id="@+id/doum"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
-    
-</RelativeLayout>
+
+</LinearLayout>

@@ -1,47 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffedcc" >
 
     <TextView
         android:id="@+id/routertext"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:text="Family Router List"
+        android:text="가족 공유기 목록"
         android:textSize="20dp"
         android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/routertext_second"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="집의 공유기 정보를 보관합니다."
+        android:textColor="@android:color/black"
+        android:textSize="13dp"
+        android:layout_below="@+id/routertext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/addrouterbtn"
+        android:background="@drawable/round_button1"
+        android:layout_toLeftOf="@+id/router_refresh"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="Add Router"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:text="공유기 추가"
+        android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/router_refresh"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="Refresh"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
+        android:text="새로고침"
+        android:background="@drawable/round_button1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true" />
+        android:layout_height="wrap_content" />
 
     <ListView
         android:id="@+id/listofrouterlist"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
-        android:divider="#ffcc22"
-        android:dividerHeight="1.5dp"
-        android:layout_below="@+id/routertext"
-        android:layout_above="@+id/addrouterbtn"
+        android:layout_marginRight="5dp"
+        android:divider="#623f14"
+        android:dividerHeight="2dp"
+        android:layout_below="@+id/routertext_second"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

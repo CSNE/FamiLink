@@ -91,13 +91,13 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                     Log.d("Familink", "Router added.");
                     //fd.saveToFile();
                     adapter.notifyDataSetChanged();
-
                 } else {
                     Log.d("Familink", "Router duplicate.");
-                    Toast.makeText(this, "This Wi-fi already exists in a list!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "이 공유기는 이미 목록에 있는 공유기입니다.", Toast.LENGTH_LONG).show();
                 }
             }
         }
+        return;
     }
 
     public void datastechanged(int position) {
@@ -180,8 +180,8 @@ this.fd=fd;
             img1 = (ImageView) convertview.findViewById(R.id.customadapter01img01);
             img2 = (ImageView) convertview.findViewById(R.id.customadapter01img02);
             text1.setText(fd.getRouters().get(position).summary());
-            img1.setImageResource(R.mipmap.ic_launcher);
-            img2.setImageResource(R.drawable.delete);
+            img1.setImageResource(R.drawable.icon_router);
+            img2.setImageResource(R.drawable.icon_delete);
 
             img2.setOnClickListener(new View.OnClickListener() {
                 @Override

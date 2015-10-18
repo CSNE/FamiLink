@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -48,7 +49,11 @@ public class Activity_add_router extends Activity implements View.OnClickListene
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon_smartphone);
         resizebmp = Bitmap.createScaledBitmap(bmp, width / 2, width / 2, true);
         ((ImageView) findViewById(R.id.help2)).setImageBitmap(resizebmp);
-        ((TextView) findViewById(R.id.doum)).setText("집의 공유기에 핸드폰의 와이파이를 연결해주세요.\n연결이 되었으면, 위의 버튼을 눌러 가족 공유기 추가를 진행해주세요.\n가족 공유기 정보는 자동으로 서버에 저장되어 가족이 공유하게 됩니다.");
+        ((TextView) findViewById(R.id.doum)).setText("집의 공유기에 핸드폰의 와이파이를 연결해주세요.\n" +
+                "연결이 되었으면, 위의 버튼을 눌러 가족 공유기 추가를 진행해주세요." +
+                "\n가족 공유기 정보는 자동으로 서버에 저장되어, 전 가족이 공유하게 됩니다." +
+                "\n공유기 리스트를 바탕으로 가족 구성원이 집에 있는지 여부를 판단하게 됩니다.");
+
         makehandler();
         maketimer();
     }
@@ -60,18 +65,18 @@ public class Activity_add_router extends Activity implements View.OnClickListene
                 ReadytoAdd = false;
                 switch (msg.what) {
                     case 0:
-                        textview.setText("Wifi is off now.");
+                        textview.setText("Wi-Fi가 해제되어 있습니다.\n"+"Wi-Fi를 사용해 주세요.");
                         break;
                     case 1:
-                        textview.setText("You are connected to 3G now.");
+                        textview.setText("모바일 데이터에 연결되어 있습니다.\n"+"Wi-Fi를 사용해 주세요.");
                         break;
                     case 3:
-                        textview.setText("Wifi connection is unstable.");
+                        textview.setText("현재 인터넷 연결중이거나, 연결이 불안정합니다...");
                         break;
                     case 2:
                         WifiManager wifimanager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                         WifiInfo wifinfo = wifimanager.getConnectionInfo();
-                        textview.setText("Router Address : " + wifinfo.getBSSID());
+                        textview.setText("현재 연결된 Wi-Fi 주소는,\n" + wifinfo.getSSID() + "입니다.");
                         ReadytoAdd = true;
                         break;
                 }
@@ -102,14 +107,14 @@ public class Activity_add_router extends Activity implements View.OnClickListene
             }
         };
         timer = new Timer();
-        timer.schedule(timertask, 1000, 1000);
+        timer.schedule(timertask, 500, 500);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.addrouterconfirmbtn) {
             if(ReadytoAdd == false) {
-                Toast.makeText(this, "Not Ready to Add Router", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "아직 공유기를 추가할 수 없습니다.", Toast.LENGTH_LONG).show();
                 return;
             }
             Intent it = getIntent();
@@ -129,6 +134,11 @@ public class Activity_add_router extends Activity implements View.OnClickListene
 
     @Override
     protected void onDestroy() {
+        try {
+            timer.cancel();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         super.onDestroy();
     }
 }
