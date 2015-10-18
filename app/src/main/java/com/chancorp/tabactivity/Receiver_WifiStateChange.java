@@ -43,7 +43,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
                     Log.d("disabled", "is there server delay?");
                     boolean decision = ServerComms.fd.matchRouter(new RouterInformation(mPref.getString("familink_lastest_SSID",""),mPref.getString("familink_lastest_BSSID","")));
                     Log.d("Decision  :  ", String.valueOf(decision));
-                    ServerComms sc = new ServerComms();
+                    ServerComms sc = new ServerComms(context);
                     sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, decision, context);
                     edit.putString("familink_lastest_BSSID", "undefined");
                     edit.putString("familink_lastest_SSID", "undefined");
@@ -59,7 +59,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
                         edit.putString("familink_lastest_SSID", wifinfo.getSSID());
                         edit.commit();
                         Log.d("enabled", "is there server delay?  " + wifinfo.getBSSID());
-                        ServerComms sc = new ServerComms();
+                        ServerComms sc = new ServerComms(context);
                         sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, false, context);
                         // sending boolean electronics : check whether gonna do alarm.
                     }

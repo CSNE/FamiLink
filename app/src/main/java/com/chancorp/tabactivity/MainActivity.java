@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         //ServerComms.setup("http://172.30.86.177:5000",this.fd,rd);
         //ServerComms.setup("http://10.0.2.2:8301",this.fd,rd);
         ServerComms.setup("http://122.203.53.110:8071",this.fd, rd);
-        serverConnector = new ServerComms();
+        serverConnector = new ServerComms(getApplicationContext());
 
         fd.loadFromFile();
 

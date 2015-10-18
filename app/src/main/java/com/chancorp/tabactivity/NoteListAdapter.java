@@ -77,8 +77,8 @@ public class NoteListAdapter extends BaseAdapter {
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "CLICK ON "+currentNote.getTitle(), Toast.LENGTH_SHORT).show();
-                new ServerComms().deleteNote(currentNote);
+                //Toast.makeText(view.getContext(), "CLICK ON "+currentNote.getTitle(), Toast.LENGTH_SHORT).show();
+                new ServerComms(ac).deleteNote(currentNote);
             }
         });
 

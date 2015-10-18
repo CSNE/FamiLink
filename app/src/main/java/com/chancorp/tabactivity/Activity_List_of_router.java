@@ -71,7 +71,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         if(v.getId() == R.id.addrouterbtn) {
             startActivityForResult(new Intent(this, Activity_add_router.class), REQUEST_CODE);
         }else if (v.getId()==R.id.router_refresh){
-            final ServerComms sc=new ServerComms();
+            final ServerComms sc=new ServerComms(getApplicationContext());
             sc.setDataReturnListener(new DataReturnListener() {
                 @Override
                 public void onReturn(String data) {
@@ -96,8 +96,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                 if(!fd.matchRouter(newRouter)) {
                     Log.d("Familink", "New router: " + newRouter.toString());
 
-                    final ServerComms sc=new ServerComms();
-                    sc.addRouter(newRouter);
+                    final ServerComms sc=new ServerComms(getApplicationContext());
                     sc.setDataReturnListener(new DataReturnListener() {
                         @Override
                         public void onReturn(String data) {
@@ -105,6 +104,8 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
                             sc.clearDataReturnListener();
                         }
                     });
+                    sc.addRouter(newRouter);
+                    adapter.notifyDataSetChanged();
 
                 } else {
                     Log.d("Familink", "Router duplicate.");
@@ -116,7 +117,7 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
     }
 
     public void datastechanged(int position) {
-        new ServerComms().deleteRouter(fd.getRouters().get(position));
+        new ServerComms(getApplicationContext()).deleteRouter(fd.getRouters().get(position));
         adapter.notifyDataSetChanged();
         return;
     }

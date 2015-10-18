@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -25,6 +26,7 @@ public class ServerComms {
     static FamilyData fd;
     static Redrawable[] rdf;
     DataReturnListener drl;
+    Context c;
 
 
     public static void setup(String u, FamilyData f, Redrawable[] r) {
@@ -51,7 +53,8 @@ public class ServerComms {
         }
     }
 
-    public ServerComms() {
+    public ServerComms(Context c) {
+        this.c=c;
     }
 
 
@@ -250,8 +253,12 @@ public class ServerComms {
 
             if (tries >= MAX_RETRIES) {
                 Log.e("Familink", "GET failed after "+MAX_RETRIES+" tries.");
+                Toast.makeText(this.c, "Connection to server failed!", Toast.LENGTH_SHORT).show();
                 return;
-            } else Log.d("Familink", "Null returned to GET request. Retrying. (try "+tries+")");
+            } else {
+                Log.d("Familink", "Null returned to GET request. Retrying. (try " + tries + ")");
+
+            }
 
             final String requestTypeF=requestType;
             final int triesF=tries;
@@ -300,6 +307,7 @@ public class ServerComms {
         if (data == null) {
             if (tries >= MAX_RETRIES) {
                 Log.e("Familink", "POST failed after "+MAX_RETRIES+" tries.");
+                Toast.makeText(this.c, "Connection to server failed!", Toast.LENGTH_SHORT).show();
                 return;
             } else Log.d("Familink", "Null returned to POST request. Retrying. (try "+tries+")");
 
@@ -388,7 +396,7 @@ public class ServerComms {
             } catch (Exception e) {
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString().substring(0, 150) + "...(omitted)");
+                Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString().substring(0, 300) + "...(omitted)");
                 //Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).\n" + errors.toString());
                 //Log.w("Familink", "Error in GET(ServerComms>DataRetriever>doInBackground).");
                 return null;
@@ -471,7 +479,7 @@ public class ServerComms {
 
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
-                Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString().substring(0, 150) + "...(omitted)");
+                Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n" + errors.toString().substring(0, 300) + "...(omitted)");
                 //Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).\n"+errors.toString());
                 //Log.w("Familink", "Error in POST(ServerComms>DataSender>doInBackground).");
                 return null;

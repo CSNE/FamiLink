@@ -67,7 +67,7 @@ public class Page3Note extends Fragment implements Redrawable, AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getContext(), "CLikcked: " + i, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "CLikcked: " + i, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -82,7 +82,8 @@ public class Page3Note extends Fragment implements Redrawable, AdapterView.OnIte
                     Note nt=new Note();
                     nt.setTitle(c.getNoteTitle());
                     nt.setBody(c.getNoteBody());
-                    new ServerComms().addNote(nt);
+                    new ServerComms(getContext()).addNote(nt);
+                    redraw();
                 }
             });
             uig.init();

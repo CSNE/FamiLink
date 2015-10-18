@@ -76,7 +76,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
                     final UserInformation cf=c;
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
-                    final ServerComms svc=new ServerComms();
+                    final ServerComms svc=new ServerComms(getContext());
                     svc.getID(c.getID());
                     svc.setDataReturnListener(new DataReturnListener() {
                         @Override
@@ -98,7 +98,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
                 public void onReturn(final UserInformation c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
-                    final ServerComms svc=new ServerComms();
+                    final ServerComms svc=new ServerComms(getContext());
                     svc.addFamily(c);
                     svc.setDataReturnListener(new DataReturnListener() {
                         @Override

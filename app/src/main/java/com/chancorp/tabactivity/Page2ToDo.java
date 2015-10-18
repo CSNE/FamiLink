@@ -67,7 +67,7 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getContext(), "CLikcked: "+i, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "CLikcked: "+i, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -83,7 +83,8 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
                     td.setTitle(c.getTaskName());
                     td.parseDue(c.getTaskTime(),false);
                     td.setDescription(c.getTaskDesc());
-                    new ServerComms().addToDo(td);
+                    new ServerComms(getContext()).addToDo(td);
+                    redraw();
                 }
             });
             uig.init();

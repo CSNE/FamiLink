@@ -105,8 +105,8 @@ public class ToDoListAdapter extends BaseAdapter {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "CLICK ON "+currentTD.getTitle(), Toast.LENGTH_SHORT).show();
-                new ServerComms().deleteToDo(currentTD);
+                //Toast.makeText(view.getContext(), "CLICK ON "+currentTD.getTitle(), Toast.LENGTH_SHORT).show();
+                new ServerComms(ac).deleteToDo(currentTD);
             }
         });
 
