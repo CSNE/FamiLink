@@ -369,6 +369,8 @@ public class ServerComms {
 
                 URL url = urls[0];
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);
                 urlConnection.setRequestProperty("Connection", "close");
                 urlConnection.getInputStream();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -427,6 +429,9 @@ public class ServerComms {
             HttpURLConnection connection = null;
 
             try {
+
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestProperty("Connection", "close");
                 connection.setRequestMethod("POST");
