@@ -71,9 +71,7 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     }
 
     private void logoutProcess() {
-        Log.d("Familink", "Logging out...");
-        new ServerComms(this).logOut();
-        finish();
+        BuildAlertDialog_Logout();
     }
 
     private void delAccountProcess(){
@@ -126,6 +124,41 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         return;
     }
 
+    private void BuildAlertDialog_Logout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("경고")
+                .setMessage("확인 버튼을 누르시면, 가족을 나가게 됩니다.\n 가족을 나간 후 다시 가입할 수 있습니다.")
+                .setCancelable(true)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        HereComesDeleteTiming();
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog_ = builder.create();
+        dialog_.setCanceledOnTouchOutside(true);
+        dialog_.show();
+    }
+
+    private void HereComesDeleteTiming() {
+        new ServerComms(this).logOut();
+        SharedPreferences.Editor edit = mPref.edit();
+        edit.clear();
+        if(mPref.getBoolean("familink_ServiceRunning",false)) {
+            stopService(new Intent(this, Service_WifiStateChange.class));
+        }
+        edit.commit();
+        return;
+    }
+
+
+    // lister attaching methods.
     private void setOnPreferenceClick(Preference mPreference) {
         mPreference.setOnPreferenceClickListener(onPreferenceClickListener);
     }
@@ -146,6 +179,9 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
             }
         }
     }
+
+
+    // not using these listener methods.
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         return false;

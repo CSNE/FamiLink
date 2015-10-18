@@ -8,10 +8,6 @@
         android:orderInCategory="100"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/debug_del_save"
-        android:title="Log Out"/>
-
     <item android:id="@+id/global_refresh"
         android:icon="@drawable/ic_refresh_black_48dp_inv"
         android:title="Refresh"
