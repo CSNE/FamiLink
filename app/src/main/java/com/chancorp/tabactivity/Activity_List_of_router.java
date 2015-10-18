@@ -11,8 +11,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,11 +29,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
-public class Activity_List_of_router extends Activity implements View.OnClickListener {
+public class Activity_List_of_router extends AppCompatActivity implements View.OnClickListener {
     Button btn, refBtn;
     ListView listview;
     CustomAdapter01 adapter = null;
-    final int REQUEST_CODE = 100131, MaxRouterSize = 10;
+    final int REQUEST_CODE = 11131, MaxRouterSize = 10;
     //SharedPreferences mRef;
     //SharedPreferences.Editor mRefEdit;
 
@@ -65,6 +68,21 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         Log.d("Familink", "Activity_list_of_router starting. Router data: " + fd.getRouterListAsString());
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_listofrouter, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.listofrouterbackarrow) {
+            finish();
+        }
+        return true;
+    }
 
     @Override
     public void onClick(View v) {
@@ -121,7 +139,6 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         adapter.notifyDataSetChanged();
         return;
     }
-
 
 
     class CustomAdapter01 extends BaseAdapter implements View.OnClickListener {
