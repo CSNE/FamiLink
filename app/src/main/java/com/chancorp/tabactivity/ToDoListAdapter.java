@@ -19,17 +19,17 @@ public class ToDoListAdapter extends BaseAdapter {
     int mResource;
     FamilyData fd;
     LayoutInflater minflater;
-    ServerComms sc;
+
 
     AppCompatActivity ac;
 
     //FamilyMemberAdapter 생성자 정의
-    public ToDoListAdapter(int layoutId, FamilyData fd, AppCompatActivity ac, ServerComms sc){
+    public ToDoListAdapter(int layoutId, FamilyData fd, AppCompatActivity ac){
         mResource=layoutId;
         this.fd=fd;
         minflater=(LayoutInflater)ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.ac=ac;
-        this.sc=sc;
+
     }
 
     @Override
@@ -106,7 +106,7 @@ public class ToDoListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "CLICK ON "+currentTD.getTitle(), Toast.LENGTH_SHORT).show();
-                sc.deleteToDo(currentTD);
+                new ServerComms().deleteToDo(currentTD);
             }
         });
 

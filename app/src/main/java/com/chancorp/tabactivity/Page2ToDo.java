@@ -17,7 +17,6 @@ import android.widget.Toast;
 public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnItemClickListener, View.OnClickListener{
 
     FamilyData fd;
-    ServerComms sc;
     ToDoListAdapter tdl;
     ListView lv;
     Button btn;
@@ -27,12 +26,7 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
     public void onAttach(Activity a){
         super.onAttach(a);
         System.out.println("Attached.");
-        try{
-            this.fd=((FamilyDataProvider) a).provideData();
-            this.sc=((ServerCommsProvider)a).provideServerComms();
-        }catch(ClassCastException e){
-            throw new ClassCastException("Can't cast.");
-        }
+        this.fd=ServerComms.getStaticFamilyData();
 
     }
 
@@ -43,7 +37,7 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
         View rootView = inflater.inflate(R.layout.page_2_todo, container, false);
 
 
-        tdl = new ToDoListAdapter(R.layout.single_todo_list_element, fd,(AppCompatActivity)getActivity(), sc);
+        tdl = new ToDoListAdapter(R.layout.single_todo_list_element, fd,(AppCompatActivity)getActivity());
 
 
         lv = (ListView) rootView.findViewById(R.id.page2_todolist);
@@ -89,7 +83,7 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
                     td.setTitle(c.getTaskName());
                     td.parseDue(c.getTaskTime(),false);
                     td.setDescription(c.getTaskDesc());
-                    sc.addToDo(td);
+                    new ServerComms().addToDo(td);
                 }
             });
             uig.init();

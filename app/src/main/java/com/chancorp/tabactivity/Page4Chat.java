@@ -18,7 +18,7 @@ public class Page4Chat extends Fragment implements Redrawable {
         super.onAttach(a);
         System.out.println("Attached.");
         try{
-            this.fd=((FamilyDataProvider) a).provideData();
+            this.fd=ServerComms.getStaticFamilyData();
 
         }catch(ClassCastException e){
             throw new ClassCastException("Can't cast.");

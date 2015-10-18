@@ -21,7 +21,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
     ListView lv1;
 
     FamilyData fd;
-    ServerComms sc;
+
 
     FamilyMemberAdapter adapter;
 
@@ -29,18 +29,8 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
     public void onAttach(Activity a){
         super.onAttach(a);
         System.out.println("Attached.");
-        try{
-            this.fd=((FamilyDataProvider) a).provideData();
+        this.fd=ServerComms.getStaticFamilyData();
 
-        }catch(ClassCastException e){
-            Log.e("Familink","Can't cast activity to FamilyDataProvider");
-        }
-        try{
-            this.sc=((ServerCommsProvider) a).provideServerComms();
-
-        }catch(ClassCastException e){
-            Log.e("Familink","Can't cast activity to ServerCommsProvider");
-        }
     }
     
     @Override
@@ -86,12 +76,13 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
                     final UserInformation cf=c;
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
-                    sc.getID(c.getID());
-                    sc.setDataReturnListener(new DataReturnListener() {
+                    final ServerComms svc=new ServerComms();
+                    svc.getID(c.getID());
+                    svc.setDataReturnListener(new DataReturnListener() {
                         @Override
                         public void onReturn(String data) {
-                            sc.addMe(cf.getName(), cf.getPhone());
-                            sc.clearDataReturnListener();
+                            svc.addMe(cf.getName(), cf.getPhone());
+                            svc.clearDataReturnListener();
                         }
                     });
 
@@ -107,12 +98,13 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
                 public void onReturn(final UserInformation c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
-                    sc.addFamily(c);
-                    sc.setDataReturnListener(new DataReturnListener() {
+                    final ServerComms svc=new ServerComms();
+                    svc.addFamily(c);
+                    svc.setDataReturnListener(new DataReturnListener() {
                         @Override
                         public void onReturn(String data) {
-                            sc.addMe(c.getName(),c.getPhone());
-                            sc.clearDataReturnListener();
+                            svc.addMe(c.getName(), c.getPhone());
+                            svc.clearDataReturnListener();
                         }
                     });
                 }

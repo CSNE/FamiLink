@@ -18,17 +18,17 @@ public class NoteListAdapter extends BaseAdapter {
     int mResource;
     FamilyData fd;
     LayoutInflater minflater;
-    ServerComms sc;
+
 
     AppCompatActivity ac;
 
     //FamilyMemberAdapter 생성자 정의
-    public NoteListAdapter(int layoutId, FamilyData fd, AppCompatActivity ac, ServerComms sc){
+    public NoteListAdapter(int layoutId, FamilyData fd, AppCompatActivity ac){
         mResource=layoutId;
         this.fd=fd;
         minflater=(LayoutInflater)ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.ac=ac;
-        this.sc=sc;
+
     }
 
     @Override
@@ -78,7 +78,7 @@ public class NoteListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "CLICK ON "+currentNote.getTitle(), Toast.LENGTH_SHORT).show();
-                sc.deleteNote(currentNote);
+                new ServerComms().deleteNote(currentNote);
             }
         });
 

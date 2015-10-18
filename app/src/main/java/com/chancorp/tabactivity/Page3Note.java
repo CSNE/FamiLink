@@ -18,7 +18,6 @@ public class Page3Note extends Fragment implements Redrawable, AdapterView.OnIte
 
     FamilyData fd;
     NoteListAdapter nla;
-    ServerComms sc;
     ListView lv;
     Button btn;
 
@@ -28,12 +27,7 @@ public class Page3Note extends Fragment implements Redrawable, AdapterView.OnIte
     public void onAttach(Activity a){
         super.onAttach(a);
         System.out.println("Attached.");
-        try{
-            this.fd=((FamilyDataProvider) a).provideData();
-            this.sc=((ServerCommsProvider)a).provideServerComms();
-        }catch(ClassCastException e){
-            throw new ClassCastException("Can't cast.");
-        }
+        this.fd=ServerComms.getStaticFamilyData();
     }
 
 
@@ -42,7 +36,7 @@ public class Page3Note extends Fragment implements Redrawable, AdapterView.OnIte
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_3_notes, container, false);
 
-        nla = new NoteListAdapter(R.layout.single_note_list_element, fd,(AppCompatActivity)getActivity(), sc);
+        nla = new NoteListAdapter(R.layout.single_note_list_element, fd,(AppCompatActivity)getActivity());
 
 
         lv = (ListView) rootView.findViewById(R.id.page3_notelist);
@@ -88,7 +82,7 @@ public class Page3Note extends Fragment implements Redrawable, AdapterView.OnIte
                     Note nt=new Note();
                     nt.setTitle(c.getNoteTitle());
                     nt.setBody(c.getNoteBody());
-                    sc.addNote(nt);
+                    new ServerComms().addNote(nt);
                 }
             });
             uig.init();

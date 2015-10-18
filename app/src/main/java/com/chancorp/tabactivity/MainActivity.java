@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 //프로그램 시작 시 보여지는 Activity..
 
-public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,FamilyDataProvider,ServerCommsProvider,Redrawable {
+public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,Redrawable {
 
     //TODO make bitmaps into mipmaps so no anti-aliasing issues occur.
     //TODO images instead of avatars?
@@ -205,10 +205,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public FamilyData provideData() {
-        return this.fd;
-    }
     public ServerComms provideServerComms(){
         return this.serverConnector;
     }

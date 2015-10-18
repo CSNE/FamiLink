@@ -71,11 +71,12 @@ public class Activity_List_of_router extends Activity implements View.OnClickLis
         if(v.getId() == R.id.addrouterbtn) {
             startActivityForResult(new Intent(this, Activity_add_router.class), REQUEST_CODE);
         }else if (v.getId()==R.id.router_refresh){
-            ServerComms sc=new ServerComms();
+            final ServerComms sc=new ServerComms();
             sc.setDataReturnListener(new DataReturnListener() {
                 @Override
                 public void onReturn(String data) {
                     adapter.notifyDataSetChanged();
+                    sc.clearDataReturnListener();
                 }
             });
             sc.refreshData();
