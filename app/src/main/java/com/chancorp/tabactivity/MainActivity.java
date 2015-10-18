@@ -36,7 +36,7 @@ import android.widget.Toast;
 
 //프로그램 시작 시 보여지는 Activity..
 
-public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener,Redrawable {
+public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, Redrawable {
 
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     FamilyData fd;
     ServerComms serverConnector;
-    Redrawable[] rd =new Redrawable[5];
-    View tab1View,tab2View,tab3View,tab4View;
+    Redrawable[] rd = new Redrawable[5];
+    View tab1View, tab2View, tab3View, tab4View;
     Menu menu;
 
     @Override
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         super.onCreate(savedInstanceState);
 
-        fd=new FamilyData(getApplicationContext());
+        fd = new FamilyData(getApplicationContext());
 
         setContentView(R.layout.activity_main);
 
@@ -75,21 +75,21 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
 
 
-        tab1View=getLayoutInflater().inflate(R.layout.tab_layout,null);
+        tab1View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         listPageTab.setCustomView(tab1View);
         setupTab(tab1View, "List", null, 0);
 
-        tab2View=getLayoutInflater().inflate(R.layout.tab_layout,null);
+        tab2View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         todoPageTab.setCustomView(tab2View);
         setupTab(tab2View, "ToDo", null, 0);
 
-        tab3View=getLayoutInflater().inflate(R.layout.tab_layout,null);
+        tab3View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         notePageTab.setCustomView(tab3View);
         setupTab(tab3View, "Note", null, 0);
 
-        tab4View=getLayoutInflater().inflate(R.layout.tab_layout,null);
+        tab4View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         chatPageTab.setCustomView(tab4View);
-        setupTab(tab4View,"Chat",null,0);
+        setupTab(tab4View, "Chat", null, 0);
 
 
         Fragment listPage = (Fragment) new Page1List();
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
 
         listPageTab.setTabListener(new MyTabsListener(listPage, this));
-        todoPageTab.setTabListener(new MyTabsListener(todoPage,this));
-        notePageTab.setTabListener(new MyTabsListener(notePage,this));
+        todoPageTab.setTabListener(new MyTabsListener(todoPage, this));
+        notePageTab.setTabListener(new MyTabsListener(notePage, this));
         chatPageTab.setTabListener(new MyTabsListener(chatPage, this));
 
 
@@ -109,18 +109,16 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         actionbar.addTab(notePageTab);
         actionbar.addTab(chatPageTab);
 
-        rd[0]=(Redrawable)listPage;
-        rd[1]=(Redrawable)todoPage;
-        rd[2]=(Redrawable)notePage;
-        rd[3]=(Redrawable)chatPage;
-        rd[4]=(Redrawable)this;
-
-
+        rd[0] = (Redrawable) listPage;
+        rd[1] = (Redrawable) todoPage;
+        rd[2] = (Redrawable) notePage;
+        rd[3] = (Redrawable) chatPage;
+        rd[4] = (Redrawable) this;
 
 
         //ServerComms.setup("http://172.30.86.177:5000",this.fd,rd);
         //ServerComms.setup("http://10.0.2.2:8301",this.fd,rd);
-        ServerComms.setup("http://122.203.53.110:8071",this.fd, rd);
+        ServerComms.setup("http://122.203.53.110:8071", this.fd, rd);
         serverConnector = new ServerComms(getApplicationContext());
 
         fd.loadFromFile();
@@ -128,34 +126,42 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         redraw();
     }
 
+    public void showInitialPage(){
+        startActivity(new Intent(this,InitialActivity.class));
+    }
+
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         Log.d("Familink", "MainActivity started.");
-        if (serverConnector!=null) serverConnector.redrawFragments();
+
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         Log.d("Familink", "MainActivity resumed.");
+        if (serverConnector != null) {
+            serverConnector.redrawFragments();
+
+        }
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         Log.d("Familink", "MainActivity paused.");
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         Log.d("Familink", "MainActivity stopped.");
         fd.saveToFile();
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         Log.d("Familink", "MainActivity killed.");
 
@@ -168,13 +174,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
 
-        this.menu=menu;
+        this.menu = menu;
 
         return true;
 
     }
 
-    public Menu getMenu(){
+    public Menu getMenu() {
         return this.menu;
     }
 
@@ -209,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = mPref.edit();
         edit.clear();
-        if(mPref.getBoolean("familink_ServiceRunning",false)) {
+        if (mPref.getBoolean("familink_ServiceRunning", false)) {
             stopService(new Intent(this, Service_WifiStateChange.class));
         }
         edit.commit();
@@ -237,60 +243,59 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         dialog_.show();
     }
 
-    public ServerComms provideServerComms(){
+    public ServerComms provideServerComms() {
         return this.serverConnector;
     }
 
     @Override
     public void redraw() {
-        setupTab(tab2View,"To Do",Integer.toString(fd.getToDos().size()),getResources().getColor(R.color.text_orange));
+        setupTab(tab2View, "To Do", Integer.toString(fd.getToDos().size()), getResources().getColor(R.color.text_orange));
+        if (!fd.isRegistered()) showInitialPage();
     }
 
-    public static void setupTab(View v, String name, String message, int color){
-        TextView tText=(TextView)v.findViewById(R.id.tab_text);
-        TextView tNum=(TextView)v.findViewById(R.id.tab_num);
+    public static void setupTab(View v, String name, String message, int color) {
+        TextView tText = (TextView) v.findViewById(R.id.tab_text);
+        TextView tNum = (TextView) v.findViewById(R.id.tab_num);
         tText.setText(name);
-        if (message==null || message.equals("") || message.equals("0")) {
+        if (message == null || message.equals("") || message.equals("0")) {
             tNum.setText("");
-        }else{
-            tNum.setText("["+message+"] ");
+        } else {
+            tNum.setText("[" + message + "] ");
             tNum.setTextColor(color);
         }
     }
 
 
     class MyTabsListener implements ActionBar.TabListener {
-    public Fragment fragment;
-    public Context context;
+        public Fragment fragment;
+        public Context context;
 
-    public MyTabsListener(Fragment fragment, Context context) {
-        this.fragment = fragment;
-        this.context = context;
+        public MyTabsListener(Fragment fragment, Context context) {
+            this.fragment = fragment;
+            this.context = context;
+
+        }
+
+        @Override
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+        }
+
+
+        @Override
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+            ft.replace(R.id.tab_area, fragment);
+        }
+
+
+        @Override
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+            ft.remove(fragment);
+        }
 
     }
-
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-        ft.replace(R.id.tab_area, fragment);
-    }
-
-
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-        ft.remove(fragment);
-    }
-
-}
 
 
 }
