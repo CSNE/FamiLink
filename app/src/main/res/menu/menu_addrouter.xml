@@ -5,8 +5,8 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/addrouter_backspace"
-        android:title="@string/action_settings"
- />
+        android:title="Backspace"
+        android:icon="@android:drawable/ic_menu_back"
+        />
 
 </menu>

@@ -14,9 +14,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -207,6 +209,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     private void HereComesDeleteTiming() {
         fd.reset();
         serverConnector.redrawFragments();
+        SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edit = mPref.edit();
+        edit.clear();
+        if(mPref.getBoolean("familink_ServiceRunning",false)) {
+            stopService(new Intent(this, Service_WifiStateChange.class));
+        }
+        edit.commit();
         return;
     }
 
