@@ -22,7 +22,6 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
 
     FamilyData fd;
 
-
     FamilyMemberAdapter adapter;
 
     @Override
@@ -63,6 +62,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
     public void onPause(){
         super.onPause();
     }
+
 
     @Override
     public void onClick(View view) {

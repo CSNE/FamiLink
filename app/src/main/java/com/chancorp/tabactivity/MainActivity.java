@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     public void onStart(){
         super.onStart();
         Log.d("Familink", "MainActivity started.");
-
+        if (serverConnector!=null) serverConnector.redrawFragments();
     }
 
     @Override
