@@ -17,6 +17,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,7 +29,7 @@ import org.w3c.dom.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Activity_add_router extends Activity implements View.OnClickListener {
+public class Activity_add_router extends AppCompatActivity implements View.OnClickListener {
     TextView textview;
     Button btn;
     Handler handler;
@@ -66,6 +67,16 @@ public class Activity_add_router extends Activity implements View.OnClickListene
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_addrouter, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.addrouterbackarrow) {
+            try {timer.cancel();} catch(Exception e) {}
+            finish();
+        }
         return true;
     }
 
@@ -129,27 +140,19 @@ public class Activity_add_router extends Activity implements View.OnClickListene
                 return;
             }
             Intent it = getIntent();
-            try {
-                WifiManager wifimanager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                WifiInfo wifinfo = wifimanager.getConnectionInfo();
-                it.putExtra("new_mac", wifinfo.getBSSID());
-                it.putExtra("new_name", wifinfo.getSSID());
-                timer.cancel();
-                setResult(RESULT_OK, it);
-                finish();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            WifiManager wifimanager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wifinfo = wifimanager.getConnectionInfo();
+            it.putExtra("new_mac", wifinfo.getBSSID());
+            it.putExtra("new_name", wifinfo.getSSID());
+            setResult(RESULT_OK, it);
+            try{timer.cancel();}catch(Exception e){}
+            finish();
         }
     }
 
     @Override
     protected void onDestroy() {
-        try {
-            timer.cancel();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        try {timer.cancel();} catch(Exception e) {}
         super.onDestroy();
     }
 }
