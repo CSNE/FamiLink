@@ -26,7 +26,7 @@ public class ServerComms {
     static FamilyData fd;
     static Redrawable[] rdf;
     DataReturnListener drl;
-    FailListener fl;
+
     Context c;
 
 
@@ -92,9 +92,7 @@ public class ServerComms {
     public void setDataReturnListener(DataReturnListener drl) {
         this.drl = drl;
     }
-    public void setFailListener(FailListener fl){
-        this.fl=fl;
-    }
+
 
     public void clearDataReturnListener() {
         this.drl = null;
@@ -292,7 +290,7 @@ public class ServerComms {
                 }
             }, RETRY_INTERVAL_MILLISEC);
 
-            this.fl.onFail();
+
 
         } else {
             Log.d("Familink", "GET returned. | Request type:" + requestType+" | Data(newline stripped, full data on FamilinkHTML): "+data.replace("\n",""));
@@ -345,7 +343,6 @@ public class ServerComms {
                 }
             }, RETRY_INTERVAL_MILLISEC);
 
-            this.fl.onFail();
 
         } else {
             Log.d("Familink", "POST returned. | Request type:" + requestType+" | Data(newline stripped, full data on FamilinkHTML): "+data.replace("\n",""));
