@@ -50,6 +50,8 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
                         clickedcount = 0;
                         sendActivity_Second();
                     }
+                } else if(preference.getKey().toString().equals("familnk_Logout")) {
+                    LogoutProcess();
                 }
                 return true;
             }
@@ -57,11 +59,15 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         addPreferencesFromResource(R.xml.pref_settings);
         setOnPreferenceChange(findPreference("familink_ServiceRunning"));
         setOnPreferenceChange(findPreference("familink_Electronics"));
+        setOnPreferenceClick(findPreference("familink_Logout"));
         setOnPreferenceClick(findPreference("ListofRouter"));
         setOnPreferenceClick(findPreference("DeveloperInformation"));
         return;
     }
 
+    private void LogoutProcess() {
+        //TODO when clicked
+    }
 
     private void sendActivity()   {startActivity(new Intent(this, Activity_List_of_router.class));}
     private void sendActivity_Second() {startActivity(new Intent(this, Activity_EasterEgg.class));}

@@ -26,7 +26,7 @@
             android:title="공유기 관리">
         </Preference>
         <Preference
-            android:key="familink_LogOut"
+            android:key="familink_Logout"
             android:summary="현재 소속되어 있는 가족을 나갑니다."
             android:title="로그아웃">
         </Preference>
