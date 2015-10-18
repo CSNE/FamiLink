@@ -32,7 +32,10 @@
 
         <activity android:name=".Activity_EasterEgg" />
 
-        <activity android:name=".Activity_add_router" />
+        <activity
+            android:name=".Activity_add_router"
+            android:theme="@style/CustomActionBarTheme"
+            />
 
         <activity android:name=".Activity_List_of_router" />
 

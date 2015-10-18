@@ -42,11 +42,9 @@ public class ServerComms {
 
     private URL getURL() {
         try {
-            if (!fd.isRegistered()) {
-                return new URL(serverBaseURL + "/-1");
-            } else {
-                return new URL(serverBaseURL + "/" + Integer.toString(fd.getFamilyID()) + "?pw=" + fd.getCredentials().getPasswordHash());
-            }
+
+            return new URL(serverBaseURL + "/" + Integer.toString(fd.getFamilyID()) + "?pw=" + fd.getCredentials().getPasswordHash());
+
         } catch (MalformedURLException e) {
             Log.e("Familink", "MalformedURLException");
             return null;
