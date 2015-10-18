@@ -104,7 +104,7 @@ public class FamilyData implements Serializable {
         return notes.get(idx);
     }
     public boolean isRegistered(){
-        if (familyID==-1) return false;
+        if (familyID==-1||myID==-1) return false;
         else return true;
     }
 

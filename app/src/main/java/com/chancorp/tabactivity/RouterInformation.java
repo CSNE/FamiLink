@@ -26,6 +26,11 @@ public class RouterInformation implements Serializable{
     public RouterInformation(String name, String mac){
         this.name=name;
         this.macAddr=mac;
+        stripQuotes();
+    }
+
+    public void stripQuotes(){
+        this.name=this.name.replace("\"","");
     }
 
 
