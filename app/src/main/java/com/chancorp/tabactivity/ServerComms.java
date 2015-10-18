@@ -241,6 +241,8 @@ public class ServerComms {
     }
 
 
+
+
     public void sendGET(String requestType) {
         Log.d("Familink", "GETting from " + getURL());
         DataRetriever dr = new DataRetriever(this, 1);
