@@ -6,7 +6,8 @@
 
     <item
         android:title="Backspace"
-        android:icon="@android:drawable/ic_menu_back"
+        android:icon="@drawable/ic_arrow_back_black_48dp"
+        app:showAsAction="always"
         />
 
 </menu>
