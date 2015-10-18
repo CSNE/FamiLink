@@ -201,10 +201,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             serverConnector.refreshData();
             return true;
         }
-        if (id == R.id.debug_del_save) {
-            BuildAlertDialog_Logout();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
