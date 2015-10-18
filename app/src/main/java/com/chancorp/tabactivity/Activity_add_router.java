@@ -1,5 +1,6 @@
 package com.chancorp.tabactivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +14,9 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,7 +28,7 @@ import org.w3c.dom.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Activity_add_router extends Activity implements View.OnClickListener {
+public class Activity_add_router extends AppCompatActivity implements View.OnClickListener {
     TextView textview;
     Button btn;
     Handler handler;
@@ -49,13 +52,21 @@ public class Activity_add_router extends Activity implements View.OnClickListene
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon_smartphone);
         resizebmp = Bitmap.createScaledBitmap(bmp, width / 2, width / 2, true);
         ((ImageView) findViewById(R.id.help2)).setImageBitmap(resizebmp);
-        ((TextView) findViewById(R.id.doum)).setText("집의 공유기에 핸드폰의 와이파이를 연결해주세요.\n" +
+        ((TextView) findViewById(R.id.doum)).setText(
+                "집의 공유기에 핸드폰의 와이파이를 연결해주세요.\n" +
                 "연결이 되었으면, 위의 버튼을 눌러 가족 공유기 추가를 진행해주세요." +
                 "\n가족 공유기 정보는 자동으로 서버에 저장되어, 전 가족이 공유하게 됩니다." +
                 "\n공유기 리스트를 바탕으로 가족 구성원이 집에 있는지 여부를 판단하게 됩니다.");
 
         makehandler();
         maketimer();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_addrouter, menu);
+        return true;
     }
 
     private void makehandler() {

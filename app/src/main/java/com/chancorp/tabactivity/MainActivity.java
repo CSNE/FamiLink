@@ -10,9 +10,13 @@ StringUtils class by Nick Frolov
 
 package com.chancorp.tabactivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -23,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -135,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public void onPause(){
         super.onPause();
-        Log.d("Familink","MainActivity paused.");
+        Log.d("Familink", "MainActivity paused.");
     }
 
     @Override
@@ -193,13 +198,37 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             return true;
         }
         if (id == R.id.debug_del_save) {
-            fd.reset();
-            serverConnector.redrawFragments();
+            BuildAlertDialog_Logout();
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void HereComesDeleteTiming() {
+        fd.reset();
+        serverConnector.redrawFragments();
+        return;
+    }
+
+    private void BuildAlertDialog_Logout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("경고")
+                .setMessage("확인 버튼을 누르시면, 가족을 나가게 됩니다.\n 가족을 나간 후 다시 가입할 수 있습니다.")
+                .setCancelable(true)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        HereComesDeleteTiming();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog_ = builder.create();
+        dialog_.setCanceledOnTouchOutside(true);
+        dialog_.show();
     }
 
     public ServerComms provideServerComms(){

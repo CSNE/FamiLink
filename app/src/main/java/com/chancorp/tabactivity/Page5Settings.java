@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
@@ -49,8 +50,6 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
                         clickedcount = 0;
                         sendActivity_Second();
                     }
-                } else if(preference.getKey().toString().equals("familink_LogOut")) {
-                    sendActivity_Third();
                 }
                 return true;
             }
@@ -63,7 +62,7 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         return;
     }
 
-    private void sendActivity_Third()   { startActivity(new Intent(this, Activity_Log_Out.class));}
+
     private void sendActivity()   {startActivity(new Intent(this, Activity_List_of_router.class));}
     private void sendActivity_Second() {startActivity(new Intent(this, Activity_EasterEgg.class));}
 

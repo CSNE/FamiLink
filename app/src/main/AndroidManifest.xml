@@ -18,6 +18,7 @@
         android:icon="@mipmap/logo_rev5"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name="com.chancorp.tabactivity.MainActivity"
             android:screenOrientation="portrait"
@@ -30,18 +31,26 @@
         </activity>
 
         <activity android:name=".Activity_EasterEgg" />
+
         <activity android:name=".Activity_add_router" />
-        <activity android:name=".Activity_List_of_router"/>
+
+        <activity android:name=".Activity_List_of_router" />
+
         <activity android:name=".Activity_Lockscreen"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-        <service android:name=".Service_WifiStateChange"/>
+
         <activity android:name =".Page5Settings"/>
+
+        <service android:name=".Service_WifiStateChange"/>
+
         <receiver android:name=".Receiver_WifiStateChange">
             <intent-filter>
                 <action android:name = "action"/>
             </intent-filter>
         </receiver>
+
         <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="22" />
+
     </application>
 
 </manifest>
