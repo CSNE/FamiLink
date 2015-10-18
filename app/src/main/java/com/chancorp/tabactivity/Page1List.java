@@ -69,7 +69,7 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
         Log.d("Familink", "Clicked"+view.getId());
         if (view.getId()==R.id.page1_btn_add_user){
             UserInformationGetter cg=new UserInformationGetter(getContext(), UserInformationGetter.NAME_AND_PHONE);
-            cg.setTitle("Existing family name");
+            cg.setTitle("Log in to existing family");
             cg.setHint("Family Name","Password");
             cg.setOnReturnListener(new UserInfoReturnListener() {
                 public void onReturn(UserInformation c) {
