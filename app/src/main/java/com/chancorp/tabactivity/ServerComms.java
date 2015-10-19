@@ -144,26 +144,25 @@ public class ServerComms {
         this.sendPOST(postReq, "Add Myself");
     }
 
-    public void updateStatus(RouterInformation ri, boolean extraCheck, boolean doextra, Context c) {
-        Log.d("Familink", "is there server delay ? ServerComms>updateStatus() called");
+    /*
+        boolean) doextra  : true = last place home, false = otherwise
+        boolean) nowstate : true = now connected, false = now not connected
+     */
+    public void updateStatus(RouterInformation ri, boolean extraCheck, boolean doextra, boolean nowstate, Context c) {
 
-        if (doextra == false && fd.matchRouter(ri)) { // when connected to wifi and wifi is home wifi
+        Log.d("Familink", "is there?  " + String.valueOf(extraCheck) + " " + String.valueOf(doextra) + " " + String.valueOf(nowstate) + " " + String.valueOf(fd.numInside()));
+
+        if (nowstate == true && fd.matchRouter(ri) == true) { // when connected to wifi and wifi is home wifi
             Log.d("Familink", "is there server delay ? router matched. inside.");
             this.gotInside();
-        } else {
-            Log.d("Familink", "router not matched. outside.");
-            if(extraCheck && doextra) {
-                if (fd.numInside()<=1) {
-                    Log.d("Familink", "Only one person in home, and going out. Starting lockscreen.");
-                    Intent itt = new Intent(c, Activity_Lockscreen.class);
-                    itt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    c.startActivity(itt);
-                }
-
-            }
+        } else if(nowstate == false && doextra == true && extraCheck == true && fd.numInside() <= 1) {
+            Log.d("Familink", "Only one person in home, and going out. Starting lockscreen.");
+            Intent itt = new Intent(c, Activity_Lockscreen.class);
+            itt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(itt);
             this.gotOutside();
         }
-
+        return;
     }
 
     public void gotInside() {

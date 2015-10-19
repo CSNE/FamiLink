@@ -1,5 +1,7 @@
 package com.chancorp.tabactivity;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 //Class for storing router information.
@@ -33,10 +35,8 @@ public class RouterInformation implements Serializable{
         this.name=this.name.replace("\"","");
     }
 
+    public String summary() { return this.getName()+" ("+this.getMacAddr()+")"; }
 
-    public String summary(){
-        return this.getName()+" ("+this.getMacAddr()+")";
-    }
     public String getMacAddr() {
         return macAddr;
     }
@@ -49,15 +49,14 @@ public class RouterInformation implements Serializable{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; stripQuotes(); }
 
     public String toString(){
         return "RouterInformation. SSID: "+this.getName()+" | MAC: "+this.getMacAddr();
     }
 
     public boolean match(RouterInformation r){
+        Log.d("OhmyGod", this.getName() + "   " + this.getMacAddr());
         if(this.getMacAddr().equals(r.getMacAddr())&&this.getName().equals(r.getName())){
             return true;
         }

@@ -170,6 +170,7 @@ public class FamilyData implements Serializable {
     public boolean matchRouter(RouterInformation r) {
         boolean res=false;
         for (RouterInformation ri:this.routers){
+            Log.d("Familink","Comparing with:"+ri.summary());
             if (ri.match(r)) res=true;
         }
         return res;
