@@ -40,4 +40,16 @@
         <item name="android:actionBarSize">55dp</item>
     </style>
 
+    <style name="Widget.AppCompat.Base.ActionBar.TabView" parent="">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+        <item name="android:minWidth">80dip</item>
+    </style>
+
+    <style name="CustomActionTapTheme01" parent="@android:style/Widget.Holo.ActionBar.TabView" >
+        <item name="android:paddingLeft">1dip</item>
+        <item name="android:paddingRight">1dip</item>
+    </style>
+
 </resources>

@@ -11,6 +11,7 @@ ic_workingman.png by www.solarheatventi.cz
 
 package com.chancorp.tabactivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -52,12 +53,18 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     Redrawable[] rd = new Redrawable[5];
     View tab1View, tab2View, tab3View, tab4View;
     Menu menu;
+    int nowid;
+    ActionBar.Tab listPageTab;
+    ActionBar.Tab todoPageTab;
+    ActionBar.Tab notePageTab;
+    ActionBar.Tab chatPageTab;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.d("Familink", "-----------New Session started.-----------");
+        nowid = 1;
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
@@ -73,27 +80,27 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // 2. 탭 생성함 create new tabs and and set up the titles of the tabs
-        ActionBar.Tab listPageTab = actionbar.newTab();
-        ActionBar.Tab todoPageTab = actionbar.newTab();
-        ActionBar.Tab notePageTab = actionbar.newTab();
-        ActionBar.Tab chatPageTab = actionbar.newTab();
+        listPageTab = actionbar.newTab();
+        todoPageTab = actionbar.newTab();
+        notePageTab = actionbar.newTab();
+        chatPageTab = actionbar.newTab();
 
 
         tab1View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         listPageTab.setCustomView(tab1View);
-        setupTab(tab1View, "List", null, 0);
+        setupTab(tab1View, "List", 0, R.drawable.ic_view_list_white);
 
         tab2View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         todoPageTab.setCustomView(tab2View);
-        setupTab(tab2View, "ToDo", null, 0);
+        setupTab(tab2View, "ToDo", 0, R.drawable.ic_workingman_white);
 
         tab3View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         notePageTab.setCustomView(tab3View);
-        setupTab(tab3View, "Note", null, 0);
+        setupTab(tab3View, "Note", 0, R.drawable.ic_event_note_white);
 
         tab4View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         chatPageTab.setCustomView(tab4View);
-        setupTab(tab4View, "Chat", null, 0);
+        setupTab(tab4View, "Chat", 0, R.drawable.ic_chat_white);
 
 
         Fragment listPage = (Fragment) new Page1List();
@@ -102,10 +109,10 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         Fragment chatPage = (Fragment) new Page4Chat();
 
 
-        listPageTab.setTabListener(new MyTabsListener(listPage, this));
-        todoPageTab.setTabListener(new MyTabsListener(todoPage, this));
-        notePageTab.setTabListener(new MyTabsListener(notePage, this));
-        chatPageTab.setTabListener(new MyTabsListener(chatPage, this));
+        listPageTab.setTabListener(new MyTabsListener(listPage, 1));
+        todoPageTab.setTabListener(new MyTabsListener(todoPage, 2));
+        notePageTab.setTabListener(new MyTabsListener(notePage, 3));
+        chatPageTab.setTabListener(new MyTabsListener(chatPage, 4));
 
 
         actionbar.addTab(listPageTab);
@@ -253,7 +260,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     @Override
     public void redraw() {
-        setupTab(tab2View, Integer.toString(fd.getToDos().size()), getResources().getColor(R.color.text_orange),R.drawable.);
+        setupTab(tab2View, Integer.toString(fd.getToDos().size()),
+                getResources().getColor(R.color.text_orange),(nowid==2)?R.drawable.ic_workingman_orange:R.drawable.ic_workingman_white);
         if (!fd.isRegistered()) showInitialPage();
     }
 
@@ -262,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         TextView tNum = (TextView) v.findViewById(R.id.tab_num);
         ImageView imgV=(ImageView) v.findViewById(R.id.tab_icon);
 
-        //tText.setText(name);
+        //tText.setText("");
         imgV.setImageResource(imageResource);
         if (message == null || message.equals("") || message.equals("0")) {
             tNum.setText("");
@@ -272,37 +280,51 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
     }
 
-
-    class MyTabsListener implements ActionBar.TabListener {
-        public Fragment fragment;
-        public Context context;
-
-        public MyTabsListener(Fragment fragment, Context context) {
-            this.fragment = fragment;
-            this.context = context;
-
-        }
-
-        @Override
-        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-        }
-
-
-        @Override
-        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-            ft.replace(R.id.tab_area, fragment);
-        }
-
-
-        @Override
-        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-            ft.remove(fragment);
-        }
-
+    public static void resetupTab(View v, int imageResource) {
+        ImageView imgV = (ImageView) v.findViewById(R.id.tab_icon);
+        imgV.setImageResource(imageResource);
+        return;
     }
 
 
+    class MyTabsListener implements ActionBar.TabListener {
+        public Fragment fragment;
+        public int id;
+
+        public MyTabsListener(Fragment fragment, int id) {
+            this.fragment = fragment;
+            this.id=id;
+
+        }
+        @Override
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        }
+        @Override
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+            if (id==1){
+                resetupTab(tab1View, R.drawable.ic_view_list_orange);
+            } else if(id==2) {
+                resetupTab(tab2View, R.drawable.ic_workingman_orange);
+            } else if(id==3) {
+                resetupTab(tab3View, R.drawable.ic_event_note_orange);
+            } else if(id==4) {
+                resetupTab(tab4View, R.drawable.ic_chat_orange);
+            }
+            ft.replace(R.id.tab_area, fragment);
+            nowid = id;
+        }
+        @Override
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+            if (id==1){
+                resetupTab(tab1View, R.drawable.ic_view_list_white);
+            } else if(id==2) {
+                resetupTab(tab2View, R.drawable.ic_workingman_white);
+            } else if(id==3) {
+                resetupTab(tab3View, R.drawable.ic_event_note_white);
+            } else if(id==4) {
+                resetupTab(tab4View, R.drawable.ic_chat_white);
+            }
+            ft.remove(fragment);
+        }
+    }
 }
