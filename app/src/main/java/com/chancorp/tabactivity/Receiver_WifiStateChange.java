@@ -9,6 +9,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,9 +43,28 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
             wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             wifinfo = wifimanager.getConnectionInfo();
 
-            Log.d("ItisChansolFault", String.valueOf(wifimanager.getWifiState()));
+            String nowssid = wifinfo.getSSID();
+            String nowbssid = wifinfo.getBSSID();
+            if(nowbssid == null) {
+                if(lastestbssid != null) {
+                    boolean decision = ServerComms.fd.matchRouter(new RouterInformation(lastestssid, lastestbssid));
+                    ServerComms sc = new ServerComms(context);
+                    sc.updateStatus(new RouterInformation("",""), electronics, decision, false, context);
+                }
+            } else {
+                if(lastestbssid == null) {
+                    ServerComms sc = new ServerComms(context);
+                    sc.updateStatus(new RouterInformation(nowssid,nowbssid), electronics, false, true, context);
+                } else {
+                    ServerComms sc = new ServerComms(context);
+                    boolean decision = ServerComms.fd.matchRouter(new RouterInformation(lastestssid, lastestbssid));
+                    sc.updateStatus(new RouterInformation(nowssid,nowbssid), electronics, decision, true, context);
+                }
+            }
+            lastestbssid = nowbssid;
+            lastestssid = nowssid;
 
-
+            /*
             if(wifimanager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) { // disabled
                 try {
                     if(lastestssid.equals("undefined") == false) {
@@ -72,14 +92,13 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
                         Log.d("enabled", "is there server delay?  " + wifinfo.getBSSID());
                         ServerComms sc = new ServerComms(context);
                         sc.updateStatus(new RouterInformation(wifinfo.getSSID(), wifinfo.getBSSID()), electronics, false, true, context);
-
                     }
                 } catch(NullPointerException e) {
                     Log.d("Android Developers: ", "Such an idiot!");
                     e.printStackTrace();
                 }
             }
-
+            */
         }
         return;
     }

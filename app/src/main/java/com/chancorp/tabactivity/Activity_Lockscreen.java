@@ -3,8 +3,18 @@ package com.chancorp.tabactivity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -13,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class Activity_Lockscreen extends Activity implements View.OnDragListener, View.OnTouchListener {
@@ -31,9 +42,13 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        FrameLayout frame = (FrameLayout) findViewById(R.id.lockscreen);
+        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+        int width = metrics.widthPixels, height = metrics.heightPixels;
+        frame.addView(new mView(this), width, height);
 
         imgview = (ImageView) findViewById(R.id.imageview_lockscreen);
-        imgview.setImageResource(R.drawable.background_lockscreen);
+        imgview.setImageResource(R.drawable.jellybean_verticaljar);
         imgview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -55,11 +70,47 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
     }
 
     private void Checkdistance(float sx, float sy, float ex, float ey) {
-        final double EPS = 10;
+        final double EPS = 1000.0;
         double dist = Math.sqrt(Math.pow(sx-sy,2)+Math.pow(ex-ey,2));
         Log.d("Distance", String.valueOf(dist));
         if(dist > EPS) {
             finish();
+        }
+    }
+
+    public static Bitmap blur(Context context, Bitmap sentBitmap, int radius) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+
+            final RenderScript rs = RenderScript.create(context);
+            final Allocation input = Allocation.createFromBitmap(rs, sentBitmap, Allocation.MipmapControl.MIPMAP_NONE,
+                    Allocation.USAGE_SCRIPT);
+            final Allocation output = Allocation.createTyped(rs, input.getType());
+            final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+            script.setRadius(radius); //0.0f ~ 25.0f
+            script.setInput(input);
+            script.forEach(output);
+            output.copyTo(bitmap);
+            return bitmap;
+        } else {
+            return sentBitmap;
+        }
+    }
+
+    public class mView extends View {
+
+        Context context;
+        public mView(Context context) {
+            super(context);
+        }
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            Log.d("Canvas", "Working");
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.background_lockscreen);
+            //Bitmap blurred = blur(getContext(), bmp, 10);
+            canvas.drawBitmap(bmp, 0,0,paint);
         }
     }
 

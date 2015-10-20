@@ -16,5 +16,5 @@
     <string name="Wifi_change2">android.net.wifi.STATE_CHANGE</string>
 
 
-    <string name="not_yet_registered_message">Familink에 오신 것을 환영합니다!\n아래 버튼 중 하나를 눌러 새 가족을 만들거나, 존재하는 가족에 자신을 추가 해 주세요.\n(오타조심!)</string>
+    <string name="not_yet_registered_message">Familink에 오신 것을 환영합니다!\n아래 버튼 중 하나를 눌러 새 가족을 만들거나,\n존재하는 가족에 자신을 추가 해 주세요.</string>
 </resources>

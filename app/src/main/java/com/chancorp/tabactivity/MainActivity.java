@@ -5,7 +5,8 @@ Family Logos By Snehal Patil (CC-BY-3.0-US)
 Material Design Icons by Google (CC-BY-4.0)
 StringUtils class by Nick Frolov
 ServerComms POST code from http://www.xyzws.com/javafaq/how-to-use-httpurlconnection-post-data-to-web-server/139
-
+ic_chat.png by www.solarheatventi.cz
+ic_workingman.png by www.solarheatventi.cz
 */
 
 package com.chancorp.tabactivity;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     View tab1View, tab2View, tab3View, tab4View;
     Menu menu;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -69,10 +73,10 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // 2. 탭 생성함 create new tabs and and set up the titles of the tabs
-        ActionBar.Tab listPageTab = actionbar.newTab().setText("List");
-        ActionBar.Tab todoPageTab = actionbar.newTab().setText("To Do");
-        ActionBar.Tab notePageTab = actionbar.newTab().setText("Note");
-        ActionBar.Tab chatPageTab = actionbar.newTab().setText("Chat");
+        ActionBar.Tab listPageTab = actionbar.newTab();
+        ActionBar.Tab todoPageTab = actionbar.newTab();
+        ActionBar.Tab notePageTab = actionbar.newTab();
+        ActionBar.Tab chatPageTab = actionbar.newTab();
 
 
         tab1View = getLayoutInflater().inflate(R.layout.tab_layout, null);
@@ -249,19 +253,22 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     @Override
     public void redraw() {
-        setupTab(tab2View, "To Do", Integer.toString(fd.getToDos().size()), getResources().getColor(R.color.text_orange));
+        setupTab(tab2View, Integer.toString(fd.getToDos().size()), getResources().getColor(R.color.text_orange),R.drawable.);
         if (!fd.isRegistered()) showInitialPage();
     }
 
-    public static void setupTab(View v, String name, String message, int color) {
-        TextView tText = (TextView) v.findViewById(R.id.tab_text);
+    public static void setupTab(View v, String message, int numberColor, int imageResource) {
+        //TextView tText = (TextView) v.findViewById(R.id.tab_text);
         TextView tNum = (TextView) v.findViewById(R.id.tab_num);
-        tText.setText(name);
+        ImageView imgV=(ImageView) v.findViewById(R.id.tab_icon);
+
+        //tText.setText(name);
+        imgV.setImageResource(imageResource);
         if (message == null || message.equals("") || message.equals("0")) {
             tNum.setText("");
         } else {
             tNum.setText("[" + message + "] ");
-            tNum.setTextColor(color);
+            tNum.setTextColor(numberColor);
         }
     }
 

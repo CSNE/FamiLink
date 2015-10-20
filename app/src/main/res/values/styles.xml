@@ -36,4 +36,8 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="CustomActionBarTheme01" parent="@android:style/Theme.Holo.Light.DarkActionBar" >
+        <item name="android:actionBarSize">55dp</item>
+    </style>
+
 </resources>

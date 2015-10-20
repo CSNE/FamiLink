@@ -43,7 +43,9 @@
         <activity android:name=".Activity_Lockscreen"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
-        <activity android:name =".Page5Settings"/>
+        <activity android:name =".Page5Settings"
+            android:label="환경설정"
+            android:theme="@style/CustomActionBarTheme01"/>
 
         <service android:name=".Service_WifiStateChange"/>
 

@@ -1,6 +1,8 @@
 package com.chancorp.tabactivity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,12 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * Created by Baranium on 2015. 10. 14..
@@ -24,8 +32,42 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     private OnPreferenceClickListener onPreferenceClickListener;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("menu","oncreateoptionsmenu");
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_page5settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.page5settingsbackarrow) {
+            finish();
+        } else if(id == R.id.page5settingsquestion) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("환경 설정 및 다양한 개발자 정보를 확인할 수 있습니다.");
+            builder.setTitle("이 페이지는?")
+                    .setCancelable(true)
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.dismiss();
+                        }
+                    });
+            AlertDialog dialog_ = builder.create();
+            dialog_.setCanceledOnTouchOutside(true);
+            dialog_.show();
+        }
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        addPreferencesFromResource(R.xml.pref_settings);
+        getActionBar().setDisplayShowHomeEnabled(false);
+
         clickedcount = 0;
         this.fd=ServerComms.getStaticFamilyData();
         this.mPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -60,7 +102,6 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
                 return true;
             }
         };
-        addPreferencesFromResource(R.xml.pref_settings);
         setOnPreferenceChange(findPreference("familink_ServiceRunning"));
         setOnPreferenceChange(findPreference("familink_Electronics"));
         setOnPreferenceClick(findPreference("familink_Logout"));
@@ -69,6 +110,7 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         setOnPreferenceClick(findPreference("DeveloperInformation"));
         return;
     }
+
 
     private void logoutProcess() {
         BuildAlertDialog_Logout_or_DeleteAccount(true);

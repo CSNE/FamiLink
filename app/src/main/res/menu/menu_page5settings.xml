@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".Activity_list_of_router">
+
+    <item
+        android:id="@+id/page5settingsbackarrow"
+        android:icon="@drawable/ic_arrow_back_black_48dp"
+        android:title="뒤로 돌아가기"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/page5settingsquestion"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="이 페이지는?"
+        app:showAsAction="always"
+        />
+
+</menu>
