@@ -75,7 +75,7 @@ public class Page3Note extends Fragment implements Redrawable, AdapterView.OnIte
         if (view.getId()==R.id.page3_add_button){
             Log.d("Familink", "Page 3 add button clicked");
             UserInformationGetter uig=new UserInformationGetter(getContext(),UserInformationGetter.NOTE);
-            uig.setTitle("새 메모");
+            uig.setTitle("새 노트");
             uig.setOnReturnListener(new UserInfoReturnListener() {
                 @Override
                 public void onReturn(UserInformation c) {
