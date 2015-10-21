@@ -71,6 +71,7 @@ public class ToDo implements Serializable{
         } catch (ParseException e) {
             Log.e("Familink", "ParseException while parsing date.");
             Toast.makeText(c, "날짜를 가져올 때 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+
             this.dueTime=-1;
         }
 
