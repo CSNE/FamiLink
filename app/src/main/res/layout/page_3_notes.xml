@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Add Note"
         android:id="@+id/page3_add_button"
+        android:background="@drawable/round_button1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="true"
