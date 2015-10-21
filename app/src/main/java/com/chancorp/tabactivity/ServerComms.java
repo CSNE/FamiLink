@@ -21,7 +21,7 @@ import java.util.TimerTask;
 
 //서버 통신 클래스
 public class ServerComms {
-    private static final int MAX_RETRIES = 5, RETRY_INTERVAL_MILLISEC=5000;
+    private static final int MAX_RETRIES = 5, RETRY_INTERVAL_MILLISEC=3000;
     static String serverBaseURL;
     static FamilyData fd;
     static Redrawable[] rdf;

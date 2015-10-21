@@ -44,20 +44,25 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     final ServerComms svc=new ServerComms(ctxt);
-                    svc.getID(c.getID());
+
                     svc.setDataReturnListener(new DataReturnListener() {
                         @Override
                         public void onReturn(String data) {
-                            ServerComms svc2=new ServerComms(ctxt);
-                            svc2.addMe(cf.getName(), cf.getPhone());
+                            final ServerComms svc2=new ServerComms(ctxt);
                             svc2.setDataReturnListener(new DataReturnListener() {
                                 @Override
                                 public void onReturn(String data) {
+                                    svc2.clearDataReturnListener();
+                                    Log.d("Familink","DRL debug 593");
                                     close();
                                 }
                             });
+                            svc2.addMe(cf.getName(), cf.getPhone());
+                            svc.clearDataReturnListener();
+
                         }
                     });
+                    svc.getID(c.getID());
 
 
                 }
@@ -72,20 +77,25 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
                     fd.setCredentials(c);
                     final ServerComms svc=new ServerComms(ctxt);
-                    svc.addFamily(c);
+
                     svc.setDataReturnListener(new DataReturnListener() {
                         @Override
                         public void onReturn(String data) {
-                            ServerComms svc2=new ServerComms(ctxt);
-                            svc2.addMe(c.getName(), c.getPhone());
+                            final ServerComms svc2=new ServerComms(ctxt);
                             svc2.setDataReturnListener(new DataReturnListener() {
                                 @Override
                                 public void onReturn(String data) {
+                                    svc2.clearDataReturnListener();
                                     close();
+
                                 }
                             });
+                            svc2.addMe(c.getName(), c.getPhone());
+                            svc.clearDataReturnListener();
+
                         }
                     });
+                    svc.addFamily(c);
                 }
             });
             cg.init();
@@ -93,6 +103,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
     }
     public void close(){
+        //Log.d("Familink","DB 126357");
         finish();
+        //TODO this doesn't work.
     }
 }
