@@ -23,7 +23,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -48,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
+    //TODO Delete Family
+    //TODO Delete Person
 
 
     FamilyData fd;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     ActionBar.Tab notePageTab;
     ActionBar.Tab chatPageTab;
     ActionBar actionbar;
-    ViewPager viewpager;
+    ViewGroup content;
 
     private double dist(float sx,float sy,float ex,float ey) {
         return Math.sqrt(Math.pow(sx-ex,2.0)+Math.pow(sy-ey,2.0));
@@ -105,27 +106,22 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 
         super.onCreate(savedInstanceState);
+
         fd = new FamilyData(getApplicationContext());
+
         setContentView(R.layout.activity_main);
 
         actionbar = getSupportActionBar();
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        viewpager = (ViewPager) findViewById(R.id.pager);
-        CustomAdapter02 customadapter = new CustomAdapter02(getLayoutInflater());
-        viewpager.setAdapter(customadapter);
-        viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-            @Override
-            public void onPageSelected(int position) {actionbar.setSelectedNavigationItem(position);}
-            @Override
-            public void onPageScrollStateChanged(int state) {}
-        });
+        content = (ViewGroup) findViewById(R.id.tab_area);
+        content.setOnTouchListener(MyListener);
 
+        // 2. 탭 생성함 create new tabs and and set up the titles of the tabs
         listPageTab = actionbar.newTab();
         todoPageTab = actionbar.newTab();
         notePageTab = actionbar.newTab();
         chatPageTab = actionbar.newTab();
+
 
         tab1View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         listPageTab.setCustomView(tab1View);
@@ -178,12 +174,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         redraw();
     }
 
-
-
-
-
-
-
     public void showInitialPage() {
         startActivity(new Intent(this,InitialActivity.class));
     }
@@ -229,14 +219,21 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
         this.menu = menu;
+
         return true;
+
     }
+
     public Menu getMenu() {
         return this.menu;
     }
+
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
+
         return false;
     }
 
@@ -327,18 +324,41 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         public MyTabsListener(Fragment fragment, int id) {
             this.fragment = fragment;
             this.id=id;
+
         }
         @Override
         public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
         }
         @Override
         public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-            int position = tab.getPosition();
-            viewpager.setCurrentItem(position, true);
+            if (id==1){
+                resetupTab(tab1View, null, 0, R.drawable.ic_view_list_orange);
+                actionbar.setTitle("가족 리스트");
+            } else if(id==2) {
+                resetupTab(tab2View, String.valueOf(fd.getToDos().size()), getResources().getColor(R.color.text_red), R.drawable.ic_workingman_orange);
+                actionbar.setTitle("집안일 목록");
+            } else if(id==3) {
+                resetupTab(tab3View, null, 0, R.drawable.ic_event_note_orange);
+                actionbar.setTitle("가족 공용 노트");
+            } else if(id==4) {
+                resetupTab(tab4View, null, 0, R.drawable.ic_chat_orange);
+                actionbar.setTitle("채팅");
+            }
+            ft.replace(R.id.tab_area, fragment);
             nowid = id;
         }
         @Override
         public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+            if (id==1){
+                resetupTab(tab1View, null, 0, R.drawable.ic_view_list_white);
+            } else if(id==2) {
+                resetupTab(tab2View, String.valueOf(fd.getToDos().size()), getResources().getColor(R.color.text_red), R.drawable.ic_workingman_white);
+            } else if(id==3) {
+                resetupTab(tab3View, null, 0, R.drawable.ic_event_note_white);
+            } else if(id==4) {
+                resetupTab(tab4View, null, 0, R.drawable.ic_chat_white);
+            }
+            ft.remove(fragment);
         }
     }
 }
