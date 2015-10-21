@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     android:id="@+id/lockscreen"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,4 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</FrameLayout>
+    <TextView
+        android:textColor="@android:color/white"
+        android:text="드래그하여 잠금해제하세요.\n집안의 가스불과 전자제품은 모두 끄셨나요?"
+        android:textSize="15sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageview_lockscreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

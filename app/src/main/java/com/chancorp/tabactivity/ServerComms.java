@@ -155,11 +155,13 @@ public class ServerComms {
         if (nowstate == true && fd.matchRouter(ri) == true) { // when connected to wifi and wifi is home wifi
             Log.d("Familink", "is there server delay ? router matched. inside.");
             this.gotInside();
-        } else if(nowstate == false && doextra == true && extraCheck == true && fd.numInside() <= 1) {
+        } else if(nowstate == false && doextra == true) {
             Log.d("Familink", "Only one person in home, and going out. Starting lockscreen.");
-            Intent itt = new Intent(c, Activity_Lockscreen.class);
-            itt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            c.startActivity(itt);
+            if(extraCheck && fd.numInside() <= 1) {
+                Intent itt = new Intent(c, Activity_Lockscreen.class);
+                itt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                c.startActivity(itt);
+            }
             this.gotOutside();
         }
         return;
@@ -206,7 +208,7 @@ public class ServerComms {
     }
 
     public void addRouter(RouterInformation ri){
-        fd.addRouter(ri);
+        //fd.addRouter(ri);
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "add wifi");
@@ -217,7 +219,7 @@ public class ServerComms {
     }
 
     public void deleteRouter(RouterInformation ri){
-        fd.deleteRouter(ri);
+        //fd.deleteRouter(ri);
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "delete wifi");
@@ -227,7 +229,7 @@ public class ServerComms {
     }
 
     public void addNote(Note n){
-        fd.addNote(n);
+        //fd.addNote(n);
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "add note");
@@ -238,7 +240,7 @@ public class ServerComms {
     }
 
     public void deleteNote(Note n){
-        fd.deleteNote(n);
+        //fd.deleteNote(n);
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("request type", "delete note");

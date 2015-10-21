@@ -135,10 +135,18 @@ public class Activity_List_of_router extends AppCompatActivity implements View.O
     }
 
     public void datastechanged(int position) {
-        new ServerComms(getApplicationContext()).deleteRouter(fd.getRouters().get(position));
-        adapter.notifyDataSetChanged();
+        ServerComms sc=new ServerComms(getApplicationContext());
+        sc.setDataReturnListener(new DataReturnListener() {
+            @Override
+            public void onReturn(String data) {
+                adapter.notifyDataSetChanged();
+                listview.invalidate();
+            }
+        });
+        sc.deleteRouter(fd.getRouters().get(position));
         return;
     }
+
 
 
     class CustomAdapter01 extends BaseAdapter implements View.OnClickListener {

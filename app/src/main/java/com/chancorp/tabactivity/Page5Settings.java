@@ -98,6 +98,8 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
                     logoutProcess();
                 } else if(comparison.equals("familink_DelAccount")) {
                     delAccountProcess();
+                } else if(comparison.equals("familink_getAccount")) {
+                    sendActivity_Third();
                 }
                 return true;
             }
@@ -108,6 +110,7 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         setOnPreferenceClick(findPreference("familink_DelAccount"));
         setOnPreferenceClick(findPreference("ListofRouter"));
         setOnPreferenceClick(findPreference("DeveloperInformation"));
+        setOnPreferenceClick(findPreference("familink_getAccount"));
         return;
     }
 
@@ -121,7 +124,10 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
     }
 
     private void sendActivity()   {startActivity(new Intent(this, Activity_List_of_router.class));}
+
     private void sendActivity_Second() {startActivity(new Intent(this, Activity_EasterEgg.class));}
+
+    private void sendActivity_Third() {startActivity(new Intent(this, Activity_getAccount.class));}
 
     private void BuildAlertDialog_familink_ServiceRunning(Preference preference) {
         if(mPref.getBoolean(preference.getKey(),true) == false) {

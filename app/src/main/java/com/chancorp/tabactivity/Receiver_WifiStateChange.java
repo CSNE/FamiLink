@@ -45,6 +45,7 @@ public class Receiver_WifiStateChange extends BroadcastReceiver {
 
             String nowssid = wifinfo.getSSID();
             String nowbssid = wifinfo.getBSSID();
+            Log.d("familink", nowssid + "  " + nowbssid);
             if(nowbssid == null) {
                 if(lastestbssid != null) {
                     boolean decision = ServerComms.fd.matchRouter(new RouterInformation(lastestssid, lastestbssid));

@@ -42,13 +42,9 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        FrameLayout frame = (FrameLayout) findViewById(R.id.lockscreen);
-        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-        int width = metrics.widthPixels, height = metrics.heightPixels;
-        frame.addView(new mView(this), width, height);
 
         imgview = (ImageView) findViewById(R.id.imageview_lockscreen);
-        imgview.setImageResource(R.drawable.jellybean_verticaljar);
+        imgview.setImageResource(R.mipmap.logo_rev5);
         imgview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
