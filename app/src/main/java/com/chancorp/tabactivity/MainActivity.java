@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     //TODO images instead of avatars?
     //TODO Diary page?(instead of notes)
-    //TODO Delete Family
-    //TODO Delete Person
 
 
     FamilyData fd;

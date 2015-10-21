@@ -62,8 +62,8 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
     }
 
     public String getDataString() {
-        if (this.isInside) return new String("Inside");
-        else return new String("Not Inside");
+        if (this.isInside) return new String("집에 있음");
+        else return new String("외출");
     }
 
     public String getNameAndNickname(){
@@ -101,8 +101,8 @@ public class FamilyMember implements Serializable, UserInfoReturnListener {
     public void openSettings(FragmentActivity a) {
         Log.d("Familink", "Opening settings for member" + getName());
         UserInformationGetter cg=new UserInformationGetter(a, UserInformationGetter.NICKNAME_AND_AVATAR);
-        cg.setTitle("Set Family Info");
-        cg.setHint("Nickname");
+        cg.setTitle("가족 정보 설절");
+        cg.setHint("별명");
         cg.init();
         cg.setOnReturnListener(this);
     }

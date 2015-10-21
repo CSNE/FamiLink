@@ -12,35 +12,5 @@
         android:id="@+id/page1_FamilyList" />
 </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="false"
-        android:layout_centerInParent="true"
-        android:id="@+id/page1_not_registered_menu">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/not_yet_registered_message"
-            android:id="@+id/page1_not_added_message"
-            android:layout_gravity="center_horizontal"
-            style="@style/TitleText"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register new family"
-            android:id="@+id/page1_btn_add_family"
-            android:layout_gravity="center_horizontal"
-            style="@style/ButtonText" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add to family"
-            android:id="@+id/page1_btn_add_user"
-            android:layout_gravity="center_horizontal"
-            style="@style/ButtonText"/>
-    </LinearLayout>
 </RelativeLayout>

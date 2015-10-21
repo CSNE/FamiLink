@@ -25,7 +25,6 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
     @Override
     public void onAttach(Activity a){
         super.onAttach(a);
-        System.out.println("Attached.");
         this.fd=ServerComms.getStaticFamilyData();
 
     }
@@ -75,7 +74,7 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
         if (view.getId()==R.id.page2_add_button){
             Log.d("Familink", "Page 2 add button clicked");
             UserInformationGetter uig=new UserInformationGetter(getContext(),UserInformationGetter.TASK);
-            uig.setTitle("New Task");
+            uig.setTitle("새 할일");
             uig.setOnReturnListener(new UserInfoReturnListener() {
                 @Override
                 public void onReturn(UserInformation c) {

@@ -36,8 +36,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         final Context ctxt=this;
         if (view.getId()==R.id.tut_btn_add_user){
             UserInformationGetter cg=new UserInformationGetter(ctxt, UserInformationGetter.NAME_AND_PHONE);
-            cg.setTitle("Log in to existing family");
-            cg.setHint("Family Name","Password");
+            cg.setTitle("있는 가족에 로그인");
+            cg.setHint("가족 ID","비밀 번호");
             cg.setOnReturnListener(new UserInfoReturnListener() {
                 public void onReturn(UserInformation c) {
                     final UserInformation cf=c;
@@ -65,8 +65,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             cg.init();
         }else if (view.getId()==R.id.tut_btn_add_family){
             UserInformationGetter cg=new UserInformationGetter(ctxt, UserInformationGetter.NAME_AND_PHONE);
-            cg.setTitle("Make new family");
-            cg.setHint("New Family Name","Password");
+            cg.setTitle("새 가족 생성");
+            cg.setHint("새 가족 ID","비밀 번호");
             cg.setOnReturnListener(new UserInfoReturnListener() {
                 public void onReturn(final UserInformation c) {
                     Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());

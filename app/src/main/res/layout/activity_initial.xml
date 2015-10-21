@@ -33,14 +33,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register new family"
+            android:text="새 가족 만들기"
             android:id="@+id/tut_btn_add_family"
             android:layout_gravity="center_horizontal"
             style="@style/ButtonText" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add to family"
+            android:text="있는 가족에 추가"
             android:id="@+id/tut_btn_add_user"
             android:layout_gravity="center_horizontal"
             style="@style/ButtonText"/>
