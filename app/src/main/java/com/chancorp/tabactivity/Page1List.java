@@ -14,10 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 //첫번째 탭 fragment. 가족 리스트.
-public class Page1List extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, Redrawable {
+public class Page1List extends Fragment implements AdapterView.OnItemClickListener, Redrawable {
 
-    Button addFamilyBtn,addUserBtn;
-    LinearLayout notRegisteredMenu;
     ListView lv1;
 
     FamilyData fd;
@@ -27,7 +25,6 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
     @Override
     public void onAttach(Activity a){
         super.onAttach(a);
-        System.out.println("Attached.");
         this.fd=ServerComms.getStaticFamilyData();
 
     }
@@ -40,20 +37,18 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
 
         View rootView = inflater.inflate(R.layout.page_1_list, container, false);
 
-        addFamilyBtn=(Button) rootView.findViewById(R.id.page1_btn_add_family);
-        addUserBtn=(Button) rootView.findViewById(R.id.page1_btn_add_user);
 
 
-        notRegisteredMenu=(LinearLayout) rootView.findViewById(R.id.page1_not_registered_menu);
+
+
         adapter = new FamilyMemberAdapter(getContext(), R.layout.single_family_member_list_element, fd.getMembersInArray(),(AppCompatActivity)getActivity(),this);
 
-        if (fd.isRegistered()) notRegisteredMenu.setVisibility(LinearLayout.GONE);
+
 
         lv1 = (ListView) rootView.findViewById(R.id.page1_FamilyList);
         lv1.setAdapter(adapter);
         lv1.setOnItemClickListener(this);
-        addFamilyBtn.setOnClickListener(this);
-        addUserBtn.setOnClickListener(this);
+
 
         return rootView;
     }
@@ -64,56 +59,6 @@ public class Page1List extends Fragment implements View.OnClickListener, Adapter
     }
 
 
-    @Override
-    public void onClick(View view) {
-        Log.d("Familink", "Clicked"+view.getId());
-        if (view.getId()==R.id.page1_btn_add_user){
-            UserInformationGetter cg=new UserInformationGetter(getContext(), UserInformationGetter.NAME_AND_PHONE);
-            cg.setTitle("Log in to existing family");
-            cg.setHint("Family Name","Password");
-            cg.setOnReturnListener(new UserInfoReturnListener() {
-                public void onReturn(UserInformation c) {
-                    final UserInformation cf=c;
-                    Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
-                    fd.setCredentials(c);
-                    final ServerComms svc=new ServerComms(getContext());
-                    svc.getID(c.getID());
-                    svc.setDataReturnListener(new DataReturnListener() {
-                        @Override
-                        public void onReturn(String data) {
-                            svc.addMe(cf.getName(), cf.getPhone());
-                            svc.clearDataReturnListener();
-                        }
-                    });
-
-
-                }
-            });
-            cg.init();
-        }else if (view.getId()==R.id.page1_btn_add_family){
-            UserInformationGetter cg=new UserInformationGetter(getContext(), UserInformationGetter.NAME_AND_PHONE);
-            cg.setTitle("Make new family");
-            cg.setHint("New Family Name","Password");
-            cg.setOnReturnListener(new UserInfoReturnListener() {
-                public void onReturn(final UserInformation c) {
-                    Log.d("Familink", "Cred: " + c.getID() + " | " + c.getPassword());
-                    fd.setCredentials(c);
-                    final ServerComms svc=new ServerComms(getContext());
-                    svc.addFamily(c);
-                    svc.setDataReturnListener(new DataReturnListener() {
-                        @Override
-                        public void onReturn(String data) {
-                            ServerComms svc2=new ServerComms(getContext());
-                            svc2.addMe(c.getName(), c.getPhone());
-                            svc2.clearDataReturnListener();
-                        }
-                    });
-                }
-            });
-            cg.init();
-        }
-
-    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

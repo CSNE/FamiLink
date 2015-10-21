@@ -11,7 +11,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Task Name" />
+        android:hint="제목" />
     <EditText
         android:id="@+id/cred_getter_task_desc"
         android:inputType="textMultiLine"
@@ -23,7 +23,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Task Description" />
+        android:hint="설명" />
     <EditText
         android:id="@+id/cred_getter_task_time"
         android:inputType="datetime"
@@ -33,6 +33,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Due Date (YYYY-MM-DD hh:mm)" />
+        android:hint="제한시간 예)2016-04-12 16:00" />
 
 </LinearLayout>

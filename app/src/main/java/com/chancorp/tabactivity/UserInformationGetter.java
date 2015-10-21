@@ -68,7 +68,6 @@ public class UserInformationGetter {
             view=inflater.inflate(R.layout.credientials_getter_note, null);
         }
         else{
-            Log.d("Familink", "What the fuck");
             view=null;
         }
 
