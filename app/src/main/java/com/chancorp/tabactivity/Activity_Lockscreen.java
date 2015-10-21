@@ -25,6 +25,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Activity_Lockscreen extends Activity implements View.OnDragListener, View.OnTouchListener {
 
@@ -42,9 +43,13 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
+        ((TextView) findViewById(R.id.textview_lockscreen)).setText("드래그하여 잠금해제하세요.\n집안의 가스불과 전자제품은 모두 끄셨나요?");
+        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+        int width = metrics.widthPixels/2;
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.logo_rev5);
+        Bitmap resized = Bitmap.createScaledBitmap(bmp, width, width, true);
         imgview = (ImageView) findViewById(R.id.imageview_lockscreen);
-        imgview.setImageResource(R.mipmap.logo_rev5);
+        imgview.setImageBitmap(resized);
         imgview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

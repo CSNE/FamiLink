@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffedcc">
 
     <ListView
         android:layout_width="match_parent"
@@ -15,9 +16,11 @@
         android:layout_height="wrap_content"
         android:text="할일 추가"
         android:id="@+id/page2_add_button"
+        android:background="@drawable/round_button1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
         style="@style/ButtonText"/>
 
 </RelativeLayout>
