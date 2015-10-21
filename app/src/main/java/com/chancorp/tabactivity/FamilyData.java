@@ -251,7 +251,7 @@ public class FamilyData implements Serializable {
                                 else if (title.equals("name")) td.setTitle(data);
                                 else if (title.equals("text")) td.setDescription(data);
                                 else if (title.equals("personID")) td.setCreator(Integer.parseInt(data));
-                                else if (title.equals("due")) td.parseDue(data,true);
+                                else if (title.equals("due")) td.parseDue(data,true,c);
                                 else Log.e("Familink", "TaskInfo did not match any of its parameters! Line: "+line);
                             }else if (partTitle.equals("WifiInfo")){
                                 if (title.equals("wifiID")) ri.setID(Integer.parseInt(data));

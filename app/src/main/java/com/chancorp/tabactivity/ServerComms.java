@@ -21,7 +21,7 @@ import java.util.TimerTask;
 
 //서버 통신 클래스
 public class ServerComms {
-    private static final int MAX_RETRIES = 5, RETRY_INTERVAL_MILLISEC=3000;
+    private static final int MAX_RETRIES = 5, RETRY_INTERVAL_MILLISEC=2000;
     static String serverBaseURL;
     static FamilyData fd;
     static Redrawable[] rdf;
@@ -273,7 +273,7 @@ public class ServerComms {
 
             if (tries >= MAX_RETRIES) {
                 Log.e("Familink", "GET failed after "+MAX_RETRIES+" tries.");
-                Toast.makeText(this.c, "Connection to server failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.c, "서버 연결 실패", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 Log.d("Familink", "Null returned to GET request. Retrying. (try " + tries + ")");
@@ -328,7 +328,7 @@ public class ServerComms {
         if (data == null) {
             if (tries >= MAX_RETRIES) {
                 Log.e("Familink", "POST failed after "+MAX_RETRIES+" tries.");
-                Toast.makeText(this.c, "Connection to server failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.c, "서버 연결 실패", Toast.LENGTH_SHORT).show();
                 return;
             } else Log.d("Familink", "Null returned to POST request. Retrying. (try "+tries+")");
 
@@ -356,6 +356,7 @@ public class ServerComms {
                     StringWriter errors = new StringWriter();
                     e.printStackTrace(new PrintWriter(errors));
                     Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>get ID");
+                    Toast.makeText(c, "서버 인증에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
             } else if (requestType.equals("Add Myself")) {
                 try {
@@ -364,6 +365,7 @@ public class ServerComms {
                     StringWriter errors = new StringWriter();
                     e.printStackTrace(new PrintWriter(errors));
                     Log.e("Familink", "NumberFormatException occurred in ServerComms>onPOSTReturn>AddMyself");
+                    Toast.makeText(c, "등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
             }else if (requestType.equals("Delete Me")) {
                 this.logOut();

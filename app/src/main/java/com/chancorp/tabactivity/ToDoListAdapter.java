@@ -75,15 +75,24 @@ public class ToDoListAdapter extends BaseAdapter {
 
 
         int urg=fd.getToDoAt(i).checkUrgency();
-        if (urg==ToDo.TOO_LATE) dueV.setTextColor(ac.getResources().getColor(R.color.text_redder));
-        else if (urg==ToDo.URGENT) dueV.setTextColor(ac.getResources().getColor(R.color.text_red));
-        else if (urg==ToDo.KINDA_URGENT) dueV.setTextColor(ac.getResources().getColor(R.color.text_orange));
-        else if (urg==ToDo.NOT_URGENT) dueV.setTextColor(ac.getResources().getColor(R.color.text_blue));
-
+        if (fd.getToDoAt(i).getDueTime()==-1){
+            dueV.setTextColor(ac.getResources().getColor(R.color.text_body));
+            dueV.setText("-");
+        }else {
+            if (urg == ToDo.TOO_LATE)
+                dueV.setTextColor(ac.getResources().getColor(R.color.text_redder));
+            else if (urg == ToDo.URGENT)
+                dueV.setTextColor(ac.getResources().getColor(R.color.text_red));
+            else if (urg == ToDo.KINDA_URGENT)
+                dueV.setTextColor(ac.getResources().getColor(R.color.text_orange));
+            else if (urg == ToDo.NOT_URGENT)
+                dueV.setTextColor(ac.getResources().getColor(R.color.text_blue));
+            dueV.setText(fd.getToDoAt(i).getStringDue(false));
+        }
 
 
         nameV.setText(fd.getToDoAt(i).getTitle());
-        dueV.setText(fd.getToDoAt(i).getStringDue(false));
+
         FamilyMember fm=fd.findFamilyMemberByID(fd.getToDoAt(i).getCreator());
         try {
             byV.setText(fm.getNameAndNickname());

@@ -53,8 +53,9 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                                 @Override
                                 public void onReturn(String data) {
                                     svc2.clearDataReturnListener();
-                                    Log.d("Familink","DRL debug 593");
+                                    Log.d("Familink", "DRL debug 593");
                                     close();
+                                    return;
                                 }
                             });
                             svc2.addMe(cf.getName(), cf.getPhone());
@@ -87,6 +88,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                                 public void onReturn(String data) {
                                     svc2.clearDataReturnListener();
                                     close();
+                                    return;
 
                                 }
                             });
@@ -103,8 +105,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
     }
     public void close(){
-        //Log.d("Familink","DB 126357");
         finish();
+        return;
         //TODO this doesn't work.
     }
 }

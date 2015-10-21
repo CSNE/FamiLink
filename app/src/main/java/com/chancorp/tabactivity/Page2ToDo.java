@@ -1,6 +1,7 @@
 package com.chancorp.tabactivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -71,6 +72,7 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
 
     @Override
     public void onClick(View view) {
+        final Context ctx=getContext();
         if (view.getId()==R.id.page2_add_button){
             Log.d("Familink", "Page 2 add button clicked");
             UserInformationGetter uig=new UserInformationGetter(getContext(),UserInformationGetter.TASK);
@@ -80,7 +82,7 @@ public class Page2ToDo extends Fragment implements Redrawable, AdapterView.OnIte
                 public void onReturn(UserInformation c) {
                     ToDo td=new ToDo();
                     td.setTitle(c.getTaskName());
-                    td.parseDue(c.getTaskTime(),false);
+                    td.parseDue(c.getTaskTime(),false,ctx);
                     td.setDescription(c.getTaskDesc());
                     new ServerComms(getContext()).addToDo(td);
                     redraw();

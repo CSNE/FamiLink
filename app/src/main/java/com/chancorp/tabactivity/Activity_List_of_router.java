@@ -119,6 +119,7 @@ public class Activity_List_of_router extends AppCompatActivity implements View.O
                         @Override
                         public void onReturn(String data) {
                             adapter.notifyDataSetChanged();
+                            listview.invalidate();
                             sc.clearDataReturnListener();
                         }
                     });

@@ -31,7 +31,8 @@
 
         <activity android:name=".Activity_EasterEgg" />
 
-        <activity android:name=".InitialActivity" />
+        <activity android:name=".InitialActivity"
+            android:launchMode="singleTask"/>
 
         <activity android:name=".Activity_add_router"
             android:label="공유기 추가" />

@@ -1,6 +1,8 @@
 package com.chancorp.tabactivity;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -55,7 +57,7 @@ public class ToDo implements Serializable{
         else return reportDate.substring(0, reportDate.length()-3);
     }
 
-    public void parseDue(String s, boolean seconds){
+    public void parseDue(String s, boolean seconds, Context c){
         Log.v("Familink", "ToDo parsing date from string: " + s);
         if (!seconds) Log.v("Familink",":00 added to string.");
         s=s+":00";
@@ -68,7 +70,8 @@ public class ToDo implements Serializable{
             this.dueTime=(calendar.getTimeInMillis() / 1000);
         } catch (ParseException e) {
             Log.e("Familink", "ParseException while parsing date.");
-            this.dueTime=0;
+            Toast.makeText(c, "날짜를 가져올 때 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            this.dueTime=-1;
         }
 
         Log.v("Familink", "Parsed UNIX time: " + this.dueTime);
