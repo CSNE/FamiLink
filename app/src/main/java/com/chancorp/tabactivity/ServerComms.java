@@ -273,10 +273,11 @@ public class ServerComms {
 
             if (tries >= MAX_RETRIES) {
                 Log.e("Familink", "GET failed after "+MAX_RETRIES+" tries.");
-                Toast.makeText(this.c, "서버 연결 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.c, "5번의 서버 연결 시도가 모두 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 Log.d("Familink", "Null returned to GET request. Retrying. (try " + tries + ")");
+                Toast.makeText(this.c, "서버 연결에 실패하였습니다. 재시도합니다.", Toast.LENGTH_SHORT).show();
             }
 
             final String requestTypeF=requestType;
@@ -328,9 +329,12 @@ public class ServerComms {
         if (data == null) {
             if (tries >= MAX_RETRIES) {
                 Log.e("Familink", "POST failed after "+MAX_RETRIES+" tries.");
-                Toast.makeText(this.c, "서버 연결 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.c, "5번의 서버 연결 시도가 모두 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 return;
-            } else Log.d("Familink", "Null returned to POST request. Retrying. (try "+tries+")");
+            } else {
+                Log.d("Familink", "Null returned to POST request. Retrying. (try "+tries+")");
+                Toast.makeText(this.c, "서버 연결에 실패하였습니다. 재시도합니다.", Toast.LENGTH_SHORT).show();
+            }
 
             final String requestTypeF=requestType,origParamsF=origParams;
             final int triesF=tries;
