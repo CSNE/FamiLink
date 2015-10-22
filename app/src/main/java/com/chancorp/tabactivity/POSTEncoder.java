@@ -28,7 +28,7 @@ public class POSTEncoder {
             try {
                 res = res + URLEncoder.encode(keys.get(i), "UTF-8") + "=" + URLEncoder.encode(values.get(i), "UTF-8");
             }catch(UnsupportedEncodingException e){
-                Log.e("Familink", "What the fuck");
+                Log.wtf("Familink", "What the fuck");
             }
 
         }

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     FamilyData fd;
     ServerComms serverConnector;
-    Redrawable[] rd = new Redrawable[5];
+    Redrawable[] rd = new Redrawable[4];
     View tab1View, tab2View, tab3View, tab4View;
     Menu menu;
     int nowid;
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         listPageTab = actionbar.newTab();
         todoPageTab = actionbar.newTab();
         notePageTab = actionbar.newTab();
-        chatPageTab = actionbar.newTab();
+        //chatPageTab = actionbar.newTab();
 
 
         tab1View = getLayoutInflater().inflate(R.layout.tab_layout, null);
@@ -135,33 +135,34 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         notePageTab.setCustomView(tab3View);
         setupTab(tab3View, null, 0, R.drawable.ic_event_note_white);
 
+        /*
         tab4View = getLayoutInflater().inflate(R.layout.tab_layout, null);
         chatPageTab.setCustomView(tab4View);
         setupTab(tab4View, null, 0, R.drawable.ic_chat_white);
-
+        */
 
         Fragment listPage = (Fragment) new Page1List();
         Fragment todoPage = (Fragment) new Page2ToDo();
         Fragment notePage = (Fragment) new Page3Note();
-        Fragment chatPage = (Fragment) new Page4Chat();
+        //Fragment chatPage = (Fragment) new Page4Chat();
 
 
         listPageTab.setTabListener(new MyTabsListener(listPage, 1));
         todoPageTab.setTabListener(new MyTabsListener(todoPage, 2));
         notePageTab.setTabListener(new MyTabsListener(notePage, 3));
-        chatPageTab.setTabListener(new MyTabsListener(chatPage, 4));
+        //chatPageTab.setTabListener(new MyTabsListener(chatPage, 4));
 
 
         actionbar.addTab(listPageTab);
         actionbar.addTab(todoPageTab);
         actionbar.addTab(notePageTab);
-        actionbar.addTab(chatPageTab);
+        //actionbar.addTab(chatPageTab);
 
         rd[0] = (Redrawable) listPage;
         rd[1] = (Redrawable) todoPage;
         rd[2] = (Redrawable) notePage;
-        rd[3] = (Redrawable) chatPage;
-        rd[4] = (Redrawable) this;
+        //rd[3] = (Redrawable) chatPage;
+        rd[3] = (Redrawable) this;
 
 
         //ServerComms.setup("http://172.30.86.177:5000",this.fd,rd);
@@ -340,10 +341,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             } else if(id==3) {
                 resetupTab(tab3View, null, 0, R.drawable.ic_event_note_orange);
                 actionbar.setTitle("가족 공용 노트");
-            } else if(id==4) {
+            }
+            /* else if(id==4) {
                 resetupTab(tab4View, null, 0, R.drawable.ic_chat_orange);
                 actionbar.setTitle("채팅");
-            }
+            } */
             ft.replace(R.id.tab_area, fragment);
             nowid = id;
         }
@@ -355,9 +357,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 resetupTab(tab2View, String.valueOf(fd.getToDos().size()), getResources().getColor(R.color.text_red), R.drawable.ic_workingman_white);
             } else if(id==3) {
                 resetupTab(tab3View, null, 0, R.drawable.ic_event_note_white);
-            } else if(id==4) {
+            } /* else if(id==4) {
                 resetupTab(tab4View, null, 0, R.drawable.ic_chat_white);
-            }
+            } */
             ft.remove(fragment);
         }
     }

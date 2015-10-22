@@ -14,6 +14,7 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.DragEvent;
@@ -25,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Activity_Lockscreen extends Activity implements View.OnDragListener, View.OnTouchListener {
@@ -48,18 +50,21 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
         int width = metrics.widthPixels/2;
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.logo_rev5);
         Bitmap resized = Bitmap.createScaledBitmap(bmp, width, width, true);
+
         imgview = (ImageView) findViewById(R.id.imageview_lockscreen);
         imgview.setImageBitmap(resized);
-        imgview.setOnTouchListener(new View.OnTouchListener() {
+
+        RelativeLayout relativelayout = (RelativeLayout) findViewById(R.id.lockscreen);
+        relativelayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     sx = event.getX();
                     sy = event.getY();
-                } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     ex = event.getX();
                     ey = event.getY();
-                    Checkdistance(sx,sy,ex,ey);
+                    Checkdistance(sx, sy, ex, ey);
                 }
                 return true;
             }

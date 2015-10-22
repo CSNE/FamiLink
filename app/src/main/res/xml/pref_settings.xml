@@ -56,8 +56,13 @@
         <Preference
             android:title="개발 환경"
             android:key="developmentinfra"
-            android:summary="주니어소프트웨어 창작대회. TargetSDK = 22"
+            android:summary="이 어플리케이션은 주니어소프트웨어 창작대회 제출용입니다."
             />
-    </PreferenceCategory>
+        <Preference
+            android:title="저작권 정보"
+            android:key="CopyrightInformation"
+            android:summary="이 어플리케이션에 사용된 창작물의 저작권 정보입니다."
+            />
+   </PreferenceCategory>
 
 </PreferenceScreen>

@@ -51,6 +51,10 @@
             android:label="계정 정보"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
 
+        <activity android:name=".Activity_copyright"
+            android:label="저작권 정보"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+
         <service android:name=".Service_WifiStateChange"/>
 
         <receiver android:name=".Receiver_WifiStateChange">

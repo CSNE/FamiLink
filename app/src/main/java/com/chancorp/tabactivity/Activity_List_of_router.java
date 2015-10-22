@@ -98,7 +98,6 @@ public class Activity_List_of_router extends AppCompatActivity implements View.O
                 }
             });
             sc.refreshData();
-
         }
     }
 
