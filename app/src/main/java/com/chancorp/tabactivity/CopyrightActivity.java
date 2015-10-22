@@ -9,7 +9,7 @@ import android.widget.TextView;
 /**
  * Created by Baranium on 2015. 10. 22..
  */
-public class Activity_copyright extends AppCompatActivity {
+public class CopyrightActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,17 +23,7 @@ public class Activity_copyright extends AppCompatActivity {
                 "ServerComms POST code from http://www.xyzws.com/javafaq/how-to-use-httpurlconnection-post-data-to-web-server/139\n\n" +
                 "ic_chat.png by www.solarheatventi.cz\n\n" +
                 "icon_working_man_white.png by Wheelbarrow by João Proença from the Noun Project");
-        /*
-COPYRIGHT CONTROL
-
-Family Logos By Snehal Patil (CC-BY-3.0-US)
-Material Design Icons by Google (CC-BY-4.0)
-StringUtils class by Nick Frolov
-ServerComms POST code from http://www.xyzws.com/javafaq/how-to-use-httpurlconnection-post-data-to-web-server/139
-ic_chat.png by www.solarheatventi.cz
-ic_workingman.png by www.solarheatventi.cz
-icon_working_man_white.png by Wheelbarrow by João Proença from the Noun Project
-*/
+        return;
     }
 
     @Override

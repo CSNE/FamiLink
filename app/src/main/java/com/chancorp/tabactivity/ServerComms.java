@@ -158,7 +158,7 @@ public class ServerComms {
         } else if(nowstate == false && doextra == true) {
             Log.d("Familink", "Only one person in home, and going out. Starting lockscreen.");
             if(extraCheck && fd.numInside() <= 1) {
-                Intent itt = new Intent(c, Activity_Lockscreen.class);
+                Intent itt = new Intent(c, LockscreenActivity.class);
                 itt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 c.startActivity(itt);
             }

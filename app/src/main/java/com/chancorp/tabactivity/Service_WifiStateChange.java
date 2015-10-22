@@ -25,13 +25,17 @@ public class Service_WifiStateChange extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     @Override
-    public void onDestroy() {
-        ntf = null;
-        ntm = null;
-        super.onDestroy();
-        unregisterReceiver(mreceiver);
-        return;
+    public void onCreate() {
+        super.onCreate();
+        WIFI1 = getString(R.string.Wifi_change1);
+        WIFI2 = getString(R.string.Wifi_change2);
+        mreceiver = new Receiver_WifiStateChange();
+        intent_filter = new IntentFilter();
+        intent_filter.addAction(WIFI1);
+        intent_filter.addAction(WIFI2);
+        registerReceiver(mreceiver, intent_filter);
     }
 
     @Override
@@ -63,14 +67,11 @@ public class Service_WifiStateChange extends Service {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        WIFI1 = getString(R.string.Wifi_change1);
-        WIFI2 = getString(R.string.Wifi_change2);
-        mreceiver = new Receiver_WifiStateChange();
-        intent_filter = new IntentFilter();
-        intent_filter.addAction(WIFI1);
-        intent_filter.addAction(WIFI2);
-        registerReceiver(mreceiver, intent_filter);
+    public void onDestroy() {
+        ntf = null;
+        ntm = null;
+        super.onDestroy();
+        unregisterReceiver(mreceiver);
+        return;
     }
 }

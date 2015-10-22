@@ -12,20 +12,7 @@ import android.widget.TextView;
 /**
  * Created by Baranium on 2015. 10. 21..
  */
-public class Activity_getAccount extends AppCompatActivity {
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.getaccountbackarrow) finish();
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_getaccount, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+public class GetaccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +32,18 @@ public class Activity_getAccount extends AppCompatActivity {
         } catch(NullPointerException e) {
             tv2.setText("비밀번호를 불러올 수 없습니다.\n잠시 후 다시 시도해주세요.");
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.getaccountbackarrow) finish();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_getaccount, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

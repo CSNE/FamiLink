@@ -29,7 +29,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class Activity_Lockscreen extends Activity implements View.OnDragListener, View.OnTouchListener {
+public class LockscreenActivity extends Activity implements View.OnDragListener, View.OnTouchListener {
 
     ImageView imgview;
     Vibrator vb = null;
@@ -69,7 +69,6 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
                 return true;
             }
         });
-
         vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vb.vibrate(2000);
         return;
@@ -121,18 +120,9 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
+    protected void onDestroy() {super.onDestroy();}
     @Override
-    public boolean onDrag(View v, DragEvent event) {
-        return false;
-    }
-
+    public boolean onDrag(View v, DragEvent event) {return false;}
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        return false;
-    }
+    public boolean onTouch(View v, MotionEvent event) {return false;}
 }
