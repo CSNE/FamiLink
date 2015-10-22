@@ -1,8 +1,6 @@
 package com.chancorp.tabactivity;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,12 +11,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 /**
  * Created by Baranium on 2015. 10. 14..
@@ -126,13 +120,13 @@ public class Page5Settings extends PreferenceActivity implements Preference.OnPr
         BuildAlertDialog_Logout_or_DeleteAccount(false);
     }
 
-    private void sendActivity()   {startActivity(new Intent(this, Activity_List_of_router.class));}
+    private void sendActivity()   {startActivity(new Intent(this, ListofrouterActivity.class));}
 
-    private void sendActivity_Second() {startActivity(new Intent(this, Activity_EasterEgg.class));}
+    private void sendActivity_Second() {startActivity(new Intent(this, EasterEggActivity.class));}
 
-    private void sendActivity_Third() {startActivity(new Intent(this, Activity_getAccount.class));}
+    private void sendActivity_Third() {startActivity(new Intent(this, GetaccountActivity.class));}
 
-    private void sendActivity_Fourth() {startActivity(new Intent(this, Activity_copyright.class));}
+    private void sendActivity_Fourth() {startActivity(new Intent(this, CopyrightActivity.class));}
 
     private void BuildAlertDialog_familink_ServiceRunning(Preference preference) {
         if(mPref.getBoolean(preference.getKey(),true) == false) {

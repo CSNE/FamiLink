@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CustomAdapter02 extends PagerAdapter {
+public class CustomAdapterViewPager01 extends PagerAdapter {
 
     LayoutInflater inflater;
     final int PAGE_NUM = 4;
 
-    public CustomAdapter02 (LayoutInflater inflater) {
+    public CustomAdapterViewPager01(LayoutInflater inflater) {
         // TODO Auto-generated constructor stub
         this.inflater=inflater;
     }

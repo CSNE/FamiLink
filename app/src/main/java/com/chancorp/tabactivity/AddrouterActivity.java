@@ -29,7 +29,7 @@ import org.w3c.dom.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Activity_add_router extends AppCompatActivity implements View.OnClickListener {
+public class AddrouterActivity extends AppCompatActivity implements View.OnClickListener {
     TextView textview;
     Button btn;
     Handler handler;

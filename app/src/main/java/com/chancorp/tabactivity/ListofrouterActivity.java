@@ -1,16 +1,10 @@
 package com.chancorp.tabactivity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,25 +19,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.prefs.Preferences;
-
-public class Activity_List_of_router extends AppCompatActivity implements View.OnClickListener {
+public class ListofrouterActivity extends AppCompatActivity implements View.OnClickListener {
     Button btn, refBtn;
     ListView listview;
     CustomAdapter01 adapter = null;
     final int REQUEST_CODE = 11131, MaxRouterSize = 10;
-    //SharedPreferences mRef;
-    //SharedPreferences.Editor mRefEdit;
-
     FamilyData fd;
-
-    /*
-    when getting Router Size from SharedPreferences : mRef.getInt("RouterSz",0);
-    RouterTag = "Router"+String.ValueOf(i);
-    when getting Router name from SharedPreferences : mRef.getString(RouterTag+"_First");
-    when getting Router macAddr from SharedPreferences : mRef.getString("RouterTag"+"_Second");
-     */
 
 
     @Override
@@ -87,7 +67,7 @@ public class Activity_List_of_router extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.addrouterbtn) {
-            startActivityForResult(new Intent(this, Activity_add_router.class), REQUEST_CODE);
+            startActivityForResult(new Intent(this, AddrouterActivity.class), REQUEST_CODE);
         }else if (v.getId()==R.id.router_refresh){
             final ServerComms sc=new ServerComms(getApplicationContext());
             sc.setDataReturnListener(new DataReturnListener() {
@@ -157,7 +137,7 @@ public class Activity_List_of_router extends AppCompatActivity implements View.O
 
         public CustomAdapter01(Context context,int layoutId, FamilyData fd) {
             mResource = layoutId;
-this.fd=fd;
+            this.fd=fd;
             minflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
@@ -218,7 +198,7 @@ this.fd=fd;
                 public  void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Caution");
-                    Log.d("Activity_List_of_router", String.valueOf(position_));
+                    Log.d("ListofrouterActivity", String.valueOf(position_));
                             builder.setMessage(fd.getRouters().get(position_).summary() + "을 목록에서 지울까요?")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {

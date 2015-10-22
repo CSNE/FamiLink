@@ -29,29 +29,29 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity_EasterEgg" />
+        <activity android:name=".EasterEggActivity" />
 
         <activity android:name=".InitialActivity"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".Activity_add_router"
+        <activity android:name=".AddrouterActivity"
             android:label="공유기 추가" />
 
-        <activity android:name=".Activity_List_of_router"
+        <activity android:name=".ListofrouterActivity"
             android:label="공유기 목록"/>
 
-        <activity android:name=".Activity_Lockscreen"
+        <activity android:name=".LockscreenActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
         <activity android:name =".Page5Settings"
             android:label="환경설정"
             android:theme="@style/Settings"/>
 
-        <activity android:name=".Activity_getAccount"
+        <activity android:name=".GetaccountActivity"
             android:label="계정 정보"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
 
-        <activity android:name=".Activity_copyright"
+        <activity android:name=".CopyrightActivity"
             android:label="저작권 정보"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
 

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 /**
  * Created by Baranium on 2015. 10. 15..
  */
-public class Activity_EasterEgg extends Activity {
+public class EasterEggActivity extends Activity {
 
     ImageView image;
 
