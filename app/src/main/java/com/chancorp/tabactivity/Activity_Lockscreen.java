@@ -48,7 +48,7 @@ public class Activity_Lockscreen extends Activity implements View.OnDragListener
         ((TextView) findViewById(R.id.textview_lockscreen)).setText("드래그하여 잠금해제하세요.\n집안의 가스불과 전자제품은 모두 끄셨나요?");
         DisplayMetrics metrics = this.getResources().getDisplayMetrics();
         int width = metrics.widthPixels/2;
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.logo_rev5);
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rev5_full);
         Bitmap resized = Bitmap.createScaledBitmap(bmp, width, width, true);
 
         imgview = (ImageView) findViewById(R.id.imageview_lockscreen);
